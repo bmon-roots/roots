@@ -1,0 +1,37 @@
+<resources>
+    <string name="web_client_id">497952402551-nvpd76g3g1obhv3dibrf89ocraq0nvg6.apps.googleusercontent.com</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Header de menu -->
+    <string name="app_name">Roots App</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="menu_header_name">Android Studio</string>
+    <string name="menu_header_email">username@mail.com</string>
+    <string name="menu_header_desc">Navigation header</string>
+
+    <!-- Opciones de menu -->
+    <string name="menu_home">Home</string>
+    <string name="menu_plant">Plantas</string>
+    <string name="menu_report">Reportes</string>
+    <string name="menu_sign_out">Cerrar Sesión</string>
+
+    <!-- Strings used for fragments for Create Plant -->
+    <string name="title">Crear Planta</string>
+    <string name="datos">Datos de la planta</string>
+    <string name="familia">Seleccione una familia</string>
+    <string name="especie">Seleccione una especie</string>
+    <string name="crear">crear</string>
+    <string name="descripcion">Descripcion</string>
+    <string name="edad">edad</string>
+    <string name="previous">Previous</string>
+
+    <!--    Layout signout-->
+    <string name="btnSignOut">Salir</string>
+    <string name="txtSignout">Desea salir de la aplicación?</string>
+    <!--    others keys-->
+    <string name="API_ESPECIE">https://jsonplaceholder.typicode.com</string>
+    <string name="USER_KEY">user-key: 9900a9720d31dfd5fdb4352700c</string>
+
+</resources>
