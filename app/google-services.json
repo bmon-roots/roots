@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:834199333305:android:cbb7db14193267ba05ee68",
+        "mobilesdk_app_id": "1:834199333305:android:c042839485dc0fc305ee68",
         "android_client_info": {
-          "package_name": "ar.edu.ort.bmon.roots"
+          "package_name": "ar.edu.ort.bmon.menuexample"
         }
       },
       "oauth_client": [
         {
-          "client_id": "834199333305-ljqeqam0ks73ppkglpkf67abe6dl7t3m.apps.googleusercontent.com",
+          "client_id": "834199333305-ki4nldk69aa7me6gm6sqh733mgjkauo4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "ar.edu.ort.bmon.roots",
+            "package_name": "ar.edu.ort.bmon.menuexample",
             "certificate_hash": "d424569cdfc1f2111e8371f0010f2f1f890e794c"
           }
         },
