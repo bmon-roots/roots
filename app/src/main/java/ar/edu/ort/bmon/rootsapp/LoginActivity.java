@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK)
+        if (resultCode == Activity.RESULT_OK){
             switch (requestCode) {
                 case 101:
                     try {
@@ -79,6 +79,10 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     break;
             }
+        }else{
+            Log.w(TAG, "*****signInResult:ERROR resultCode=" + resultCode + " Expected=-1");
+
+        }
     }
 
     private void firebaseAuthWithGoogle(final GoogleSignInAccount account) {
@@ -99,8 +103,6 @@ public class LoginActivity extends AppCompatActivity {
                             //  Snackbar.make(mBinding.mainLayout, "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
                             updateUI();
                         }
-
-                        // ...
                     }
                 });
     }
