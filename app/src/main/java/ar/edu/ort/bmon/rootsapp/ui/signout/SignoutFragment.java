@@ -17,6 +17,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 
 import ar.edu.ort.bmon.rootsapp.LoginActivity;
 import ar.edu.ort.bmon.rootsapp.R;
@@ -47,6 +48,7 @@ public class SignoutFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // cerrar sesion
+                FirebaseAuth.getInstance().signOut();
                 //volver a la otra pagina
                 googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

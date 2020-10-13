@@ -1,90 +1,36 @@
 {
   "project_info": {
-    "project_number": "834199333305",
-    "firebase_url": "https://roots-firebase-poc.firebaseio.com",
-    "project_id": "roots-firebase-poc",
-    "storage_bucket": "roots-firebase-poc.appspot.com"
+    "project_number": "173494676211",
+    "firebase_url": "https://rootsapp-6ef40.firebaseio.com",
+    "project_id": "rootsapp-6ef40",
+    "storage_bucket": "rootsapp-6ef40.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:834199333305:android:c042839485dc0fc305ee68",
+        "mobilesdk_app_id": "1:173494676211:android:5ed360bcb873e294dfe586",
         "android_client_info": {
-          "package_name": "ar.edu.ort.bmon.menuexample"
+          "package_name": "ar.edu.ort.bmon.rootsapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "834199333305-ki4nldk69aa7me6gm6sqh733mgjkauo4.apps.googleusercontent.com",
+          "client_id": "173494676211-gm6qr4b3kbb07ms69pv6elfll8uub1le.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "ar.edu.ort.bmon.menuexample",
-            "certificate_hash": "d424569cdfc1f2111e8371f0010f2f1f890e794c"
+            "package_name": "ar.edu.ort.bmon.rootsapp",
+            "certificate_hash": "7906f7d1ed266bd2a6763017bf9bb5fce7655ec5"
           }
-        },
-        {
-          "client_id": "834199333305-qelvi932oa5np72l3liektgsf4ca35gu.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBmtToVy-gqZ4kPvzvePsdDS-bvQ72BP-w"
+          "current_key": "AIzaSyC3f8r5asGWQEx6lREuC1KTYZEJEvHyi4o"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "834199333305-qelvi932oa5np72l3liektgsf4ca35gu.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:834199333305:android:ca48bc30b75c63f805ee68",
-        "android_client_info": {
-          "package_name": "com.roots.firebasepoc"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "834199333305-20gcpkj51rp47eipfk2o4o724f02a16a.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.roots.firebasepoc",
-            "certificate_hash": "3d15ce3b7264da728787c0aec81c58ad69f1e534"
-          }
-        },
-        {
-          "client_id": "834199333305-pukvpbj1pl0ot0hcgvmrs4rvib4vo57f.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.roots.firebasepoc",
-            "certificate_hash": "d424569cdfc1f2111e8371f0010f2f1f890e794c"
-          }
-        },
-        {
-          "client_id": "834199333305-qelvi932oa5np72l3liektgsf4ca35gu.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBmtToVy-gqZ4kPvzvePsdDS-bvQ72BP-w"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "834199333305-qelvi932oa5np72l3liektgsf4ca35gu.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
