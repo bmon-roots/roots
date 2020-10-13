@@ -15,6 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 public class MenuActivity extends AppCompatActivity {
     public static final String GOOGLE_ACCOUNT = "google_account";
@@ -44,7 +45,8 @@ public class MenuActivity extends AppCompatActivity {
         ImageView mPic = navigationView.getHeaderView(0).findViewById(R.id.imageView);
         userName.setText(googleSignInAccount.getDisplayName());
         mMail.setText(googleSignInAccount.getEmail());
-        mPic.setImageURI(googleSignInAccount.getPhotoUrl());
+
+        Picasso.get().load(googleSignInAccount.getPhotoUrl()).into(mPic);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_plant, R.id.nav_report)
