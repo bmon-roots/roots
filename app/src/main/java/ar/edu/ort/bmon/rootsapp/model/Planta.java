@@ -7,36 +7,20 @@ import java.util.Date;
 
 public class Planta {
 
-    @SerializedName("edad")
-    @Expose
     private int edad;
 
-    @SerializedName("fechaRegistro")
-    @Expose
     private Date fechaRegistro;
 
-    @SerializedName("aptoBonzai")
-    @Expose
     private boolean aptoBonzai;
 
-    @SerializedName("origen")
-    @Expose
     private String origen;
 
-    @SerializedName("altura")
-    @Expose
-    private int altura;
+    private String altura;
 
-    @SerializedName("contenedor")
-    @Expose
-    private int contenedor;
+    private String contenedor;
 
-    @SerializedName("aptoVenta")
-    @Expose
     private boolean aptoVenta;
 
-    @SerializedName("especie")
-    @Expose
     private Especie especie;
 
 
@@ -83,19 +67,19 @@ public class Planta {
         this.origen = origen;
     }
 
-    public int getAltura() {
+    public String getAltura() {
         return altura;
     }
 
-    public void setAltura(int altura) {
+    public void setAltura(String altura) {
         this.altura = altura;
     }
 
-    public int getContenedor() {
+    public String getContenedor() {
         return contenedor;
     }
 
-    public void setContenedor(int contenedor) {
+    public void setContenedor(String contenedor) {
         this.contenedor = contenedor;
     }
 
