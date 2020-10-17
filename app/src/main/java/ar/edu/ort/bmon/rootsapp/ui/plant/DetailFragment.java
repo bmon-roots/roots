@@ -1,30 +1,30 @@
 package ar.edu.ort.bmon.rootsapp.ui.plant;
 
-import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProviders;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import ar.edu.ort.bmon.rootsapp.R;
+import ar.edu.ort.bmon.rootsapp.model.Plant;
+import ar.edu.ort.bmon.rootsapp.model.Planta;
 import ar.edu.ort.bmon.rootsapp.service.FirebaseService;
 
 public class DetailFragment extends DialogFragment {
 
     private DetailViewModel mViewModel;
-    private FirebaseService service;
-    private FirebaseDatabase mDatabase;
-    private DatabaseReference mDbRef;
+    private FirebaseFirestore db;
+    private Planta planta;
     public static final String TAG = DetailFragment.class.getSimpleName();
 
     public static DetailFragment newInstance() {
@@ -34,9 +34,24 @@ public class DetailFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        service = FirebaseService.getFirebaseInstance();
-//        mDatabase = service.get
-//        mDbRef = mDatabase.getReference().child("plantas");
+//        db = FirebaseService.getFirebaseInstance().get
+        db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection("plantas").document("OaYKoR62sHciFQxxjUmY");
+        docRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot.exists()) {
+                            System.out.println("Document data: " + documentSnapshot.getData());
+                            planta.setAltura(documentSnapshot.get("altura").toString());
+                            planta.setContenedor(documentSnapshot.get("contenedor").toString());
+                        } else {
+                            System.out.println("No such document!");
+                        }
+                    }
+                });
+
+
         return inflater.inflate(R.layout.detail_fragment, container, false);
     }
 
@@ -45,6 +60,7 @@ public class DetailFragment extends DialogFragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
         // TODO: Use the ViewModel
+
     }
 
 }
