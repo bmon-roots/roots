@@ -34,5 +34,8 @@
     <!--    others keys-->
     <string name="API_ESPECIE">https://jsonplaceholder.typicode.com</string>
     <string name="USER_KEY">user-key: 9900a9720d31dfd5fdb4352700c</string>
+    <string name="plants_list_title">Stock/Produccion</string>
+    <string name="plants_list_nombre">Nombre</string>
+    <string name="plants_list_edad">Edad</string>
 
 </resources>
