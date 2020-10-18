@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI() {
         GoogleSignInAccount alreadyloggedAccount = GoogleSignIn.getLastSignedInAccount(this);
         if (alreadyloggedAccount != null) {
-            Toast.makeText(this, "Already Logged In", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ya has iniciado sesión", Toast.LENGTH_SHORT).show();
             onLoggedIn(alreadyloggedAccount);
         } else {
             Log.d(TAG, "Not logged in");
