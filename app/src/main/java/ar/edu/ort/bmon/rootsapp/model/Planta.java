@@ -1,46 +1,50 @@
 package ar.edu.ort.bmon.rootsapp.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.util.Date;
 
 public class Planta {
 
-    private int edad;
-
-    private Date fechaRegistro;
-
-    private boolean aptoBonzai;
-
-    private String origen;
-
+    private String edad;
     private String altura;
-
+    private String origen;
     private String contenedor;
-
+    private Date fechaRegistro;
+    private boolean aptoBonzai;
     private boolean aptoVenta;
-
-    private Especie especie;
-
 
     public Planta() {
     }
 
-    public Especie getEspecie() {
-        return especie;
-    }
-
-    public void setEspecie(Especie especie) {
-        this.especie = especie;
-    }
-
-    public int getEdad() {
+    public String getEdad() {
         return edad;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(String edad) {
         this.edad = edad;
+    }
+
+    public String getAltura() {
+        return altura;
+    }
+
+    public void setAltura(String altura) {
+        this.altura = altura;
+    }
+
+    public String getOrigen() {
+        return origen;
+    }
+
+    public void setOrigen(String origen) {
+        this.origen = origen;
+    }
+
+    public String getContenedor() {
+        return contenedor;
+    }
+
+    public void setContenedor(String contenedor) {
+        this.contenedor = contenedor;
     }
 
     public Date getFechaRegistro() {
@@ -57,30 +61,6 @@ public class Planta {
 
     public void setAptoBonzai(boolean aptoBonzai) {
         this.aptoBonzai = aptoBonzai;
-    }
-
-    public String getOrigen() {
-        return origen;
-    }
-
-    public void setOrigen(String origen) {
-        this.origen = origen;
-    }
-
-    public String getAltura() {
-        return altura;
-    }
-
-    public void setAltura(String altura) {
-        this.altura = altura;
-    }
-
-    public String getContenedor() {
-        return contenedor;
-    }
-
-    public void setContenedor(String contenedor) {
-        this.contenedor = contenedor;
     }
 
     public boolean isAptoVenta() {

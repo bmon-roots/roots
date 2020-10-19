@@ -8,8 +8,6 @@ import org.junit.Test;
 import java.util.List;
 
 import ar.edu.ort.bmon.rootsapp.model.Especie;
-import ar.edu.ort.bmon.rootsapp.service.APIEspecieClient;
-import ar.edu.ort.bmon.rootsapp.service.APIEspecieService;
 
 public class APIEspecieServiceTest {
 
