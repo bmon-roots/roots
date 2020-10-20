@@ -37,6 +37,7 @@
     <string name="plants_list_title">Stock/Produccion</string>
     <string name="plants_list_nombre">Nombre</string>
     <string name="plants_list_edad">Edad</string>
+    <string name="alguntexto">AlgunTexto</string>
 
 <!--    Pantalla editar Planta-->
     <string name="editPlantaTitulo">DETALLE DE PLANTA:</string>

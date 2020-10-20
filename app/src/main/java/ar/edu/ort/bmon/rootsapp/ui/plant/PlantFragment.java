@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,8 +14,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import ar.edu.ort.bmon.rootsapp.R;
+import ar.edu.ort.bmon.rootsapp.ui.home.OnTextClickListener;
 
-public class PlantFragment extends Fragment {
+public class PlantFragment extends Fragment implements OnTextClickListener {
 
     private PlantViewModel plantViewModel;
 
@@ -30,6 +32,12 @@ public class PlantFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
         return root;
+    }
+
+    @Override
+    public void onTextClick(String data) {
+        Toast.makeText(getActivity(), data , Toast.LENGTH_LONG).show();
     }
 }
