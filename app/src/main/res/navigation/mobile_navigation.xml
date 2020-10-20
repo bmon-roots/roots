@@ -18,6 +18,11 @@
         tools:layout="@layout/fragment_plant" />
 
     <fragment
+        android:id="@+id/nav_plant_detail"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.plant.DetailFragment"
+        tools:layout="@layout/fragment_detail" />
+
+    <fragment
         android:id="@+id/nav_report"
         android:name="ar.edu.ort.bmon.rootsapp.ui.report.ReportFragment"
         android:label="@string/menu_report"

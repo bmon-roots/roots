@@ -19,9 +19,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import ar.edu.ort.bmon.rootsapp.R;
-import ar.edu.ort.bmon.rootsapp.model.Plant;
 import ar.edu.ort.bmon.rootsapp.model.Planta;
-import ar.edu.ort.bmon.rootsapp.service.FirebaseService;
 
 public class DetailFragment extends DialogFragment {
 
@@ -54,7 +52,7 @@ public class DetailFragment extends DialogFragment {
                 });
 
 
-        final View root = inflater.inflate(R.layout.detail_fragment, container, false);
+        final View root = inflater.inflate(R.layout.fragment_detail, container, false);
         Button editarBtn = root.findViewById(R.id.buttonEditarPlanta);
         Button eliminarBtn = root.findViewById(R.id.buttonEliminarPlanta);
         Button modificarBtn = root.findViewById(R.id.buttonModificarPlanta);;
