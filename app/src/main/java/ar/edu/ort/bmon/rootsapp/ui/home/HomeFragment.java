@@ -1,45 +1,36 @@
 package ar.edu.ort.bmon.rootsapp.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.ui.plant.DetailFragment;
 import ar.edu.ort.bmon.rootsapp.model.Planta;
-import ar.edu.ort.bmon.rootsapp.service.FirebaseService;
+import ar.edu.ort.bmon.rootsapp.ui.plant.DetailViewModel;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
-    DetailFragment detailFragment;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     View plantsListView;
     RecyclerView recyclerView;
     PlantsAdapter plantsAdapter;
+    private DetailViewModel model;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -58,10 +49,12 @@ public class HomeFragment extends Fragment {
                         .setQuery(query, Planta.class)
                         .build();
 
+        model = new ViewModelProvider(requireActivity()).get(DetailViewModel.class);
+
         plantsAdapter = new PlantsAdapter(firestoreRecyclerOptions, new OnTextClickListener() {
             @Override
-            public void onTextClick(String data) {
-                Toast.makeText(getActivity(), data , Toast.LENGTH_LONG).show();
+            public DetailViewModel onTextClick() {
+                return model;
             }
         });
         recyclerView.setAdapter(plantsAdapter);

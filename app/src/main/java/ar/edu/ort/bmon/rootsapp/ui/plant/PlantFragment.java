@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.ui.home.OnTextClickListener;
 
-public class PlantFragment extends Fragment implements OnTextClickListener {
+public class PlantFragment extends Fragment {
 
     private PlantViewModel plantViewModel;
 
@@ -36,8 +36,5 @@ public class PlantFragment extends Fragment implements OnTextClickListener {
         return root;
     }
 
-    @Override
-    public void onTextClick(String data) {
-        Toast.makeText(getActivity(), data , Toast.LENGTH_LONG).show();
-    }
+
 }

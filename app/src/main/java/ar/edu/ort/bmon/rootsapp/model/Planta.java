@@ -70,4 +70,17 @@ public class Planta {
     public void setAptoVenta(boolean aptoVenta) {
         this.aptoVenta = aptoVenta;
     }
+
+    @Override
+    public String toString() {
+        return "Planta{" +
+                "edad='" + edad + '\'' +
+                ", altura='" + altura + '\'' +
+                ", origen='" + origen + '\'' +
+                ", contenedor='" + contenedor + '\'' +
+                ", fechaRegistro=" + fechaRegistro +
+                ", aptoBonzai=" + aptoBonzai +
+                ", aptoVenta=" + aptoVenta +
+                '}';
+    }
 }

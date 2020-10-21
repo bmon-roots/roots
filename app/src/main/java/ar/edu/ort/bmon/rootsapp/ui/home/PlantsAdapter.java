@@ -19,14 +19,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.model.Planta;
-
+import ar.edu.ort.bmon.rootsapp.ui.plant.DetailViewModel;
 
 
 public class PlantsAdapter extends FirestoreRecyclerAdapter<Planta, PlantsAdapter.PlantHolder> {
 
     public OnTextClickListener onTextClickListener;
     public DocumentSnapshot document;
-
+    public Planta plantaTest;
     public DocumentSnapshot getDocument() {
         return document;
     }
@@ -45,8 +45,19 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Planta, PlantsAdapte
         holder.textViewEdad.setText(model.getEdad());
         holder.textViewMaceta.setText(model.getContenedor());
         holder.textViewTareas.setText("Poda, Riego");
+        crearPlantaDesdeModel(model);
 
+    }
 
+    private void crearPlantaDesdeModel(@NonNull Planta model) {
+        plantaTest = new Planta();
+        plantaTest.setAltura(model.getAltura());
+        plantaTest.setAptoBonzai(model.isAptoBonzai());
+        plantaTest.setAptoVenta(model.isAptoVenta());
+        plantaTest.setContenedor(model.getContenedor());
+        plantaTest.setEdad(model.getEdad());
+        plantaTest.setOrigen(model.getOrigen());
+        plantaTest.setFechaRegistro(model.getFechaRegistro());
     }
 
     @NonNull
@@ -58,12 +69,9 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Planta, PlantsAdapte
         pHolder.cardViewPlanta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onTextClickListener.onTextClick(getDocument().getId());
-                Navigation.findNavController(view).navigate(R.id.nav_plant);
-
-
-
-
+                DetailViewModel model = onTextClickListener.onTextClick();
+                model.select(plantaTest);
+                Navigation.findNavController(view).navigate(R.id.nav_plant_detail);
             }
         });
         return pHolder;

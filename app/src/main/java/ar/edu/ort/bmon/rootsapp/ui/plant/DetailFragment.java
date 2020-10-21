@@ -10,8 +10,10 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.gms.common.internal.BaseGmsClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -26,7 +28,9 @@ public class DetailFragment extends DialogFragment {
     private DetailViewModel detailViewModel;
     private FirebaseFirestore db;
     private Planta planta;
+    public EditText altura;
     public static final String TAG = DetailFragment.class.getSimpleName();
+
 
     public static DetailFragment newInstance() {
         return new DetailFragment();
@@ -35,6 +39,7 @@ public class DetailFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("plantas").document("OaYKoR62sHciFQxxjUmY");
         docRef.get()
@@ -53,6 +58,10 @@ public class DetailFragment extends DialogFragment {
 
 
         final View root = inflater.inflate(R.layout.fragment_detail, container, false);
+        altura = root.findViewById(R.id.editTextAltura);
+        DetailViewModel model = new ViewModelProvider(requireActivity()).get(DetailViewModel.class);
+        planta = model.getSelected().getValue();
+        altura.setText(planta.getAltura());
         Button editarBtn = root.findViewById(R.id.buttonEditarPlanta);
         Button eliminarBtn = root.findViewById(R.id.buttonEliminarPlanta);
         Button modificarBtn = root.findViewById(R.id.buttonModificarPlanta);;
@@ -136,4 +145,11 @@ public class DetailFragment extends DialogFragment {
 
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+//        DetailViewModel model = new ViewModelProvider(requireActivity()).get(DetailViewModel.class);
+//        planta = model.getSelected().getValue();
+
+    }
 }
