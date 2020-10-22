@@ -131,7 +131,7 @@
         android:enabled="false"
         android:inputType="textPersonName"
         android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/editTextAptoBonsai"
+        app:layout_constraintBottom_toTopOf="@+id/switchAptoBonsai"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewFechaRegistro"
         app:layout_constraintTop_toBottomOf="@+id/editTextEdad" />
@@ -141,20 +141,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Apto Bonsai"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextAptoBonsai"
-        app:layout_constraintEnd_toStartOf="@+id/editTextAptoBonsai"
+        app:layout_constraintBottom_toBottomOf="@+id/switchAptoBonsai"
+        app:layout_constraintEnd_toStartOf="@+id/switchAptoBonsai"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextAptoBonsai"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Switch
+        android:id="@+id/switchAptoBonsai"
+        android:layout_width="80dp"
+        android:layout_height="25dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:enabled="false"
-        android:inputType="textPersonName"
-        android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/editTextAptoVenta"
+        app:layout_constraintBottom_toTopOf="@+id/switchAptoVenta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewAptoBonsai"
         app:layout_constraintTop_toBottomOf="@+id/editTextFechaRegistro" />
@@ -164,24 +162,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Apto venta"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextAptoVenta"
-        app:layout_constraintEnd_toStartOf="@+id/editTextAptoVenta"
+        app:layout_constraintBottom_toBottomOf="@+id/switchAptoVenta"
+        app:layout_constraintEnd_toStartOf="@+id/switchAptoVenta"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextAptoVenta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <!--    <Switch-->
+<!--        android:id="@+id/switch1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Switch"-->
+<!--        tools:layout_editor_absoluteX="202dp"-->
+<!--        tools:layout_editor_absoluteY="608dp" />-->
+
+    <Switch
+        android:id="@+id/switchAptoVenta"
+        android:layout_width="80dp"
+        android:layout_height="25dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:enabled="false"
-        android:inputType="textPersonName"
-        android:text="sdfsdf"
         app:layout_constraintBottom_toTopOf="@+id/buttonEliminarPlanta"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.572"
         app:layout_constraintStart_toEndOf="@+id/textViewAptoVenta"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAptoBonsai" />
+        app:layout_constraintTop_toBottomOf="@+id/switchAptoBonsai" />
 
     <Button
         android:id="@+id/buttonEditarPlanta"
@@ -207,7 +210,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonModificarPlanta"
         app:layout_constraintStart_toEndOf="@+id/buttonEditarPlanta"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAptoVenta" />
+        app:layout_constraintTop_toBottomOf="@+id/switchAptoVenta" />
 
     <Button
         android:id="@+id/buttonModificarPlanta"

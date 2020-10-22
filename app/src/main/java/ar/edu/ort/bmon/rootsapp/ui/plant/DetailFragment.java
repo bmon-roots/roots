@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,7 +29,6 @@ public class DetailFragment extends DialogFragment {
     private DetailViewModel detailViewModel;
     private FirebaseFirestore db;
     private Planta planta;
-    public EditText altura;
     public static final String TAG = DetailFragment.class.getSimpleName();
 
 
@@ -41,27 +41,26 @@ public class DetailFragment extends DialogFragment {
                              @Nullable Bundle savedInstanceState) {
 
         db = FirebaseFirestore.getInstance();
-        DocumentReference docRef = db.collection("plantas").document("OaYKoR62sHciFQxxjUmY");
-        docRef.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot.exists()) {
-                            System.out.println("Document data: " + documentSnapshot.getData());
-//                            planta.setAltura(documentSnapshot.get("altura").toString());
-//                            planta.setContenedor(documentSnapshot.get("contenedor").toString());
-                        } else {
-                            System.out.println("No such document!");
-                        }
-                    }
-                });
+//        DocumentReference docRef = db.collection("plantas").document("OaYKoR62sHciFQxxjUmY");
+//        docRef.get()
+//                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                        if (documentSnapshot.exists()) {
+//                            System.out.println("Document data: " + documentSnapshot.getData());
+////                            planta.setAltura(documentSnapshot.get("altura").toString());
+////                            planta.setContenedor(documentSnapshot.get("contenedor").toString());
+//                        } else {
+//                            System.out.println("No such document!");
+//                        }
+//                    }
+//                });
 
 
         final View root = inflater.inflate(R.layout.fragment_detail, container, false);
-        altura = root.findViewById(R.id.editTextAltura);
         DetailViewModel model = new ViewModelProvider(requireActivity()).get(DetailViewModel.class);
         planta = model.getSelected().getValue();
-        altura.setText(planta.getAltura());
+        loadDetailValue(root);
         Button editarBtn = root.findViewById(R.id.buttonEditarPlanta);
         Button eliminarBtn = root.findViewById(R.id.buttonEliminarPlanta);
         Button modificarBtn = root.findViewById(R.id.buttonModificarPlanta);;
@@ -75,7 +74,7 @@ public class DetailFragment extends DialogFragment {
         eliminarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                eliminarPlanta();
+                eliminarPlanta(planta);
             }
         });
         modificarBtn.setOnClickListener(new View.OnClickListener() {
@@ -97,29 +96,33 @@ public class DetailFragment extends DialogFragment {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        //TODO mostrar msj OK y volver al listado
                         System.out.println("Planta Modificada");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        System.out.println("Error al modificar Planta");
+                        //TODO mostrar msj de error en popup y luego volver al listado de plantas
+                        System.out.println("Error al modificar Planta" + " " + e.getCause());
                     }
                 });
     }
 
-    private void eliminarPlanta() {
-        DocumentReference docRef = db.collection("plantas").document("OaYKoR62sHciFQxxjUmY");
+    private void eliminarPlanta(Planta planta) {
+        DocumentReference docRef = db.collection("plantas").document(planta.getId());
         docRef.delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        //TODO mostrar msj OK y volver al listado
                         System.out.println("Documento eliminado");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        //TODO mostrar msj de error en popup y luego volver al listado de plantas
                         System.out.println("Error al intentar eliminar");
                     }
                 });
@@ -133,8 +136,31 @@ public class DetailFragment extends DialogFragment {
         root.findViewById(R.id.editTextOrigen).setEnabled(true);
         root.findViewById(R.id.editTextEdad).setEnabled(true);
         root.findViewById(R.id.editTextFechaRegistro).setEnabled(true);
-        root.findViewById(R.id.editTextAptoBonsai).setEnabled(true);
-        root.findViewById(R.id.editTextAptoVenta).setEnabled(true);
+        root.findViewById(R.id.switchAptoBonsai).setEnabled(true);
+        root.findViewById(R.id.switchAptoVenta).setEnabled(true);
+    }
+
+    private void loadDetailValue(View root){
+         EditText altura = (EditText)root.findViewById(R.id.editTextAltura);
+         altura.setText(planta.getAltura());
+
+        EditText contenedor = (EditText)root.findViewById(R.id.editTextContenedor);
+        contenedor.setText(planta.getContenedor());
+
+        EditText origen = (EditText)root.findViewById(R.id.editTextOrigen);
+        origen.setText(planta.getOrigen());
+
+        EditText edad = (EditText)root.findViewById(R.id.editTextEdad);
+        edad.setText(planta.getEdad().toString());
+
+        EditText fechaRegistro = (EditText)root.findViewById(R.id.editTextFechaRegistro);
+        fechaRegistro.setText(planta.getFechaRegistro().toString());
+
+        Switch aptoBonsai = (Switch) root.findViewById(R.id.switchAptoBonsai);
+        aptoBonsai.setChecked(planta.isAptoBonzai());
+
+        Switch aptoVenta = (Switch) root.findViewById(R.id.switchAptoVenta);
+        aptoVenta.setChecked(planta.isAptoVenta());
     }
 
     @Override

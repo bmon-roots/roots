@@ -7,12 +7,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.model.Planta;
 
 public class DetailViewModel extends ViewModel {
     private MutableLiveData<Planta> selected;
-    private EditText altura;
 
     public DetailViewModel(){
         selected = new MutableLiveData<Planta>();
@@ -24,10 +22,6 @@ public class DetailViewModel extends ViewModel {
 
     public LiveData<Planta> getSelected() {
         return selected;
-    }
-
-    public EditText getAltura() {
-        return altura;
     }
 
 }

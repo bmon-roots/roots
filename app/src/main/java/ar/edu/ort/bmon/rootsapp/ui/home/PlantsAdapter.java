@@ -45,12 +45,13 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Planta, PlantsAdapte
         holder.textViewEdad.setText(model.getEdad());
         holder.textViewMaceta.setText(model.getContenedor());
         holder.textViewTareas.setText("Poda, Riego");
-        crearPlantaDesdeModel(model);
+        crearPlantaDesdeModel(model, document.getId());
 
     }
 
-    private void crearPlantaDesdeModel(@NonNull Planta model) {
+    private void crearPlantaDesdeModel(@NonNull Planta model, String id) {
         plantaTest = new Planta();
+        plantaTest.setId(id);
         plantaTest.setAltura(model.getAltura());
         plantaTest.setAptoBonzai(model.isAptoBonzai());
         plantaTest.setAptoVenta(model.isAptoVenta());

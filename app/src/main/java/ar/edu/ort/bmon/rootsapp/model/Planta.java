@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Planta {
 
+    private String id;
     private String edad;
     private String altura;
     private String origen;
@@ -69,6 +70,14 @@ public class Planta {
 
     public void setAptoVenta(boolean aptoVenta) {
         this.aptoVenta = aptoVenta;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override
