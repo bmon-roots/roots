@@ -35,14 +35,14 @@
         android:id="@+id/editTextAltura"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="48dp"
         android:ems="10"
         android:enabled="false"
         android:inputType="text"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewAltura"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTitulo" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonEditarPlanta" />
 
     <TextView
         android:id="@+id/textViewContenedor"
@@ -136,14 +136,13 @@
         app:layout_constraintStart_toEndOf="@+id/textViewFechaRegistro"
         app:layout_constraintTop_toBottomOf="@+id/editTextEdad" />
 
-    <TextView
-        android:id="@+id/textViewAptoBonsai"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Apto Bonsai"
-        app:layout_constraintBottom_toBottomOf="@+id/switchAptoBonsai"
-        app:layout_constraintEnd_toStartOf="@+id/switchAptoBonsai"
-        app:layout_constraintStart_toStartOf="parent" />
+    <!--    <Switch-->
+<!--        android:id="@+id/switch1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Switch"-->
+<!--        tools:layout_editor_absoluteX="202dp"-->
+<!--        tools:layout_editor_absoluteY="608dp" />-->
 
     <Switch
         android:id="@+id/switchAptoBonsai"
@@ -158,21 +157,13 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextFechaRegistro" />
 
     <TextView
-        android:id="@+id/textViewAptoVenta"
+        android:id="@+id/textViewAptoBonsai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Apto venta"
-        app:layout_constraintBottom_toBottomOf="@+id/switchAptoVenta"
-        app:layout_constraintEnd_toStartOf="@+id/switchAptoVenta"
+        android:text="Apto Bonsai"
+        app:layout_constraintBottom_toBottomOf="@+id/switchAptoBonsai"
+        app:layout_constraintEnd_toStartOf="@+id/switchAptoBonsai"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <!--    <Switch-->
-<!--        android:id="@+id/switch1"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Switch"-->
-<!--        tools:layout_editor_absoluteX="202dp"-->
-<!--        tools:layout_editor_absoluteY="608dp" />-->
 
     <Switch
         android:id="@+id/switchAptoVenta"
@@ -186,39 +177,48 @@
         app:layout_constraintStart_toEndOf="@+id/textViewAptoVenta"
         app:layout_constraintTop_toBottomOf="@+id/switchAptoBonsai" />
 
+    <TextView
+        android:id="@+id/textViewAptoVenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apto venta"
+        app:layout_constraintBottom_toBottomOf="@+id/switchAptoVenta"
+        app:layout_constraintEnd_toStartOf="@+id/switchAptoVenta"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Button
         android:id="@+id/buttonEditarPlanta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="4dp"
         android:text="Editar"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonEliminarPlanta"
-        app:layout_constraintEnd_toStartOf="@+id/buttonEliminarPlanta"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textViewTitulo"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonEliminarPlanta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="Eliminar"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonModificarPlanta"
-        app:layout_constraintStart_toEndOf="@+id/buttonEditarPlanta"
+        app:layout_constraintEnd_toStartOf="@+id/buttonSavePlanta"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switchAptoVenta" />
 
     <Button
-        android:id="@+id/buttonModificarPlanta"
+        android:id="@+id/buttonSavePlanta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Modificar"
+        android:text="Guardar"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/buttonEliminarPlanta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/buttonEliminarPlanta" />
