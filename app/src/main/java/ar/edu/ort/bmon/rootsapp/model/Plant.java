@@ -1,17 +1,22 @@
 package ar.edu.ort.bmon.rootsapp.model;
 
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+
 import java.util.Date;
 
 public class Plant {
-    private Species species;
-    private int age;
+    private DocumentSnapshot species;
+    private String name;
+    private String age;
     private Date registrationDate;
     private boolean isBonsaiAble;
     private String origin;
-    private int height;
-    private int container;
+    private String height;
+    private String container;
     private boolean isSaleable;
     private String ph;
+    private String imageUri;
 
     /*
     Constructors
@@ -19,8 +24,9 @@ public class Plant {
     public Plant() {
     }
 
-    public Plant(Species species, int age, Date registrationDate, boolean isBonsaiAble, String origin, int height, int container, boolean isSaleable, String ph) {
+    public Plant(DocumentSnapshot species, String name, String age, Date registrationDate, boolean isBonsaiAble, String origin, String height, String container, boolean isSaleable, String ph) {
         setSpecies(species);
+        setName(name);
         setAge(age);
         setRegistrationDate(registrationDate);
         setBonsaiAble(isBonsaiAble);
@@ -30,15 +36,32 @@ public class Plant {
         setSaleable(isSaleable);
         setPh(ph);
     }
+    public Plant(DocumentSnapshot species, String name, String age, Date registrationDate, boolean isBonsaiAble, String origin, String height, String container, boolean isSaleable, String ph, String imageUri) {
+        setSpecies(species);
+        setName(name);
+        setAge(age);
+        setRegistrationDate(registrationDate);
+        setBonsaiAble(isBonsaiAble);
+        setOrigin(origin);
+        setHeight(height);
+        setContainer(container);
+        setSaleable(isSaleable);
+        setPh(ph);
+        setImageUri(imageUri);
+    }
 
     /*
     Getters
     */
-    public Species getSpecies() {
+    public DocumentSnapshot getSpecies() {
         return species;
     }
 
-    public int getAge() {
+    public String getName() {
+        return name;
+    }
+
+    public String getAge() {
         return age;
     }
 
@@ -54,11 +77,11 @@ public class Plant {
         return origin;
     }
 
-    public int getHeight() {
+    public String getHeight() {
         return height;
     }
 
-    public int getContainer() {
+    public String getContainer() {
         return container;
     }
 
@@ -70,15 +93,21 @@ public class Plant {
         return ph;
     }
 
+    public String getImageUri() { return imageUri; }
+
     /*
     Setters
      */
 
-    public void setSpecies(Species species) {
+    public void setSpecies(DocumentSnapshot species) {
         this.species = species;
     }
 
-    public void setAge(int age) {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(String age) {
         this.age = age;
     }
 
@@ -94,11 +123,11 @@ public class Plant {
         this.origin = origin;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
-    public void setContainer(int container) {
+    public void setContainer(String container) {
         this.container = container;
     }
 
@@ -109,6 +138,8 @@ public class Plant {
     public void setPh(String ph) {
         this.ph = ph;
     }
+
+    public void setImageUri(String imageUri) { this.imageUri = imageUri; }
 
     @Override
     public String toString() {

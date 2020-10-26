@@ -42,7 +42,7 @@ public class MenuActivity extends AppCompatActivity {
         GoogleSignInAccount googleSignInAccount = getIntent().getParcelableExtra(GOOGLE_ACCOUNT);
         TextView userName = navigationView.getHeaderView(0).findViewById(R.id.menu_header_name);
         TextView mMail = navigationView.getHeaderView(0).findViewById(R.id.menu_header_email);
-        ImageView mPic = navigationView.getHeaderView(0).findViewById(R.id.imageView);
+        ImageView mPic = navigationView.getHeaderView(0).findViewById(R.id.imageViewPlantPhoto);
         userName.setText(googleSignInAccount.getDisplayName());
         mMail.setText(googleSignInAccount.getEmail());
 
