@@ -9,7 +9,11 @@
         android:id="@+id/nav_home"
         android:name="ar.edu.ort.bmon.rootsapp.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_plant_detail"
+            app:destination="@id/nav_plant_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_plant"
@@ -23,6 +27,11 @@
             android:id="@+id/action_nav_plant_to_createSpeciesFragment"
             app:destination="@id/createSpeciesFragment"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_plant_detail"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.plant.DetailFragment"
+        tools:layout="@layout/fragment_detail" />
 
     <fragment
         android:id="@+id/nav_report"

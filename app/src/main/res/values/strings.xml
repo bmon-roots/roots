@@ -46,7 +46,20 @@
     <string name="plants_list_title">Stock/Produccion</string>
     <string name="plants_list_nombre">Nombre</string>
     <string name="plants_list_edad">Edad</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="alguntexto">AlgunTexto</string>
+
+<!--    Pantalla editar Planta-->
+    <string name="editPlantaTitulo">DETALLE DE PLANTA</string>
+
+
+<!--    Mensajes genericos-->
+    <string name="dialog_delete">Seguro desea eliminar?</string>
+    <string name="dialog_edit">Se guardarán los cambios</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+    <string name="msj_modificacion_ok">Modificación exitosa</string>
+    <string name="msj_modificacion_error">Error al intentar modificar</string>
+    <string name="msj_eliminar_ok">Eliminación exitosa</string>
+    <string name="msj_eliminar_error">Error al intentar eliminar</string>
 
 </resources>

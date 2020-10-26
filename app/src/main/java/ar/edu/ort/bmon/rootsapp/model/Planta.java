@@ -1,46 +1,51 @@
 package ar.edu.ort.bmon.rootsapp.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.util.Date;
 
 public class Planta {
 
-    private int edad;
-
-    private Date fechaRegistro;
-
-    private boolean aptoBonzai;
-
-    private String origen;
-
+    private String id;
+    private String edad;
     private String altura;
-
+    private String origen;
     private String contenedor;
-
+    private Date fechaRegistro;
+    private boolean aptoBonzai;
     private boolean aptoVenta;
-
-    private Especie especie;
-
 
     public Planta() {
     }
 
-    public Especie getEspecie() {
-        return especie;
-    }
-
-    public void setEspecie(Especie especie) {
-        this.especie = especie;
-    }
-
-    public int getEdad() {
+    public String getEdad() {
         return edad;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(String edad) {
         this.edad = edad;
+    }
+
+    public String getAltura() {
+        return altura;
+    }
+
+    public void setAltura(String altura) {
+        this.altura = altura;
+    }
+
+    public String getOrigen() {
+        return origen;
+    }
+
+    public void setOrigen(String origen) {
+        this.origen = origen;
+    }
+
+    public String getContenedor() {
+        return contenedor;
+    }
+
+    public void setContenedor(String contenedor) {
+        this.contenedor = contenedor;
     }
 
     public Date getFechaRegistro() {
@@ -59,35 +64,32 @@ public class Planta {
         this.aptoBonzai = aptoBonzai;
     }
 
-    public String getOrigen() {
-        return origen;
-    }
-
-    public void setOrigen(String origen) {
-        this.origen = origen;
-    }
-
-    public String getAltura() {
-        return altura;
-    }
-
-    public void setAltura(String altura) {
-        this.altura = altura;
-    }
-
-    public String getContenedor() {
-        return contenedor;
-    }
-
-    public void setContenedor(String contenedor) {
-        this.contenedor = contenedor;
-    }
-
     public boolean isAptoVenta() {
         return aptoVenta;
     }
 
     public void setAptoVenta(boolean aptoVenta) {
         this.aptoVenta = aptoVenta;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Planta{" +
+                "edad='" + edad + '\'' +
+                ", altura='" + altura + '\'' +
+                ", origen='" + origen + '\'' +
+                ", contenedor='" + contenedor + '\'' +
+                ", fechaRegistro=" + fechaRegistro +
+                ", aptoBonzai=" + aptoBonzai +
+                ", aptoVenta=" + aptoVenta +
+                '}';
     }
 }

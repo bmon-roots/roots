@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,7 @@ import androidx.navigation.Navigation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import ar.edu.ort.bmon.rootsapp.R;
+import ar.edu.ort.bmon.rootsapp.ui.home.OnTextClickListener;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
 
 public class PlantFragment extends Fragment {
