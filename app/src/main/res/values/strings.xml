@@ -62,4 +62,7 @@
     <string name="msj_eliminar_ok">Eliminación exitosa</string>
     <string name="msj_eliminar_error">Error al intentar eliminar</string>
 
+    <string name="logosignin">logosignin</string>
+    <string name="logosignout">logosignout</string>
+    <string name="logonav">logonav</string>
 </resources>
