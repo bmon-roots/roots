@@ -4,6 +4,9 @@ public class Species {
 
     private String name;
 
+    public Species() {
+    }
+
     public Species(String name) {
         setName(name);
     }
@@ -18,9 +21,7 @@ public class Species {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Species{");
-        sb.append("name='").append(getName()).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return getName();
     }
 }
+

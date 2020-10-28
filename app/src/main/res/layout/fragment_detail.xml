@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.plant.DetailFragment">
+
+    <TextView
+        android:id="@+id/textViewTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="109dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="131dp"
+        android:text="@string/editPlantaTitulo"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewAltura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewTitulo"
+        android:text="Altura"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextAltura"
+        app:layout_constraintEnd_toStartOf="@+id/editTextAltura"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextAltura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="text"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewAltura"
+        app:layout_constraintTop_toBottomOf="@+id/buttonEditarPlanta" />
+
+    <TextView
+        android:id="@+id/textViewContenedor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contenedor"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextContenedor"
+        app:layout_constraintEnd_toStartOf="@+id/editTextContenedor"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextContenedor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/editTextOrigen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewContenedor"
+        app:layout_constraintTop_toBottomOf="@+id/editTextAltura" />
+
+    <TextView
+        android:id="@+id/textViewOrigen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Origen"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextOrigen"
+        app:layout_constraintEnd_toStartOf="@+id/editTextOrigen"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextOrigen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/editTextEdad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewOrigen"
+        app:layout_constraintTop_toBottomOf="@+id/editTextContenedor" />
+
+    <TextView
+        android:id="@+id/textViewEdad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edad"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextEdad"
+        app:layout_constraintEnd_toStartOf="@+id/editTextEdad"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextEdad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/editTextFechaRegistro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewEdad"
+        app:layout_constraintTop_toBottomOf="@+id/editTextOrigen" />
+
+    <TextView
+        android:id="@+id/textViewFechaRegistro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha Registro"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextFechaRegistro"
+        app:layout_constraintEnd_toStartOf="@+id/editTextFechaRegistro"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextFechaRegistro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/switchAptoBonsai"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewFechaRegistro"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEdad" />
+
+    <!--    <Switch-->
+<!--        android:id="@+id/switch1"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Switch"-->
+<!--        tools:layout_editor_absoluteX="202dp"-->
+<!--        tools:layout_editor_absoluteY="608dp" />-->
+
+    <Switch
+        android:id="@+id/switchAptoBonsai"
+        android:layout_width="80dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:enabled="false"
+        app:layout_constraintBottom_toTopOf="@+id/switchAptoVenta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewAptoBonsai"
+        app:layout_constraintTop_toBottomOf="@+id/editTextFechaRegistro" />
+
+    <TextView
+        android:id="@+id/textViewAptoBonsai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apto Bonsai"
+        app:layout_constraintBottom_toBottomOf="@+id/switchAptoBonsai"
+        app:layout_constraintEnd_toStartOf="@+id/switchAptoBonsai"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Switch
+        android:id="@+id/switchAptoVenta"
+        android:layout_width="80dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:enabled="false"
+        app:layout_constraintBottom_toTopOf="@+id/buttonEliminarPlanta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewAptoVenta"
+        app:layout_constraintTop_toBottomOf="@+id/switchAptoBonsai" />
+
+    <TextView
+        android:id="@+id/textViewAptoVenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apto venta"
+        app:layout_constraintBottom_toBottomOf="@+id/switchAptoVenta"
+        app:layout_constraintEnd_toStartOf="@+id/switchAptoVenta"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonEditarPlanta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Editar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textViewTitulo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonEliminarPlanta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Eliminar"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonSavePlanta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchAptoVenta" />
+
+    <Button
+        android:id="@+id/buttonSavePlanta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Guardar"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonEliminarPlanta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonEliminarPlanta" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

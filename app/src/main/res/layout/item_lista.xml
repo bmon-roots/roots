@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/planta"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/planta"/>
+
+    <TextView
+        android:id="@+id/text_view_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/planta"
+        android:text="Nombre Planta"
+        android:textSize="12dp"/>
+
+    <TextView
+        android:id="@+id/text_view_edad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/text_view_nombre"
+        android:text="Edad"
+        android:textSize="12dp"/>
+
+    <TextView
+        android:id="@+id/text_view_tareas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/text_view_edad"
+        android:text="Tareas"
+        android:textSize="12dp"/>
+
+    <TextView
+        android:id="@+id/text_view_recambio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/text_view_tareas"
+        android:text="Recambio"
+        android:textSize="12dp"/>
+
+    <TextView
+        android:id="@+id/text_view_aptoBonsai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/text_view_recambio"
+        android:text="AB"
+        android:textSize="12dp"/>
+
+    <TextView
+        android:id="@+id/text_view_aptoVenta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/text_view_aptoBonsai"
+        android:text="AV"
+        android:textSize="12dp"/>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="3dp"
+        android:background="#0A7A06"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"/>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="3dp"
+        android:background="#4E2018"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="0dp"/>
+
+</RelativeLayout>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.plant.CreatePlantFragment">
+
+    <ImageView
+        android:id="@+id/imageViewPlantPhoto"
+        android:layout_width="124dp"
+        android:layout_height="124dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_plant_placeholder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.056" />
+
+    <EditText
+        android:id="@+id/editTextPlantName"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="249dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="@string/create_plant_name_placeholder"
+        android:inputType="textPersonName"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/editPlantAge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editPlantAge"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="@string/create_plant_age_placeholder"
+        android:inputType="number"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/editPlantHeight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPlantName" />
+
+    <Button
+        android:id="@+id/btnSelectPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/create_plant_changePhoto_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnSavePlant"
+        app:layout_constraintTop_toBottomOf="@+id/switchBonsaiAble" />
+
+    <Button
+        android:id="@+id/btnSavePlant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="12dp"
+        android:text="@string/create_plant_save_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnSelectPhoto"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editPlantDate"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:ems="10"
+        android:focusable="false"
+        android:hint="@string/create_plant_date_placeholder"
+        android:inputType="date"
+        android:maxLines="1"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/editPlantContainerType"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editPlantHeight" />
+
+    <EditText
+        android:id="@+id/editPlantContainerType"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:ems="10"
+        android:hint="@string/create_plant_container_type_placeholder"
+        android:inputType="number"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/editPlantOrigin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editPlantDate" />
+
+    <EditText
+        android:id="@+id/editPlantOrigin"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:hint="@string/create_plant_origin_placeholder"
+        android:inputType="text"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/editPlantPH"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editPlantContainerType" />
+
+    <EditText
+        android:id="@+id/editPlantPH"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:ems="10"
+        android:hint="@string/create_plant_ph_placeholder"
+        android:inputType="text"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/switchSellable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editPlantOrigin" />
+
+    <Switch
+        android:id="@+id/switchSellable"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:text="@string/create_plant_sellable_text"
+        app:layout_constraintBottom_toTopOf="@+id/switchBonsaiAble"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editPlantPH" />
+
+    <Switch
+        android:id="@+id/switchBonsaiAble"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="@string/create_plant_bonsaiAble_text"
+        app:layout_constraintBottom_toTopOf="@+id/btnSavePlant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchSellable" />
+
+    <EditText
+        android:id="@+id/editPlantHeight"
+        android:layout_width="225dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="@string/create_plant_height_placeholder"
+        android:inputType="number"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/editPlantDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editPlantAge" />
+
+    <Spinner
+        android:id="@+id/spinnerSpecies"
+        android:layout_width="225dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="40dp"
+        android:prompt="@string/create_plant_species"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPlantPhoto" />
+</androidx.constraintlayout.widget.ConstraintLayout>
