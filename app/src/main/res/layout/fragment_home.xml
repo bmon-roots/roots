@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline"
         app:layout_constraintVertical_bias="0.173" />
 
+
     <TextView
         android:id="@+id/text_view_header_nombre"
         android:layout_width="wrap_content"
@@ -29,16 +30,17 @@
         android:text="Nombre"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
         app:layout_constraintEnd_toStartOf="@+id/text_view_header_edad"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar2" />
-
+        app:layout_constraintTop_toTopOf="@+id/toolbar2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/text_view_header_edad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="122dp"
-        android:layout_marginBottom="17dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginBottom="16dp"
         android:text="Edad"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
         app:layout_constraintStart_toStartOf="parent" />
@@ -49,19 +51,40 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
         android:layout_marginEnd="44dp"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="16dp"
         android:text="Maceta"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
         app:layout_constraintEnd_toStartOf="@+id/text_view_header_tareas"
+        app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toEndOf="@+id/text_view_header_edad" />
 
     <TextView
         android:id="@+id/text_view_header_tareas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="33dp"
-        android:layout_marginBottom="17dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginBottom="16dp"
         android:text="Ultimas tareas"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/text_view_header_ab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="16dp"
+        android:text="AB"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/text_view_header_av"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="16dp"
+        android:text="AV"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -76,6 +99,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline3"
         app:layout_constraintVertical_bias="0.023" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -29,13 +29,14 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import ar.edu.ort.bmon.rootsapp.R;
+import ar.edu.ort.bmon.rootsapp.model.Plant;
 import ar.edu.ort.bmon.rootsapp.model.Planta;
 
 public class DetailFragment extends DialogFragment {
 
     private DetailViewModel detailViewModel;
     private FirebaseFirestore db;
-    private Planta planta;
+    private Plant planta;
     public static final String TAG = DetailFragment.class.getSimpleName();
 
 
@@ -112,25 +113,25 @@ public class DetailFragment extends DialogFragment {
         DocumentReference docRef = db.collection("plantas").document(planta.getId());
 
         EditText altura = root.findViewById(R.id.editTextAltura);
-        planta.setAltura(altura.getText().toString());
+        planta.setHeight(altura.getText().toString());
 
         EditText contenedor = (EditText)root.findViewById(R.id.editTextContenedor);
-        planta.setContenedor(contenedor.getText().toString());
+        planta.setContainer(contenedor.getText().toString());
 
         EditText origen = (EditText)root.findViewById(R.id.editTextOrigen);
-        planta.setOrigen(origen.getText().toString());
+        planta.setOrigin(origen.getText().toString());
 
         EditText edad = (EditText)root.findViewById(R.id.editTextEdad);
-        planta.setEdad(edad.getText().toString());
+        planta.setAge(edad.getText().toString());
 
         EditText fechaRegistro = (EditText)root.findViewById(R.id.editTextFechaRegistro);
-        planta.setFechaRegistro(new Date());
+        planta.setRegistrationDate(new Date());
 
         Switch aptoBonsai = (Switch) root.findViewById(R.id.switchAptoBonsai);
-        planta.setAptoBonzai(aptoBonsai.isChecked());
+        planta.setBonsaiAble(aptoBonsai.isChecked());
 
         Switch aptoVenta = (Switch) root.findViewById(R.id.switchAptoVenta);
-        planta.setAptoVenta(aptoVenta.isChecked());
+        planta.setSaleable(aptoVenta.isChecked());
 
 
         docRef.set(planta)
@@ -152,7 +153,7 @@ public class DetailFragment extends DialogFragment {
         Navigation.findNavController(root).navigate(R.id.nav_home);
     }
 
-    private void eliminarPlanta(final View root, Planta planta) {
+    private void eliminarPlanta(final View root, Plant planta) {
         DocumentReference docRef = db.collection("plantas").document(planta.getId());
         docRef.delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -190,25 +191,25 @@ public class DetailFragment extends DialogFragment {
 
     private void loadDetailValue(View root){
          EditText altura = (EditText)root.findViewById(R.id.editTextAltura);
-         altura.setText(planta.getAltura());
+         altura.setText(planta.getHeight());
 
         EditText contenedor = (EditText)root.findViewById(R.id.editTextContenedor);
-        contenedor.setText(planta.getContenedor());
+        contenedor.setText(planta.getContainer());
 
         EditText origen = (EditText)root.findViewById(R.id.editTextOrigen);
-        origen.setText(planta.getOrigen());
+        origen.setText(planta.getOrigin());
 
         EditText edad = (EditText)root.findViewById(R.id.editTextEdad);
-        edad.setText(planta.getEdad().toString());
+        edad.setText(planta.getAge());
 
         EditText fechaRegistro = (EditText)root.findViewById(R.id.editTextFechaRegistro);
-        fechaRegistro.setText(planta.getFechaRegistro().toString());
+        fechaRegistro.setText(planta.getRegistrationDate().toString());
 
         Switch aptoBonsai = (Switch) root.findViewById(R.id.switchAptoBonsai);
-        aptoBonsai.setChecked(planta.isAptoBonzai());
+        aptoBonsai.setChecked(planta.isBonsaiAble());
 
         Switch aptoVenta = (Switch) root.findViewById(R.id.switchAptoVenta);
-        aptoVenta.setChecked(planta.isAptoVenta());
+        aptoVenta.setChecked(planta.isSaleable());
     }
 
     @Override

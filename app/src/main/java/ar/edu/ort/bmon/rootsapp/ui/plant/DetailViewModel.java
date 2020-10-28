@@ -7,20 +7,21 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import ar.edu.ort.bmon.rootsapp.model.Plant;
 import ar.edu.ort.bmon.rootsapp.model.Planta;
 
 public class DetailViewModel extends ViewModel {
-    private MutableLiveData<Planta> selected;
+    private MutableLiveData<Plant> selected;
 
     public DetailViewModel(){
-        selected = new MutableLiveData<Planta>();
+        selected = new MutableLiveData<Plant>();
     }
 
-    public void select(Planta item) {
+    public void select(Plant item) {
         selected.setValue(item);
     }
 
-    public LiveData<Planta> getSelected() {
+    public LiveData<Plant> getSelected() {
         return selected;
     }
 

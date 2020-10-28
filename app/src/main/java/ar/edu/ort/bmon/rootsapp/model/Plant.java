@@ -6,7 +6,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.Date;
 
 public class Plant {
-    private DocumentSnapshot species;
+    private String id;
+    private String species;
     private String name;
     private String age;
     private Date registrationDate;
@@ -24,7 +25,7 @@ public class Plant {
     public Plant() {
     }
 
-    public Plant(DocumentSnapshot species, String name, String age, Date registrationDate, boolean isBonsaiAble, String origin, String height, String container, boolean isSaleable, String ph) {
+    public Plant(String species, String name, String age, Date registrationDate, boolean isBonsaiAble, String origin, String height, String container, boolean isSaleable, String ph) {
         setSpecies(species);
         setName(name);
         setAge(age);
@@ -36,7 +37,7 @@ public class Plant {
         setSaleable(isSaleable);
         setPh(ph);
     }
-    public Plant(DocumentSnapshot species, String name, String age, Date registrationDate, boolean isBonsaiAble, String origin, String height, String container, boolean isSaleable, String ph, String imageUri) {
+    public Plant(String species, String name, String age, Date registrationDate, boolean isBonsaiAble, String origin, String height, String container, boolean isSaleable, String ph, String imageUri) {
         setSpecies(species);
         setName(name);
         setAge(age);
@@ -53,7 +54,12 @@ public class Plant {
     /*
     Getters
     */
-    public DocumentSnapshot getSpecies() {
+
+    public String getId() {
+        return id;
+    }
+
+    public String getSpecies() {
         return species;
     }
 
@@ -99,7 +105,11 @@ public class Plant {
     Setters
      */
 
-    public void setSpecies(DocumentSnapshot species) {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setSpecies(String species) {
         this.species = species;
     }
 

@@ -19,6 +19,8 @@ import com.google.firebase.firestore.Query;
 import java.util.ArrayList;
 
 import ar.edu.ort.bmon.rootsapp.R;
+import ar.edu.ort.bmon.rootsapp.constants.Constants;
+import ar.edu.ort.bmon.rootsapp.model.Plant;
 import ar.edu.ort.bmon.rootsapp.ui.plant.DetailFragment;
 import ar.edu.ort.bmon.rootsapp.model.Planta;
 import ar.edu.ort.bmon.rootsapp.ui.plant.DetailViewModel;
@@ -40,13 +42,13 @@ public class HomeFragment extends Fragment {
         recyclerView = plantsListView.findViewById(R.id.recyclerPlantas);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Query query = db.collection("plantas");
+        Query query = db.collection(Constants.PLANT_COLLECTION);
 
         ArrayList<String> ids = new ArrayList<String>();
 
-        FirestoreRecyclerOptions<Planta> firestoreRecyclerOptions =
-                new FirestoreRecyclerOptions.Builder<Planta>()
-                        .setQuery(query, Planta.class)
+        FirestoreRecyclerOptions<Plant> firestoreRecyclerOptions =
+                new FirestoreRecyclerOptions.Builder<Plant>()
+                        .setQuery(query, Plant.class)
                         .build();
 
         model = new ViewModelProvider(requireActivity()).get(DetailViewModel.class);

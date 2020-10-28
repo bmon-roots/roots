@@ -245,7 +245,7 @@ public class CreatePlantFragment extends Fragment {
     private void insertDataIntoFirebase() {
         if (imageUriFromStorage != null) {
             plant = new Plant(
-                    speciesDocument,
+                    speciesList.get(selectedSpeciesIndex).toString(),
                     plantName.getText().toString(),
                     plantAge.getText().toString(),
                     userSelectedDate,
@@ -259,7 +259,7 @@ public class CreatePlantFragment extends Fragment {
             );
         } else {
             plant = new Plant(
-                    speciesDocument,
+                    speciesList.get(selectedSpeciesIndex).toString(),
                     plantName.getText().toString(),
                     plantAge.getText().toString(),
                     userSelectedDate,

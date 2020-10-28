@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,47 +19,46 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 
 import ar.edu.ort.bmon.rootsapp.R;
-import ar.edu.ort.bmon.rootsapp.model.Planta;
+import ar.edu.ort.bmon.rootsapp.model.Plant;
 import ar.edu.ort.bmon.rootsapp.ui.plant.DetailViewModel;
 
 
-public class PlantsAdapter extends FirestoreRecyclerAdapter<Planta, PlantsAdapter.PlantHolder> {
+public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter.PlantHolder> {
 
     public OnTextClickListener onTextClickListener;
     public DocumentSnapshot document;
-    public Planta plantaTest;
+    public Plant plantaTest;
     public DocumentSnapshot getDocument() {
         return document;
     }
 
-    public PlantsAdapter(@NonNull FirestoreRecyclerOptions<Planta> options, OnTextClickListener onTextClickListener) {
+    public PlantsAdapter(@NonNull FirestoreRecyclerOptions<Plant> options, OnTextClickListener onTextClickListener) {
         super(options);
         this.onTextClickListener = onTextClickListener;
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull PlantHolder holder, int position, @NonNull Planta model) {
+    protected void onBindViewHolder(@NonNull PlantHolder holder, int position, @NonNull Plant model) {
 
         document = getSnapshots().getSnapshot(holder.getAdapterPosition());
 
         holder.textViewNombre.setText(document.getId());
-        holder.textViewEdad.setText(model.getEdad());
-        holder.textViewMaceta.setText(model.getContenedor());
-        holder.textViewTareas.setText("Poda, Riego");
+        holder.textViewEdad.setText(model.getAge());
+        holder.textViewMaceta.setText(model.getContainer());
         crearPlantaDesdeModel(model, document.getId());
 
     }
 
-    private void crearPlantaDesdeModel(@NonNull Planta model, String id) {
-        plantaTest = new Planta();
+    private void crearPlantaDesdeModel(@NonNull Plant model, String id) {
+        plantaTest = new Plant();
         plantaTest.setId(id);
-        plantaTest.setAltura(model.getAltura());
-        plantaTest.setAptoBonzai(model.isAptoBonzai());
-        plantaTest.setAptoVenta(model.isAptoVenta());
-        plantaTest.setContenedor(model.getContenedor());
-        plantaTest.setEdad(model.getEdad());
-        plantaTest.setOrigen(model.getOrigen());
-        plantaTest.setFechaRegistro(model.getFechaRegistro());
+        plantaTest.setHeight(model.getHeight());
+        plantaTest.setBonsaiAble(model.isBonsaiAble());
+        plantaTest.setSaleable(model.isSaleable());
+        plantaTest.setContainer(model.getContainer());
+        plantaTest.setAge(model.getAge());
+        plantaTest.setOrigin(model.getOrigin());
+        plantaTest.setRegistrationDate(model.getRegistrationDate());
     }
 
     @NonNull
@@ -83,7 +83,8 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Planta, PlantsAdapte
         TextView textViewNombre;
         TextView textViewEdad;
         TextView textViewMaceta;
-        TextView textViewTareas;
+        ImageView imageViewPoda;
+        ImageView imageViewRiego;
         CardView cardViewPlanta;
 
 
@@ -93,7 +94,8 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Planta, PlantsAdapte
             textViewNombre = itemView.findViewById(R.id.text_view_nombre);
             textViewEdad = itemView.findViewById(R.id.text_view_edad);
             textViewMaceta = itemView.findViewById(R.id.text_view_maceta);
-            textViewTareas = itemView.findViewById(R.id.text_view_tareas);
+            imageViewPoda = itemView.findViewById(R.id.image_view_poda);
+            imageViewRiego = itemView.findViewById(R.id.image_view_riego);
 
         }
     }
