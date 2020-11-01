@@ -1,4 +1,4 @@
-package ar.edu.ort.bmon.rootsapp.ui.home;
+package ar.edu.ort.bmon.rootsapp.ui.plant;
 
 import ar.edu.ort.bmon.rootsapp.ui.plant.DetailViewModel;
 
