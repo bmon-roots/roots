@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,12 +25,17 @@ import androidx.navigation.Navigation;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Logger;
 
 import ar.edu.ort.bmon.rootsapp.R;
+import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
 import ar.edu.ort.bmon.rootsapp.model.Planta;
 
@@ -47,12 +54,20 @@ public class DetailFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
+        final View root = inflater.inflate(R.layout.fragment_detail, container, false);
         db = FirebaseFirestore.getInstance();
         DetailViewModel model = new ViewModelProvider(requireActivity()).get(DetailViewModel.class);
         planta = model.getSelected().getValue();
+        //se utiliza por error en el listar que no envía el objeto seleccionado
+//        DocumentReference docRef = db.collection(Constants.PLANT_COLLECTION).document("4bLhrNsHB40dLNSxWpV5");
+//        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                planta = documentSnapshot.toObject(Plant.class);
+//                loadDetailValue(root);
+//            }
+//        });
 
-        final View root = inflater.inflate(R.layout.fragment_detail, container, false);
         Button editarBtn = root.findViewById(R.id.buttonEditarPlanta);
         Button eliminarBtn = root.findViewById(R.id.buttonEliminarPlanta);
         Button modificarBtn = root.findViewById(R.id.buttonSavePlanta);;
@@ -110,7 +125,13 @@ public class DetailFragment extends DialogFragment {
     }
 
     private void savePlanta(View root) {
-        DocumentReference docRef = db.collection("plantas").document(planta.getId());
+        DocumentReference docRef = db.collection(Constants.PLANT_COLLECTION).document(planta.getId());
+
+        EditText especie = root.findViewById(R.id.editTextEspecie);
+        planta.setSpecies(especie.getText().toString());
+
+        EditText nombre = (EditText) root.findViewById(R.id.editTextNombre);
+        nombre.setText(planta.getName().toString());
 
         EditText altura = root.findViewById(R.id.editTextAltura);
         planta.setHeight(altura.getText().toString());
@@ -154,7 +175,7 @@ public class DetailFragment extends DialogFragment {
     }
 
     private void eliminarPlanta(final View root, Plant planta) {
-        DocumentReference docRef = db.collection("plantas").document(planta.getId());
+        DocumentReference docRef = db.collection(Constants.PLANT_COLLECTION).document(planta.getId());
         docRef.delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -177,6 +198,8 @@ public class DetailFragment extends DialogFragment {
     }
 
     private void habilitarEdicion(View root) {
+        root.findViewById(R.id.editTextEspecie).setEnabled(true);
+        root.findViewById(R.id.editTextNombre).setEnabled(true);
         root.findViewById(R.id.editTextAltura).setEnabled(true);
         root.findViewById(R.id.editTextContenedor).setEnabled(true);
         root.findViewById(R.id.editTextOrigen).setEnabled(true);
@@ -190,26 +213,39 @@ public class DetailFragment extends DialogFragment {
     }
 
     private void loadDetailValue(View root){
+        EditText nombre = (EditText) root.findViewById(R.id.editTextNombre);
+        nombre.setText(planta.getName().toString());
+
+        EditText especie = (EditText)root.findViewById(R.id.editTextEspecie);
+        especie.setText(planta.getSpecies().toString());
+
          EditText altura = (EditText)root.findViewById(R.id.editTextAltura);
-         altura.setText(planta.getHeight());
+         altura.setText(planta.getHeight().toString());
 
         EditText contenedor = (EditText)root.findViewById(R.id.editTextContenedor);
-        contenedor.setText(planta.getContainer());
+        contenedor.setText(planta.getContainer().toString());
 
         EditText origen = (EditText)root.findViewById(R.id.editTextOrigen);
-        origen.setText(planta.getOrigin());
+        origen.setText(planta.getOrigin().toString());
 
         EditText edad = (EditText)root.findViewById(R.id.editTextEdad);
-        edad.setText(planta.getAge());
+        edad.setText(planta.getAge().toString());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String registrationDate = dateFormat.format(planta.getRegistrationDate());
 
         EditText fechaRegistro = (EditText)root.findViewById(R.id.editTextFechaRegistro);
-        fechaRegistro.setText(planta.getRegistrationDate().toString());
+        fechaRegistro.setText(registrationDate);
 
         Switch aptoBonsai = (Switch) root.findViewById(R.id.switchAptoBonsai);
         aptoBonsai.setChecked(planta.isBonsaiAble());
 
         Switch aptoVenta = (Switch) root.findViewById(R.id.switchAptoVenta);
         aptoVenta.setChecked(planta.isSaleable());
+
+        ImageView imageViewPlant = root.findViewById(R.id.imageViewPlant);
+        Picasso.get().load(planta.getImageUri()).into(imageViewPlant);
+
     }
 
     @Override
