@@ -14,6 +14,11 @@
             android:id="@+id/action_nav_home_to_nav_plant_detail"
             app:destination="@id/nav_plant_detail" />
         <action
+            android:id="@+id/action_nav_home_to_createPlantFragment"
+            app:destination="@id/createPlantFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
+        <action
             android:id="@+id/action_nav_plant_to_createPlantFragment"
             app:destination="@id/createPlantFragment" />
         <action
@@ -45,9 +50,6 @@
         tools:layout="@layout/fragment_signout" />
 
     <fragment
-        android:id="@+id/createPlantFragment"
-        android:name="ar.edu.ort.bmon.rootsapp.ui.plant.CreatePlantFragment"
-        android:label="@string/createPlantFragmentTitle"
         tools:layout="@layout/create_plant_fragment">
         <action
             android:id="@+id/action_createPlantFragment_to_nav_plant"
