@@ -9,15 +9,15 @@
         android:id="@+id/nav_home"
         android:name="ar.edu.ort.bmon.rootsapp.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_nav_home_to_nav_plant_detail"
             app:destination="@id/nav_plant_detail" />
         <action
             android:id="@+id/action_nav_home_to_createPlantFragment"
             app:destination="@id/createPlantFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit" />
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
     </fragment>
 
     <fragment
@@ -44,21 +44,20 @@
         tools:layout="@layout/fragment_signout" />
 
     <fragment
+        android:id="@+id/createSpeciesFragment"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.plant.CreateSpeciesFragment"
+        android:label="@string/createSpeciesFragmentTitle"
+        tools:layout="@layout/create_species_fragment"
+        />
+    <fragment
         android:id="@+id/createPlantFragment"
         android:name="ar.edu.ort.bmon.rootsapp.ui.plant.CreatePlantFragment"
-        android:label="@string/createPlantFragmentTitle"
-        tools:layout="@layout/create_plant_fragment">
+        android:label="create_plant_fragment"
+        tools:layout="@layout/create_plant_fragment" >
         <action
             android:id="@+id/action_createPlantFragment_to_nav_home"
             app:destination="@id/nav_home"
             app:enterAnim="@anim/fragment_open_enter"
             app:exitAnim="@anim/fragment_open_exit" />
     </fragment>
-
-    <fragment
-        android:id="@+id/createSpeciesFragment"
-        android:name="ar.edu.ort.bmon.rootsapp.ui.plant.CreateSpeciesFragment"
-        android:label="@string/createSpeciesFragmentTitle"
-        tools:layout="@layout/create_species_fragment"
-        />
 </navigation>
