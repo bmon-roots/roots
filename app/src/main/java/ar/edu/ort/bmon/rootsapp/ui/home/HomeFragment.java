@@ -7,9 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,8 +26,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-
-import java.util.ArrayList;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
@@ -66,8 +61,6 @@ HomeFragment extends Fragment {
 
         Query query = db.collection(Constants.PLANT_COLLECTION);
 
-        ArrayList<String> ids = new ArrayList<String>();
-
         FirestoreRecyclerOptions<Plant> firestoreRecyclerOptions =
                 new FirestoreRecyclerOptions.Builder<Plant>()
                         .setQuery(query, Plant.class)
@@ -89,16 +82,6 @@ HomeFragment extends Fragment {
         return plantsListView;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        fabAddItemAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createAddItemDialogMenu();
-            }
-        });
-    }
 
     @Override
     public void onStart() {

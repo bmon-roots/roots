@@ -1,8 +1,5 @@
 package ar.edu.ort.bmon.rootsapp.model;
 
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-
 import java.util.Date;
 
 public class Plant {
