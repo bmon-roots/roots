@@ -24,6 +24,9 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
@@ -42,6 +45,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -88,6 +92,7 @@ public class CreatePlantFragment extends Fragment {
     private Plant plant;
     private DocumentSnapshot speciesDocument;
     private View viewReference;
+    private String plantDocumentReference;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
 
@@ -96,11 +101,23 @@ public class CreatePlantFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.create_plant_fragment, container, false);
         viewReference = root;
         return root;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_create_plant, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -121,21 +138,34 @@ public class CreatePlantFragment extends Fragment {
                 showDatePickerDialog(getChildFragmentManager());
             }
         });
+    }
 
-        view.findViewById(R.id.btnSavePlant).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveDataInFirebase();
-            }
-        });
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        insertDataIntoFirebase();
+        int selectionId = item.getItemId();
 
-        view.findViewById(R.id.btnSelectPhoto).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSelectPhotoDialog();
-            }
-        });
+        if (selectionId == R.id.save_plant) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+            alertDialogBuilder.setTitle("Agregar Imagen");
+            alertDialogBuilder.setMessage("Desea agregar una imagen a esta planta?");
+            alertDialogBuilder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    showSelectPhotoDialog();
+                }
+            });
+            alertDialogBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Navigation.findNavController(viewReference).navigate(R.id.nav_home);
+                    Toast.makeText(getContext(), Constants.PLANT_CREATE_SUCCESS, Toast.LENGTH_LONG).show();
+                }
+            });
+            alertDialogBuilder.create().show();
+        }
 
+        return super.onOptionsItemSelected(item);
     }
 
     private void showSelectPhotoDialog() {
@@ -153,6 +183,7 @@ public class CreatePlantFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
             }
         });
         selectPhotoDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
@@ -214,7 +245,7 @@ public class CreatePlantFragment extends Fragment {
                         StringBuilder sb = new StringBuilder("IMG_");
                         sb.append(timestamp).append('.').append(getFileExt(imageUri));
                         imageFileName = sb.toString();
-                        uploadImageToFirebase(imageFileName, imageLocationUri);
+                        uploadImageToFirebase(imageLocationUri);
                         plantPhoto.setImageURI(imageUri);
                     } else {
                         Toast.makeText(getContext(), Constants.IMAGE_GALLERY_ERROR, Toast.LENGTH_LONG).show();
@@ -224,7 +255,7 @@ public class CreatePlantFragment extends Fragment {
                     File imageFile = new File(imageLocation);
                     imageFileName = imageFile.getName();
                     imageLocationUri = Uri.fromFile(imageFile);
-                    uploadImageToFirebase(imageFileName, imageLocationUri);
+                    uploadImageToFirebase(imageLocationUri);
                     plantPhoto.setImageURI(Uri.fromFile(imageFile));
                     break;
                 default:
@@ -238,59 +269,41 @@ public class CreatePlantFragment extends Fragment {
         plantPhoto.setImageBitmap(imageBitmap);
     }
 
-    private void saveDataInFirebase() {
-        insertDataIntoFirebase();
-    }
-
     private void insertDataIntoFirebase() {
-        if (imageUriFromStorage != null) {
-            plant = new Plant(
-                    speciesList.get(selectedSpeciesIndex).toString(),
-                    plantName.getText().toString(),
-                    plantAge.getText().toString(),
-                    userSelectedDate,
-                    isBonsaiAble.isActivated(),
-                    origin.getText().toString(),
-                    height.getText().toString(),
-                    container.getText().toString(),
-                    isSaleable.isActivated(),
-                    plantPh.getText().toString(),
-                    imageUriFromStorage
-            );
-        } else {
-            plant = new Plant(
-                    speciesList.get(selectedSpeciesIndex).toString(),
-                    plantName.getText().toString(),
-                    plantAge.getText().toString(),
-                    userSelectedDate,
-                    isBonsaiAble.isActivated(),
-                    origin.getText().toString(),
-                    height.toString(),
-                    container.getText().toString(),
-                    isSaleable.isActivated(),
-                    plantPh.getText().toString()
-            );
-        }
+        plant = new Plant(
+                speciesList.get(selectedSpeciesIndex).toString(),
+                plantName.getText().toString(),
+                plantAge.getText().toString(),
+                userSelectedDate,
+                isBonsaiAble.isActivated(),
+                origin.getText().toString(),
+                height.getText().toString(),
+                container.getText().toString(),
+                isSaleable.isActivated(),
+                plantPh.getText().toString()
+        );
 
         db.collection(Constants.PLANT_COLLECTION).add(plant)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
-                        Toast.makeText(getContext(), "Se ha creado una nueva planta", Toast.LENGTH_LONG).show();
+                        //Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
+                        plantDocumentReference = documentReference.getId();
+                        Log.d(Constants.FIREBASE_ERROR, "Se ha creado una nueva planta");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "Ha ocurrido un problema, intente nuevamente", Toast.LENGTH_LONG).show();
+                        Log.w(Constants.FIREBASE_ERROR, e.toString());
+                        Toast.makeText(getContext(), Constants.PLANT_CREATE_ERROR, Toast.LENGTH_LONG).show();
                     }
                 });
 
 
     }
 
-    private void uploadImageToFirebase(String imageFileName, Uri imageLocation) {
+    private void uploadImageToFirebase(Uri imageLocation) {
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setTitle(Constants.UPLOADING_PHOTO);
         progressDialog.show();
@@ -304,16 +317,20 @@ public class CreatePlantFragment extends Fragment {
                     public void onSuccess(Uri uri) {
                         Log.d("tag", "onSuccess: Uploaded Image URl is " + uri.toString());
                         imageUriFromStorage = uri.toString();
-                        progressDialog.dismiss();
+                        appendImageToPlantDocument(imageUriFromStorage, plantDocumentReference);
                     }
                 });
-                Toast.makeText(getContext(), "Image Is Uploaded.", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(viewReference).navigate(R.id.nav_home);
+                progressDialog.dismiss();
+                Toast.makeText(getContext(), Constants.PLANT_CREATE_SUCCESS, Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), "Upload Failled.", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(viewReference).navigate(R.id.nav_home);
+                Toast.makeText(getContext(), Constants.FIREBASE_STORAGE_ERROR, Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
+                Toast.makeText(getContext(), Constants.FIREBASE_STORAGE_ERROR, Toast.LENGTH_LONG).show();
             }
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -322,6 +339,33 @@ public class CreatePlantFragment extends Fragment {
                 progressDialog.setMessage(percentage + Constants.PERCENTAGE_COMPLETE);
             }
         });
+    }
+
+    private void appendImageToPlantDocument(String imageUriFromStorage, String plantDocumentPath) {
+        //Buscamos el documento por la referencia pasada por parametro
+        DocumentReference plantDocumentReference = db.collection(Constants.PLANT_COLLECTION).document(plantDocumentPath);
+
+        //Actualizamos el campo de la imagen en el documento guardado en Cloud Firebase
+        plantDocumentReference.update(Constants.PLANT_IMAGE_URI, imageUriFromStorage)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        //Sacamos el dialogo de carga y navegamos a la pantalla principal,
+                        //informando que salio bien
+                        //Navigation.findNavController(viewReference).navigate(R.id.nav_home);
+                        //progressDialog.dismiss();
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        //Sacamos el dialogo de carga y navegamos a la pantalla principal
+                        //informando que algo salio mal y logeamos la exception
+                        Log.w(Constants.STORAGE_ERROR, e.toString());
+                    }
+                });
+
     }
 
     private void getAllSpecies(View view) {

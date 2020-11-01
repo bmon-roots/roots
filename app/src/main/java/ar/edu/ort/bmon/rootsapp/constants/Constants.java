@@ -5,6 +5,8 @@ public class Constants {
     ///Firebase DB Collection Selectors
     public static final String PLANT_COLLECTION  = "plants";
     public static final String SPECIES_COLLECTION = "species";
+    //Firebase Plant Fields
+    public static final String PLANT_IMAGE_URI = "imageUri";
     //Firebase Storage Collection Selectors
     public static final String PLANT_IMAGES_FOLDER = "/images/plants";
     //Opciones del menu Crear una nueva entrada
@@ -24,6 +26,12 @@ public class Constants {
     //Identificadores de Intents de Galeria y Camara
     public static final int REQUEST_IMAGE_CAPTURE = 100;
     public static final int GALLERY_REQUEST = 101;
-    //Errores de Aplicacion
+    //Mensajes de la aplicacion
+    public static final String PLANT_CREATE_SUCCESS = "Se agrego la planta exitosamente";
+    public static final String PLANT_CREATE_ERROR = "Hubo un error al crear la planta, intente nuevamente";
     public static final String IMAGE_GALLERY_ERROR = "Hubo un error al seleccionar la foto";
+    public static final String FIREBASE_STORAGE_ERROR = "Hubo un error al subir la foto. Por favor, intente nuevamente";
+    //Error Tags
+    public static final String FIREBASE_ERROR = "Firebase_Error";
+    public static final String STORAGE_ERROR = "Storage Error";
 }
