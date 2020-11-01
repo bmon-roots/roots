@@ -25,4 +25,7 @@ public class Constants {
     public static final int GALLERY_REQUEST = 101;
     //Errores de Aplicacion
     public static final String IMAGE_GALLERY_ERROR = "Hubo un error al seleccionar la foto";
+    public static final String CLOUD_FIREBASE_ERROR = "Hubo un error al guardarla informacion. Por favor, intente nuevamente";
+    //Error Tags
+    public static final String FIREBASE_ERROR = "Firebase_Error";
 }

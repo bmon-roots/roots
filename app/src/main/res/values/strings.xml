@@ -35,7 +35,9 @@
 
     <!-- Strings para el alta de especies -->
     <string name="createSpeciesFragmentTitle">Agregar una especie</string>
-    <string name="especiePlaceholder">Alta de especies</string>
+    <string name="createSpeciesTextName">Nombre de la especie</string>
+    <string name="createSpeciesSuccessful">Especie agregada exitosamente</string>
+    <string name="createSpeciesError">Error al agregar especie, intente nuevamente</string>
 
     <!--    Layout signout-->
     <string name="btnSignOut">Salir</string>

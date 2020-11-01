@@ -24,6 +24,9 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
@@ -42,6 +45,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -88,6 +92,7 @@ public class CreatePlantFragment extends Fragment {
     private Plant plant;
     private DocumentSnapshot speciesDocument;
     private View viewReference;
+    private String plantDocumentReference;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
 
@@ -96,11 +101,23 @@ public class CreatePlantFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.create_plant_fragment, container, false);
         viewReference = root;
         return root;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_create_plant, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -121,21 +138,33 @@ public class CreatePlantFragment extends Fragment {
                 showDatePickerDialog(getChildFragmentManager());
             }
         });
+    }
 
-        view.findViewById(R.id.btnSavePlant).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveDataInFirebase();
-            }
-        });
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        insertDataIntoFirebase();
+        int selectionId = item.getItemId();
 
-        view.findViewById(R.id.btnSelectPhoto).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSelectPhotoDialog();
-            }
-        });
+        if (selectionId == R.id.save_plant) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+            alertDialogBuilder.setTitle("Agregar Imagen");
+            alertDialogBuilder.setMessage("Desea agregar una imagen a esta planta?");
+            alertDialogBuilder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    showSelectPhotoDialog();
+                }
+            });
+            alertDialogBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
+                }
+            });
+            alertDialogBuilder.create().show();
+        }
 
+        return super.onOptionsItemSelected(item);
     }
 
     private void showSelectPhotoDialog() {
@@ -153,6 +182,7 @@ public class CreatePlantFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
             }
         });
         selectPhotoDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
@@ -239,50 +269,55 @@ public class CreatePlantFragment extends Fragment {
     }
 
     private void saveDataInFirebase() {
-        insertDataIntoFirebase();
+        if (imageUriFromStorage == null) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+            alertDialogBuilder.setTitle("Agregar Imagen");
+            alertDialogBuilder.setMessage("Desea agregar una imagen a esta planta?");
+            alertDialogBuilder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            alertDialogBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            alertDialogBuilder.create().show();
+
+        }
+        //insertDataIntoFirebase();
     }
 
     private void insertDataIntoFirebase() {
-        if (imageUriFromStorage != null) {
-            plant = new Plant(
-                    speciesList.get(selectedSpeciesIndex).toString(),
-                    plantName.getText().toString(),
-                    plantAge.getText().toString(),
-                    userSelectedDate,
-                    isBonsaiAble.isActivated(),
-                    origin.getText().toString(),
-                    height.getText().toString(),
-                    container.getText().toString(),
-                    isSaleable.isActivated(),
-                    plantPh.getText().toString(),
-                    imageUriFromStorage
-            );
-        } else {
-            plant = new Plant(
-                    speciesList.get(selectedSpeciesIndex).toString(),
-                    plantName.getText().toString(),
-                    plantAge.getText().toString(),
-                    userSelectedDate,
-                    isBonsaiAble.isActivated(),
-                    origin.getText().toString(),
-                    height.toString(),
-                    container.getText().toString(),
-                    isSaleable.isActivated(),
-                    plantPh.getText().toString()
-            );
-        }
+        plant = new Plant(
+                speciesList.get(selectedSpeciesIndex).toString(),
+                plantName.getText().toString(),
+                plantAge.getText().toString(),
+                userSelectedDate,
+                isBonsaiAble.isActivated(),
+                origin.getText().toString(),
+                height.toString(),
+                container.getText().toString(),
+                isSaleable.isActivated(),
+                plantPh.getText().toString()
+        );
 
         db.collection(Constants.PLANT_COLLECTION).add(plant)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
-                        Toast.makeText(getContext(), "Se ha creado una nueva planta", Toast.LENGTH_LONG).show();
+                        //Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
+                        plantDocumentReference = documentReference.getId();
+                        Log.d("Cloud_Firestore", "Se ha creado una nueva planta");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+
                         Toast.makeText(getContext(), "Ha ocurrido un problema, intente nuevamente", Toast.LENGTH_LONG).show();
                     }
                 });
