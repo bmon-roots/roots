@@ -6,50 +6,67 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import ar.edu.ort.bmon.rootsapp.R;
-import ar.edu.ort.bmon.rootsapp.ui.home.OnTextClickListener;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
+import ar.edu.ort.bmon.rootsapp.model.Plant;
 
-public class PlantFragment extends Fragment {
+public class ListPlantFragment extends Fragment {
 
-    private PlantViewModel plantViewModel;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    View plantsListView;
+    RecyclerView recyclerView;
+    PlantsAdapter plantsAdapter;
+    private DetailViewModel model;
     private FloatingActionButton btnAddAction;
     private AlertDialog.Builder dialog;
     private View viewReference;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        plantViewModel =
-                ViewModelProviders.of(this).get(PlantViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_plant, container, false);
-        viewReference = root;
-        final TextView textView = root.findViewById(R.id.text_plant);
-        btnAddAction = root.findViewById(R.id.fab_AddActions);
-        plantViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+
+        plantsListView = inflater.inflate(R.layout.fragment_list_plant, container, false);
+        viewReference = plantsListView;
+        btnAddAction = plantsListView.findViewById(R.id.fab_AddActions);
+        recyclerView = plantsListView.findViewById(R.id.recyclerPlantas);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        Query query = db.collection(Constants.PLANT_COLLECTION);
+
+        FirestoreRecyclerOptions<Plant> firestoreRecyclerOptions =
+                new FirestoreRecyclerOptions.Builder<Plant>()
+                        .setQuery(query, Plant.class)
+                        .build();
+
+        model = new ViewModelProvider(requireActivity()).get(DetailViewModel.class);
+
+        plantsAdapter = new PlantsAdapter(firestoreRecyclerOptions, new OnTextClickListener() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public DetailViewModel onTextClick() {
+                return model;
             }
         });
-        return root;
+        recyclerView.setAdapter(plantsAdapter);
+
+        return plantsListView;
     }
 
     @Override
-    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         dialog = new AlertDialog.Builder(getActivity());
         String[] alertDialogOptions = new String[] {Constants.ADD_NEW_PLANT, Constants.ADD_NEW_SPECIES};
@@ -86,4 +103,17 @@ public class PlantFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        plantsAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        plantsAdapter.stopListening();
+    }
+
 }
