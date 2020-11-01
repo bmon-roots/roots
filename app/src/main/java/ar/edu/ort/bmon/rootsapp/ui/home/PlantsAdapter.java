@@ -1,7 +1,6 @@
 package ar.edu.ort.bmon.rootsapp.ui.home;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,6 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
 
     public OnTextClickListener onTextClickListener;
     public DocumentSnapshot document;
-    public Plant plantaTest;
     public DocumentSnapshot getDocument() {
         return document;
     }
@@ -45,20 +43,21 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
         holder.textViewNombre.setText(document.getId());
         holder.textViewEdad.setText(model.getAge());
         holder.textViewMaceta.setText(model.getContainer());
-        crearPlantaDesdeModel(model, document.getId());
+        holder.plantita = crearPlantaDesdeModel(model, document.getId());
 
     }
 
-    private void crearPlantaDesdeModel(@NonNull Plant model, String id) {
-        plantaTest = new Plant();
-        plantaTest.setId(id);
-        plantaTest.setHeight(model.getHeight());
-        plantaTest.setBonsaiAble(model.isBonsaiAble());
-        plantaTest.setSaleable(model.isSaleable());
-        plantaTest.setContainer(model.getContainer());
-        plantaTest.setAge(model.getAge());
-        plantaTest.setOrigin(model.getOrigin());
-        plantaTest.setRegistrationDate(model.getRegistrationDate());
+    private Plant crearPlantaDesdeModel(@NonNull Plant model, String id) {
+        Plant planta = new Plant();
+        planta.setId(id);
+        planta.setHeight(model.getHeight());
+        planta.setBonsaiAble(model.isBonsaiAble());
+        planta.setSaleable(model.isSaleable());
+        planta.setContainer(model.getContainer());
+        planta.setAge(model.getAge());
+        planta.setOrigin(model.getOrigin());
+        planta.setRegistrationDate(model.getRegistrationDate());
+        return planta;
     }
 
     @NonNull
@@ -66,12 +65,12 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
     public PlantHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
         final Context pContext = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plant_item, parent, false);
-        PlantHolder pHolder = new PlantHolder(view);
+        final PlantHolder pHolder = new PlantHolder(view);
         pHolder.cardViewPlanta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DetailViewModel model = onTextClickListener.onTextClick();
-                model.select(plantaTest);
+                model.select(pHolder.plantita);
                 Navigation.findNavController(view).navigate(R.id.nav_plant_detail);
             }
         });
@@ -86,7 +85,7 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
         ImageView imageViewPoda;
         ImageView imageViewRiego;
         CardView cardViewPlanta;
-
+        Plant plantita;
 
         public PlantHolder(@NonNull View itemView) {
             super(itemView);
