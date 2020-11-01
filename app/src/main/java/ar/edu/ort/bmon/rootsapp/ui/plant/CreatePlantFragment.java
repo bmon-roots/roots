@@ -158,7 +158,7 @@ public class CreatePlantFragment extends Fragment {
             alertDialogBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    Navigation.findNavController(viewReference).navigate(R.id.nav_home);
+                    Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
                     Toast.makeText(getContext(), Constants.PLANT_CREATE_SUCCESS, Toast.LENGTH_LONG).show();
                 }
             });
@@ -289,7 +289,7 @@ public class CreatePlantFragment extends Fragment {
                     public void onSuccess(DocumentReference documentReference) {
                         //Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
                         plantDocumentReference = documentReference.getId();
-                        Log.d(Constants.FIREBASE_ERROR, "Se ha creado una nueva planta");
+                        Log.d("Firebase", "Se ha creado una nueva planta");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -320,14 +320,14 @@ public class CreatePlantFragment extends Fragment {
                         appendImageToPlantDocument(imageUriFromStorage, plantDocumentReference);
                     }
                 });
-                Navigation.findNavController(viewReference).navigate(R.id.nav_home);
+                Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
                 progressDialog.dismiss();
                 Toast.makeText(getContext(), Constants.PLANT_CREATE_SUCCESS, Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Navigation.findNavController(viewReference).navigate(R.id.nav_home);
+                Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
                 Toast.makeText(getContext(), Constants.FIREBASE_STORAGE_ERROR, Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
                 Toast.makeText(getContext(), Constants.FIREBASE_STORAGE_ERROR, Toast.LENGTH_LONG).show();
