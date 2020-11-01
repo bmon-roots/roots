@@ -40,10 +40,18 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
 
         document = getSnapshots().getSnapshot(holder.getAdapterPosition());
 
-        holder.textViewNombre.setText(document.getId());
+        holder.textViewNombre.setText(model.getSpecies());
         holder.textViewEdad.setText(model.getAge());
         holder.textViewMaceta.setText(model.getContainer());
         holder.plantita = crearPlantaDesdeModel(model, document.getId());
+        holder.imageViewAptoBonzai.setVisibility(View.INVISIBLE);
+        holder.imageViewAptoVenta.setVisibility(View.INVISIBLE);
+        if(model.isBonsaiAble()){
+            holder.imageViewAptoBonzai.setVisibility(View.VISIBLE);
+        }
+        if(model.isSaleable()){
+            holder.imageViewAptoVenta.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -84,6 +92,8 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
         TextView textViewMaceta;
         ImageView imageViewPoda;
         ImageView imageViewRiego;
+        ImageView imageViewAptoBonzai;
+        ImageView imageViewAptoVenta;
         CardView cardViewPlanta;
         Plant plantita;
 
@@ -95,7 +105,8 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
             textViewMaceta = itemView.findViewById(R.id.text_view_maceta);
             imageViewPoda = itemView.findViewById(R.id.image_view_poda);
             imageViewRiego = itemView.findViewById(R.id.image_view_riego);
-
+            imageViewAptoBonzai = itemView.findViewById(R.id.image_view_checked_bonzai);
+            imageViewAptoVenta = itemView.findViewById(R.id.image_view_checked_venta);
         }
     }
 }
