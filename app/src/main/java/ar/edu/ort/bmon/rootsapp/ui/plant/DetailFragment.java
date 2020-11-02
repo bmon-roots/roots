@@ -167,7 +167,7 @@ public class DetailFragment extends DialogFragment {
 
                     }
                 });
-        Navigation.findNavController(root).navigate(R.id.nav_home);
+        Navigation.findNavController(root).navigate(R.id.nav_plant);
     }
 
     private void eliminarPlanta(final View root, Plant planta) {
@@ -187,7 +187,7 @@ public class DetailFragment extends DialogFragment {
                         Toast.makeText(getContext(), R.string.msj_eliminar_error, Toast.LENGTH_LONG).show();
                     }
                 });
-        Navigation.findNavController(root).navigate(R.id.nav_home);
+        Navigation.findNavController(root).navigate(R.id.nav_plant);
 
 
 
