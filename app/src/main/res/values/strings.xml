@@ -13,20 +13,31 @@
     <string name="menu_header_desc">Navigation header</string>
 
     <!-- Opciones de menu -->
-    <string name="menu_home">Home</string>
     <string name="menu_plant">Plantas</string>
+    <string name="menu_material">Materiales</string>
     <string name="menu_report">Reportes</string>
     <string name="menu_sign_out">Cerrar Sesión</string>
 
     <!-- Strings used for fragments for Create Plant -->
-    <string name="title">Crear Planta</string>
-    <string name="datos">Datos de la planta</string>
-    <string name="familia">Seleccione una familia</string>
-    <string name="especie">Seleccione una especie</string>
-    <string name="crear">crear</string>
-    <string name="descripcion">Descripcion</string>
-    <string name="edad">edad</string>
-    <string name="previous">Previous</string>
+    <string name="createPlantFragmentTitle">Agregar una planta</string>
+    <string name="create_plant_species">Seleccione una especie</string>
+    <string name="create_plant_name_placeholder">Ingrese nombre</string>
+    <string name="create_plant_age_placeholder">Ingrese Edad</string>
+    <string name="create_plant_date_placeholder">Seleccione fecha adquisicion</string>
+    <string name="create_plant_bonsaiAble_text">Apta bonsai?</string>
+    <string name="create_plant_origin_placeholder">Ingrese Origen</string>
+    <string name="create_plant_ph_placeholder">Ingrese PH</string>
+    <string name="create_plant_height_placeholder">Ingrese Altura</string>
+    <string name="create_plant_container_type_placeholder">Tipo contenedor</string>
+    <string name="create_plant_sellable_text">Apta venta</string>
+    <string name="create_plant_save_button">Guardar</string>
+    <string name="create_plant_changePhoto_button">Cambiar Foto</string>
+
+    <!-- Strings para el alta de especies -->
+    <string name="createSpeciesFragmentTitle">Agregar una especie</string>
+    <string name="createSpeciesTextName">Nombre de la especie</string>
+    <string name="createSpeciesSuccessful">Especie agregada exitosamente</string>
+    <string name="createSpeciesError">Error al agregar especie, intente nuevamente</string>
 
     <!--    Layout signout-->
     <string name="btnSignOut">Salir</string>
@@ -34,5 +45,26 @@
     <!--    others keys-->
     <string name="API_ESPECIE">https://jsonplaceholder.typicode.com</string>
     <string name="USER_KEY">user-key: 9900a9720d31dfd5fdb4352700c</string>
+    <string name="plants_list_title">Stock/Produccion</string>
+    <string name="plants_list_nombre">Nombre</string>
+    <string name="plants_list_edad">Edad</string>
+    <string name="alguntexto">AlgunTexto</string>
 
+<!--    Pantalla editar Planta-->
+    <string name="editPlantaTitulo">DETALLE DE PLANTA</string>
+
+
+<!--    Mensajes genericos-->
+    <string name="dialog_delete">Seguro desea eliminar?</string>
+    <string name="dialog_edit">Se guardarán los cambios</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+    <string name="msj_modificacion_ok">Modificación exitosa</string>
+    <string name="msj_modificacion_error">Error al intentar modificar</string>
+    <string name="msj_eliminar_ok">Eliminación exitosa</string>
+    <string name="msj_eliminar_error">Error al intentar eliminar</string>
+
+    <string name="logosignin">logosignin</string>
+    <string name="logosignout">logosignout</string>
+    <string name="logonav">logonav</string>
 </resources>

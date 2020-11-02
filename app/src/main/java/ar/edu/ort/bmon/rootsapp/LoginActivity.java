@@ -25,6 +25,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import static ar.edu.ort.bmon.rootsapp.constants.Constants.GOOGLE_ACCOUNT;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "AndroidClarified";
@@ -59,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK)
+        if (resultCode == Activity.RESULT_OK){
             switch (requestCode) {
                 case 101:
                     try {
@@ -79,6 +81,10 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     break;
             }
+        }else{
+            Log.w(TAG, "*****signInResult:ERROR resultCode=" + resultCode + " Expected=-1");
+
+        }
     }
 
     private void firebaseAuthWithGoogle(final GoogleSignInAccount account) {
@@ -99,15 +105,13 @@ public class LoginActivity extends AppCompatActivity {
                             //  Snackbar.make(mBinding.mainLayout, "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
                             updateUI();
                         }
-
-                        // ...
                     }
                 });
     }
 
     private void onLoggedIn(GoogleSignInAccount googleSignInAccount) {
         Intent intent = new Intent(this, MenuActivity.class);
-        intent.putExtra(MenuActivity.GOOGLE_ACCOUNT, googleSignInAccount);
+        intent.putExtra(GOOGLE_ACCOUNT, googleSignInAccount);
         startActivity(intent);
         finish();
     }
@@ -121,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI() {
         GoogleSignInAccount alreadyloggedAccount = GoogleSignIn.getLastSignedInAccount(this);
         if (alreadyloggedAccount != null) {
-            Toast.makeText(this, "Already Logged In", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ya has iniciado sesión", Toast.LENGTH_SHORT).show();
             onLoggedIn(alreadyloggedAccount);
         } else {
             Log.d(TAG, "Not logged in");
