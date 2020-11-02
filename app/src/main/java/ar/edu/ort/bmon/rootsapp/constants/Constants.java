@@ -1,6 +1,7 @@
 package ar.edu.ort.bmon.rootsapp.constants;
 
 public class Constants {
+    public static final String GOOGLE_ACCOUNT = "google_account";
     ///Firebase DB Collection Selectors
     public static final String PLANT_COLLECTION  = "plants";
     public static final String SPECIES_COLLECTION = "species";

@@ -17,8 +17,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
+import static ar.edu.ort.bmon.rootsapp.constants.Constants.GOOGLE_ACCOUNT;
+
 public class MenuActivity extends AppCompatActivity {
-    public static final String GOOGLE_ACCOUNT = "google_account";
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
@@ -49,7 +50,7 @@ public class MenuActivity extends AppCompatActivity {
         Picasso.get().load(googleSignInAccount.getPhotoUrl()).into(mPic);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_plant, R.id.nav_report)
+                R.id.nav_plant, R.id.nav_material, R.id.nav_report)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
