@@ -64,32 +64,6 @@ public class DetailFragment extends DialogFragment {
         db = FirebaseFirestore.getInstance();
         DetailViewModel model = new ViewModelProvider(requireActivity()).get(DetailViewModel.class);
         planta = model.getSelected().getValue();
-        //se utiliza por error en el listar que no envía el objeto seleccionado
-//        DocumentReference docRef = db.collection(Constants.PLANT_COLLECTION).document("4bLhrNsHB40dLNSxWpV5");
-//        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                planta = documentSnapshot.toObject(Plant.class);
-//                loadDetailValue(root);
-//            }
-//        });
-
-        /*
-        eliminarBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        modificarBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-         */
-
         loadDetailValue(viewReference);
         return viewReference;
     }
@@ -138,38 +112,39 @@ public class DetailFragment extends DialogFragment {
     private void savePlanta(View root) {
         DocumentReference docRef = db.collection(Constants.PLANT_COLLECTION).document(planta.getId());
 
+        //Bind viewElements
         EditText especie = root.findViewById(R.id.editTextEspecie);
-        planta.setSpecies(especie.getText().toString());
-
         EditText nombre = (EditText) root.findViewById(R.id.editTextNombre);
-        nombre.setText(planta.getName());
-
         EditText altura = root.findViewById(R.id.editTextAltura);
-        planta.setHeight(altura.getText().toString());
-
         EditText contenedor = (EditText)root.findViewById(R.id.editTextContenedor);
-        planta.setContainer(contenedor.getText().toString());
-
         EditText origen = (EditText)root.findViewById(R.id.editTextOrigen);
-        planta.setOrigin(origen.getText().toString());
-
         EditText edad = (EditText)root.findViewById(R.id.editTextEdad);
-        planta.setAge(edad.getText().toString());
-
         EditText fechaRegistro = (EditText)root.findViewById(R.id.editTextFechaRegistro);
-        planta.setRegistrationDate(new Date());
-
         EditText ph = (EditText) root.findViewById(R.id.editTextPH);
-        planta.setPh(ph.getText().toString());
-
         Switch aptoBonsai = (Switch) root.findViewById(R.id.switchAptoBonsai);
-        planta.setBonsaiAble(aptoBonsai.isChecked());
-
         Switch aptoVenta = (Switch) root.findViewById(R.id.switchAptoVenta);
-        planta.setSaleable(aptoVenta.isChecked());
+
+        //Bind new values to store
+        String newPlantName = nombre.getText().toString();
+        String newPlantHeight = altura.getText().toString();
+        String newPlantContainer = contenedor.getText().toString();
+        String newPlantOrigin = origen.getText().toString();
+        String newPlantAge = edad.getText().toString();
+        String newPlantPH = ph.getText().toString();
+        Boolean newPlantBonsaiStatus = aptoBonsai.isChecked();
+        Boolean newPlantSaleableStatus = aptoVenta.isChecked();
 
 
-        docRef.set(planta)
+        docRef.update(
+                "age", newPlantAge,
+                "bonsaiAble", newPlantBonsaiStatus,
+                "container", newPlantContainer,
+                "height", newPlantHeight,
+                "name", newPlantName,
+                "origin", newPlantOrigin,
+                "ph", newPlantPH,
+                "saleable", newPlantSaleableStatus
+                )
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -214,13 +189,13 @@ public class DetailFragment extends DialogFragment {
     private void habilitarEdicion(View root) {
         editMenuItem.setVisible(false);
         saveChangesMenuItem.setVisible(true);
-        root.findViewById(R.id.editTextEspecie).setEnabled(true);
+        //root.findViewById(R.id.editTextEspecie).setEnabled(true);
         root.findViewById(R.id.editTextNombre).setEnabled(true);
         root.findViewById(R.id.editTextAltura).setEnabled(true);
         root.findViewById(R.id.editTextContenedor).setEnabled(true);
         root.findViewById(R.id.editTextOrigen).setEnabled(true);
         root.findViewById(R.id.editTextEdad).setEnabled(true);
-        root.findViewById(R.id.editTextFechaRegistro).setEnabled(true);
+        //root.findViewById(R.id.editTextFechaRegistro).setEnabled(true);
         root.findViewById(R.id.editTextPH).setEnabled(true);
         root.findViewById(R.id.switchAptoBonsai).setEnabled(true);
         root.findViewById(R.id.switchAptoVenta).setEnabled(true);

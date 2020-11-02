@@ -49,6 +49,10 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
     private Plant crearPlantaDesdeModel(@NonNull Plant model, String id) {
         Plant planta = new Plant();
         planta.setId(id);
+        planta.setName(model.getName());
+        planta.setSpecies(model.getSpecies());
+        planta.setImageUri(model.getImageUri());
+        planta.setPh(model.getPh());
         planta.setHeight(model.getHeight());
         planta.setBonsaiAble(model.isBonsaiAble());
         planta.setSaleable(model.isSaleable());
