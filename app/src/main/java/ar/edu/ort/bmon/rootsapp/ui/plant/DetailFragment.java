@@ -3,6 +3,8 @@ package ar.edu.ort.bmon.rootsapp.ui.plant;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -42,6 +44,12 @@ public class DetailFragment extends DialogFragment {
 
     public static DetailFragment newInstance() {
         return new DetailFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -115,6 +123,25 @@ public class DetailFragment extends DialogFragment {
         });
         loadDetailValue(root);
         return root;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        detailViewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
+        // TODO: Use the ViewModel
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_edit_plant, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     private void savePlanta(View root) {
@@ -238,20 +265,6 @@ public class DetailFragment extends DialogFragment {
 
         ImageView imageViewPlant = root.findViewById(R.id.imageViewPlant);
         Picasso.get().load(planta.getImageUri()).into(imageViewPlant);
-
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        detailViewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
-        // TODO: Use the ViewModel
-
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
     }
 }
