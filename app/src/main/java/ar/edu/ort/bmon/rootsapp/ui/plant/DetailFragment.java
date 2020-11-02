@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -39,6 +40,10 @@ public class DetailFragment extends DialogFragment {
     private DetailViewModel detailViewModel;
     private FirebaseFirestore db;
     private Plant planta;
+    private View viewReference;
+    private MenuItem editMenuItem;
+    private MenuItem saveChangesMenuItem;
+    private MenuItem deleteMenuItem;
     public static final String TAG = DetailFragment.class.getSimpleName();
 
 
@@ -55,7 +60,7 @@ public class DetailFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        final View root = inflater.inflate(R.layout.fragment_detail, container, false);
+        viewReference = inflater.inflate(R.layout.fragment_detail, container, false);
         db = FirebaseFirestore.getInstance();
         DetailViewModel model = new ViewModelProvider(requireActivity()).get(DetailViewModel.class);
         planta = model.getSelected().getValue();
@@ -69,60 +74,24 @@ public class DetailFragment extends DialogFragment {
 //            }
 //        });
 
-        Button editarBtn = root.findViewById(R.id.buttonEditarPlanta);
-        Button eliminarBtn = root.findViewById(R.id.buttonEliminarPlanta);
-        Button modificarBtn = root.findViewById(R.id.buttonSavePlanta);;
-
-        editarBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                habilitarEdicion(root);
-            }
-        });
+        /*
         eliminarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setMessage(R.string.dialog_delete)
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                eliminarPlanta(root, planta);
-                            }
-                        })
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-//                                TAG.
-                                System.out.println("Canceló eliminar");
-                            }
-                        });
-                // Create the AlertDialog object and return it
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
+
             }
         });
         modificarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setMessage(R.string.dialog_edit)
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                savePlanta(root);
-                            }
-                        })
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-//                                TAG.
-                                // User cancelled the dialog
-                            }
-                        });
-                // Create the AlertDialog object and return it
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
+
             }
         });
-        loadDetailValue(root);
-        return root;
+
+         */
+
+        loadDetailValue(viewReference);
+        return viewReference;
     }
 
     @Override
@@ -141,7 +110,29 @@ public class DetailFragment extends DialogFragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.menu_edit_plant, menu);
+        editMenuItem = menu.findItem(R.id.menu_edit_plant_button);
+        saveChangesMenuItem = menu.findItem(R.id.menu_save_changes_button);
+        deleteMenuItem = menu.findItem(R.id.menu_delete_plant_button);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int selectionId = item.getItemId();
+
+        switch (selectionId) {
+            case R.id.menu_edit_plant_button:
+                habilitarEdicion(viewReference);
+                break;
+            case R.id.menu_delete_plant_button:
+                crearDialogoEliminar();
+                break;
+            case R.id.menu_save_changes_button:
+                crearDialogoGuardar();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void savePlanta(View root) {
@@ -218,6 +209,8 @@ public class DetailFragment extends DialogFragment {
     }
 
     private void habilitarEdicion(View root) {
+        editMenuItem.setVisible(false);
+        saveChangesMenuItem.setVisible(true);
         root.findViewById(R.id.editTextEspecie).setEnabled(true);
         root.findViewById(R.id.editTextNombre).setEnabled(true);
         root.findViewById(R.id.editTextAltura).setEnabled(true);
@@ -227,9 +220,44 @@ public class DetailFragment extends DialogFragment {
         root.findViewById(R.id.editTextFechaRegistro).setEnabled(true);
         root.findViewById(R.id.switchAptoBonsai).setEnabled(true);
         root.findViewById(R.id.switchAptoVenta).setEnabled(true);
-        root.findViewById(R.id.buttonSavePlanta).setVisibility(View.VISIBLE);
-        root.findViewById(R.id.buttonEliminarPlanta).setVisibility(View.VISIBLE);
-        root.findViewById(R.id.buttonEditarPlanta).setVisibility(View.INVISIBLE);
+    }
+
+    private void crearDialogoEliminar() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.dialog_delete)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        eliminarPlanta(viewReference, planta);
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+//                                TAG.
+                        System.out.println("Canceló eliminar");
+                    }
+                });
+        // Create the AlertDialog object and return it
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void crearDialogoGuardar() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.dialog_edit)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        savePlanta(viewReference);
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+//                                TAG.
+                        // User cancelled the dialog
+                    }
+                });
+        // Create the AlertDialog object and return it
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void loadDetailValue(View root){
@@ -239,8 +267,8 @@ public class DetailFragment extends DialogFragment {
         EditText especie = (EditText)root.findViewById(R.id.editTextEspecie);
         especie.setText(planta.getSpecies());
 
-         EditText altura = (EditText)root.findViewById(R.id.editTextAltura);
-         altura.setText(planta.getHeight());
+        EditText altura = (EditText)root.findViewById(R.id.editTextAltura);
+        altura.setText(planta.getHeight());
 
         EditText contenedor = (EditText)root.findViewById(R.id.editTextContenedor);
         contenedor.setText(planta.getContainer());
@@ -264,7 +292,10 @@ public class DetailFragment extends DialogFragment {
         aptoVenta.setChecked(planta.isSaleable());
 
         ImageView imageViewPlant = root.findViewById(R.id.imageViewPlant);
-        Picasso.get().load(planta.getImageUri()).into(imageViewPlant);
+
+        if (planta.getImageUri() != null) {
+            Picasso.get().load(planta.getImageUri()).into(imageViewPlant);
+        }
 
     }
 }
