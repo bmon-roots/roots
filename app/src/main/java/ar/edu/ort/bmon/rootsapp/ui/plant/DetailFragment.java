@@ -141,6 +141,9 @@ public class DetailFragment extends DialogFragment {
         EditText fechaRegistro = (EditText)root.findViewById(R.id.editTextFechaRegistro);
         planta.setRegistrationDate(new Date());
 
+        EditText ph = (EditText) root.findViewById(R.id.editTextPH);
+        planta.setPh(ph.getText().toString());
+
         Switch aptoBonsai = (Switch) root.findViewById(R.id.switchAptoBonsai);
         planta.setBonsaiAble(aptoBonsai.isChecked());
 
@@ -198,6 +201,7 @@ public class DetailFragment extends DialogFragment {
         root.findViewById(R.id.editTextOrigen).setEnabled(true);
         root.findViewById(R.id.editTextEdad).setEnabled(true);
         root.findViewById(R.id.editTextFechaRegistro).setEnabled(true);
+        root.findViewById(R.id.editTextPH).setEnabled(true);
         root.findViewById(R.id.switchAptoBonsai).setEnabled(true);
         root.findViewById(R.id.switchAptoVenta).setEnabled(true);
         root.findViewById(R.id.buttonSavePlanta).setVisibility(View.VISIBLE);
@@ -229,6 +233,9 @@ public class DetailFragment extends DialogFragment {
 
         EditText fechaRegistro = (EditText)root.findViewById(R.id.editTextFechaRegistro);
         fechaRegistro.setText(registrationDate);
+
+        EditText ph = (EditText) root.findViewById(R.id.editTextPH);
+        ph.setText(planta.getPh());
 
         Switch aptoBonsai = (Switch) root.findViewById(R.id.switchAptoBonsai);
         aptoBonsai.setChecked(planta.isBonsaiAble());
