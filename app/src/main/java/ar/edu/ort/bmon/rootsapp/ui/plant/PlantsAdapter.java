@@ -1,4 +1,4 @@
-package ar.edu.ort.bmon.rootsapp.ui.home;
+package ar.edu.ort.bmon.rootsapp.ui.plant;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -19,7 +19,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
-import ar.edu.ort.bmon.rootsapp.ui.plant.DetailViewModel;
 
 
 public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter.PlantHolder> {

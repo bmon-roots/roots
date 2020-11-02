@@ -9,7 +9,7 @@
     app:cardCornerRadius="3dp"
     app:cardUseCompatPadding="true"
     android:id="@+id/card_planta"
-    tools:context=".ui.home.PlantsAdapter"
+    tools:context=".ui.plant.PlantsAdapter"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout

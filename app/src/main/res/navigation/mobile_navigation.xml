@@ -3,23 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
-
-    <fragment
-        android:id="@+id/nav_home"
-        android:name="ar.edu.ort.bmon.rootsapp.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_nav_home_to_nav_plant_detail"
-            app:destination="@id/nav_plant_detail" />
-    </fragment>
+    app:startDestination="@+id/nav_plant">
 
     <fragment
         android:id="@+id/nav_plant"
-        android:name="ar.edu.ort.bmon.rootsapp.ui.plant.PlantFragment"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.plant.ListPlantFragment"
         android:label="@string/menu_plant"
-        tools:layout="@layout/fragment_plant" >
+        tools:layout="@layout/fragment_list_plant" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_plant_detail"
+            app:destination="@id/nav_plant_detail" />
         <action
             android:id="@+id/action_nav_plant_to_createPlantFragment"
             app:destination="@id/createPlantFragment" />
@@ -27,6 +20,12 @@
             android:id="@+id/action_nav_plant_to_createSpeciesFragment"
             app:destination="@id/createSpeciesFragment"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_material"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.material.ListMaterialFragment"
+        android:label="@string/menu_material"
+        tools:layout="@layout/fragment_list_material"/>
 
     <fragment
         android:id="@+id/nav_plant_detail"
@@ -49,8 +48,7 @@
         android:id="@+id/createPlantFragment"
         android:name="ar.edu.ort.bmon.rootsapp.ui.plant.CreatePlantFragment"
         android:label="@string/createPlantFragmentTitle"
-        tools:layout="@layout/create_plant_fragment"
-        >
+        tools:layout="@layout/create_plant_fragment">
         <action
             android:id="@+id/action_createPlantFragment_to_nav_plant"
             app:destination="@id/nav_plant" />
@@ -60,6 +58,5 @@
         android:id="@+id/createSpeciesFragment"
         android:name="ar.edu.ort.bmon.rootsapp.ui.plant.CreateSpeciesFragment"
         android:label="@string/createSpeciesFragmentTitle"
-        tools:layout="@layout/create_species_fragment"
-        />
+        tools:layout="@layout/create_species_fragment"/>
 </navigation>

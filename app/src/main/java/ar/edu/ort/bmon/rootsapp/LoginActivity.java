@@ -25,6 +25,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import static ar.edu.ort.bmon.rootsapp.constants.Constants.GOOGLE_ACCOUNT;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "AndroidClarified";
@@ -109,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void onLoggedIn(GoogleSignInAccount googleSignInAccount) {
         Intent intent = new Intent(this, MenuActivity.class);
-        intent.putExtra(MenuActivity.GOOGLE_ACCOUNT, googleSignInAccount);
+        intent.putExtra(GOOGLE_ACCOUNT, googleSignInAccount);
         startActivity(intent);
         finish();
     }

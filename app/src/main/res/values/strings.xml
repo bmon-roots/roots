@@ -13,8 +13,8 @@
     <string name="menu_header_desc">Navigation header</string>
 
     <!-- Opciones de menu -->
-    <string name="menu_home">Home</string>
     <string name="menu_plant">Plantas</string>
+    <string name="menu_material">Materiales</string>
     <string name="menu_report">Reportes</string>
     <string name="menu_sign_out">Cerrar Sesión</string>
 
@@ -35,7 +35,9 @@
 
     <!-- Strings para el alta de especies -->
     <string name="createSpeciesFragmentTitle">Agregar una especie</string>
-    <string name="especiePlaceholder">Alta de especies</string>
+    <string name="createSpeciesTextName">Nombre de la especie</string>
+    <string name="createSpeciesSuccessful">Especie agregada exitosamente</string>
+    <string name="createSpeciesError">Error al agregar especie, intente nuevamente</string>
 
     <!--    Layout signout-->
     <string name="btnSignOut">Salir</string>

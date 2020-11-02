@@ -1,16 +1,15 @@
-package ar.edu.ort.bmon.rootsapp.ui.plant;
+package ar.edu.ort.bmon.rootsapp.ui.material;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class PlantViewModel extends ViewModel {
-
+public class ListMaterialViewModel extends ViewModel {
     private MutableLiveData<String> mText;
 
-    public PlantViewModel() {
+    public ListMaterialViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("ABM de plantas fragment");
+        mText.setValue("Materiales fragment");
     }
 
     public LiveData<String> getText() {
