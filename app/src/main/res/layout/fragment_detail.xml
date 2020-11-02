@@ -7,293 +7,329 @@
     android:layout_height="match_parent"
     tools:context=".ui.plant.DetailFragment">
 
-    <TextView
-        android:id="@+id/textViewTitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="109dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="131dp"
-        android:text="@string/editPlantaTitulo"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/imageViewPlant"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:layout_constraintEnd_toStartOf="@+id/textViewTitulo"
-        app:layout_constraintHorizontal_bias="0.48"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.055"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@mipmap/ic_launcher_round"
-        tools:layout_editor_absoluteY="16dp" />
-
-    <TextView
-        android:id="@+id/textViewNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nombre"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextNombre"
-        app:layout_constraintEnd_toStartOf="@+id/editTextNombre"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.033"
+        android:src="@drawable/img_plant_placeholder" />
 
     <EditText
         android:id="@+id/editTextNombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:enabled="false"
         android:inputType="text"
         android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/editTextEspecie"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.539"
         app:layout_constraintStart_toEndOf="@+id/textViewNombre"
-        app:layout_constraintTop_toBottomOf="@+id/buttonEditarPlanta" />
+        app:layout_constraintTop_toTopOf="@+id/guideline10"
+        app:layout_constraintVertical_bias="0.006" />
 
-    <TextView
-        android:id="@+id/textViewEspecie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Especie"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextEspecie"
-        app:layout_constraintEnd_toStartOf="@+id/editTextEspecie"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextEspecie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Switch
+        android:id="@+id/switchAptoVenta"
+        android:layout_width="80dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="text"
-        android:enabled="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.518"
-        app:layout_constraintStart_toEndOf="@+id/textViewEspecie"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNombre"
-        app:layout_constraintBottom_toTopOf="@+id/editTextAltura"/>
-
-    <TextView
-        android:id="@+id/textViewAltura"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewTitulo"
-        android:text="Altura"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextAltura"
-        app:layout_constraintEnd_toStartOf="@+id/editTextAltura"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextAltura"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:enabled="false"
-        android:inputType="text"
-        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewAltura"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEspecie"
-        app:layout_constraintBottom_toTopOf="@+id/editTextContenedor"/>
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toEndOf="@+id/textViewAptoVenta"
+        app:layout_constraintTop_toBottomOf="@+id/switchAptoBonsai"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textViewContenedor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Contenedor"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextContenedor"
-        app:layout_constraintEnd_toStartOf="@+id/editTextContenedor"
+        android:id="@+id/textViewOrigen"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:text="Origen"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editTextOrigen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextContenedor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:enabled="false"
         android:inputType="textPersonName"
         android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/editTextOrigen"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.543"
         app:layout_constraintStart_toEndOf="@+id/textViewContenedor"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAltura" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextAltura"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textViewOrigen"
+    <EditText
+        android:id="@+id/editTextAltura"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Origen"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextOrigen"
-        app:layout_constraintEnd_toStartOf="@+id/editTextOrigen"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="text"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.632"
+        app:layout_constraintStart_toEndOf="@+id/textViewAltura"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNombre"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textViewAptoVenta"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:text="Apto venta"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/switchAptoVenta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextOrigen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:enabled="false"
         android:inputType="textPersonName"
         android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/editTextEdad"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.543"
         app:layout_constraintStart_toEndOf="@+id/textViewOrigen"
-        app:layout_constraintTop_toBottomOf="@+id/editTextContenedor" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextContenedor"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textViewEdad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
         android:text="Edad"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextEdad"
-        app:layout_constraintEnd_toStartOf="@+id/editTextEdad"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editTextEdad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextEdad"
+        android:id="@+id/editTextEspecie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:enabled="false"
-        android:inputType="textPersonName"
-        android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/editTextFechaRegistro"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewEdad"
-        app:layout_constraintTop_toBottomOf="@+id/editTextOrigen" />
+        app:layout_constraintHorizontal_bias="0.823"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEspecie"
+        app:layout_constraintVertical_bias="0.004" />
 
     <TextView
-        android:id="@+id/textViewFechaRegistro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fecha Registro"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextFechaRegistro"
-        app:layout_constraintEnd_toStartOf="@+id/editTextFechaRegistro"
+        android:id="@+id/textViewAltura"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/textViewTitulo"
+        android:text="Altura"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editTextAltura"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editTextFechaRegistro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:enabled="false"
         android:inputType="textPersonName"
         android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/editTextPH"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.561"
         app:layout_constraintStart_toEndOf="@+id/textViewFechaRegistro"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEdad" />
-
-    <TextView
-        android:id="@+id/textViewPH"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="PH"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextPH"
-        app:layout_constraintEnd_toStartOf="@+id/editTextPH"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextEdad"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/editTextPH"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:enabled="false"
-        android:inputType="text"
+        android:inputType="textPersonName"
         android:text=""
-        app:layout_constraintBottom_toTopOf="@id/switchAptoBonsai"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.561"
         app:layout_constraintStart_toEndOf="@+id/textViewPH"
-        app:layout_constraintTop_toBottomOf="@id/editTextFechaRegistro" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextFechaRegistro"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textViewFechaRegistro"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
+        android:text="Fecha Registro"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editTextFechaRegistro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewPH"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:text="PH"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editTextPH"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextEdad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="textPersonName"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.543"
+        app:layout_constraintStart_toEndOf="@+id/textViewEdad"
+        app:layout_constraintTop_toBottomOf="@+id/editTextOrigen"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textViewAptoBonsai"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:text="Apto Bonsai"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/switchAptoBonsai"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewContenedor"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:text="Contenedor"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editTextContenedor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Switch
         android:id="@+id/switchAptoBonsai"
         android:layout_width="80dp"
         android:layout_height="25dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:enabled="false"
-        app:layout_constraintBottom_toTopOf="@+id/switchAptoVenta"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewAptoBonsai"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPH" />
-
-    <TextView
-        android:id="@+id/textViewAptoBonsai"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Apto Bonsai"
-        app:layout_constraintBottom_toBottomOf="@+id/switchAptoBonsai"
-        app:layout_constraintEnd_toStartOf="@+id/switchAptoBonsai"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Switch
-        android:id="@+id/switchAptoVenta"
-        android:layout_width="80dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:enabled="false"
-        app:layout_constraintBottom_toTopOf="@+id/buttonEliminarPlanta"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewAptoVenta"
-        app:layout_constraintTop_toBottomOf="@+id/switchAptoBonsai" />
-
-    <TextView
-        android:id="@+id/textViewAptoVenta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Apto venta"
-        app:layout_constraintBottom_toBottomOf="@+id/switchAptoVenta"
-        app:layout_constraintEnd_toStartOf="@+id/switchAptoVenta"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/buttonEditarPlanta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Editar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textViewTitulo"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/buttonEliminarPlanta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Eliminar"
-        android:visibility="invisible"
+        android:ems="10"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonSavePlanta"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switchAptoVenta" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintStart_toEndOf="@+id/textViewAptoBonsai"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPH"
+        app:layout_constraintVertical_bias="0.089" />
 
-    <Button
-        android:id="@+id/buttonSavePlanta"
+    <TextView
+        android:id="@+id/textViewNombre"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:text="Nombre"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editTextNombre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewEspecie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Guardar"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonEliminarPlanta"
+        android:text="Especie"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonEliminarPlanta" />
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.066" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="170dp" />
+
+    <!--    <Switch-->
+    <!--        android:id="@+id/switch1"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Switch"-->
+    <!--        tools:layout_editor_absoluteX="202dp"-->
+    <!--        tools:layout_editor_absoluteY="608dp" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

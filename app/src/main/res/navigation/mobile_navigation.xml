@@ -54,7 +54,7 @@
     <fragment
         android:id="@+id/createPlantFragment"
         android:name="ar.edu.ort.bmon.rootsapp.ui.plant.CreatePlantFragment"
-        android:label="create_plant_fragment"
+        android:label="@string/createPlantFragmentTitle"
         tools:layout="@layout/create_plant_fragment" >
         <action
             android:id="@+id/action_createPlantFragment_to_nav_plant"
