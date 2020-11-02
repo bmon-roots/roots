@@ -189,18 +189,33 @@
         android:enabled="false"
         android:inputType="textPersonName"
         android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/switchAptoBonsai"
+        app:layout_constraintBottom_toTopOf="@+id/editTextPH"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewFechaRegistro"
         app:layout_constraintTop_toBottomOf="@+id/editTextEdad" />
 
-    <!--    <Switch-->
-<!--        android:id="@+id/switch1"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="Switch"-->
-<!--        tools:layout_editor_absoluteX="202dp"-->
-<!--        tools:layout_editor_absoluteY="608dp" />-->
+    <TextView
+        android:id="@+id/textViewPH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PH"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextPH"
+        app:layout_constraintEnd_toStartOf="@+id/editTextPH"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextPH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:enabled="false"
+        android:inputType="text"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@id/switchAptoBonsai"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewPH"
+        app:layout_constraintTop_toBottomOf="@id/editTextFechaRegistro" />
 
     <Switch
         android:id="@+id/switchAptoBonsai"
@@ -212,7 +227,7 @@
         app:layout_constraintBottom_toTopOf="@+id/switchAptoVenta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewAptoBonsai"
-        app:layout_constraintTop_toBottomOf="@+id/editTextFechaRegistro" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextPH" />
 
     <TextView
         android:id="@+id/textViewAptoBonsai"
