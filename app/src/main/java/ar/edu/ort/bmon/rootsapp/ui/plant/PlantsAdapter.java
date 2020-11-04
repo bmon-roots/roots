@@ -69,6 +69,7 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
         planta.setAge(model.getAge());
         planta.setOrigin(model.getOrigin());
         planta.setRegistrationDate(model.getRegistrationDate());
+        planta.setTareas(model.getTareas());
         return planta;
     }
 

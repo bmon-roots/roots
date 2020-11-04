@@ -139,7 +139,12 @@ public class DetailFragment extends DialogFragment {
         alertDialog.setMultiChoiceItems(items, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                planta.addTask(new Date(), items[i]);
+                if(b){
+                    planta.addTask(new Date(), items[i]);
+                }else{
+                    planta.removeTask(items[i]);
+                }
+
             }
         });
         alertDialog.setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
@@ -151,7 +156,6 @@ public class DetailFragment extends DialogFragment {
         alertDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ListView selectionList = ((AlertDialog) dialog).getListView();
                 saveTaskToPlant();
             }
         });

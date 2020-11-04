@@ -5,7 +5,7 @@
         android:id="@+id/menu_add_task_button"
         android:title="Agregar tarea"
         app:showAsAction="always"
-        android:icon="@drawable/ic_menu_camera" />
+        android:icon="@drawable/ic_add_task_24px" />
     <item
         android:id="@+id/menu_edit_plant_button"
         android:title="Edit"

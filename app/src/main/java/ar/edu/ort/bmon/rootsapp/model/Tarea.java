@@ -11,6 +11,10 @@ public class Tarea {
     public Tarea() {
     }
 
+    public Tarea(String tipo) {
+        this.tipo = tipo;
+    }
+
     public Tarea(String tipo, Date fechaRealizada) {
         this.tipo = tipo;
         this.fechaRealizada = fechaRealizada;

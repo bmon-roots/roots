@@ -16,7 +16,7 @@ public class Plant {
     private boolean isSaleable;
     private String ph;
     private String imageUri;
-    private ArrayList<Tarea> tareas;
+    private ArrayList<Tarea> tareas = new ArrayList<Tarea>();;
 
     /*
     Constructors
@@ -181,12 +181,12 @@ public class Plant {
 
     public void addTask(Date registrationDate, String taskName){
         Tarea tarea = new Tarea(taskName, registrationDate);
-//        if (!tareas.contains(tarea)){
-            tareas = new ArrayList<Tarea>();
+        if (!tareas.contains(tarea)){
             tareas.add(tarea);
-//        }
+        }
     }
-    public void removeTask(Tarea tarea){
+    public void removeTask(String taskName){
+        Tarea tarea = new Tarea(taskName);
         tareas.remove(tarea);
     }
     @Override
