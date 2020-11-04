@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -29,11 +30,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
+import ar.edu.ort.bmon.rootsapp.model.Tarea;
 
 public class DetailFragment extends DialogFragment {
 
@@ -44,6 +47,10 @@ public class DetailFragment extends DialogFragment {
     private MenuItem editMenuItem;
     private MenuItem saveChangesMenuItem;
     private MenuItem deleteMenuItem;
+    private MenuItem addTaskMenuItem;
+    private AlertDialog.Builder dialog;
+
+
     public static final String TAG = DetailFragment.class.getSimpleName();
 
 
@@ -87,6 +94,7 @@ public class DetailFragment extends DialogFragment {
         editMenuItem = menu.findItem(R.id.menu_edit_plant_button);
         saveChangesMenuItem = menu.findItem(R.id.menu_save_changes_button);
         deleteMenuItem = menu.findItem(R.id.menu_delete_plant_button);
+        addTaskMenuItem = menu.findItem(R.id.menu_add_task_button);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -104,9 +112,57 @@ public class DetailFragment extends DialogFragment {
             case R.id.menu_save_changes_button:
                 crearDialogoGuardar();
                 break;
+            case R.id.menu_add_task_button:
+                agregarTareaDialog();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void agregarTareaDialog() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setTitle(Constants.ADD_NEW_TASK_TITLE);
+        final String[] items = new String[] {Constants.ADD_TASK_FUMIGATE, Constants.ADD_TASK_PRUNE, Constants.ADD_TASK_FERTILIZE };
+        boolean[] checkedItems = {false, false, false};
+        if(null != planta.getTareas()) {
+            for (int i = 0; i < planta.getTareas().size(); i++) {
+                if (planta.getTareas().get(i).getTipo().equals(Constants.ADD_TASK_FUMIGATE)) {
+                    checkedItems[0] = true;
+                } else if (planta.getTareas().get(i).getTipo().equals(Constants.ADD_TASK_PRUNE)) {
+                    checkedItems[1] = true;
+                } else if (planta.getTareas().get(i).getTipo().equals(Constants.ADD_TASK_FERTILIZE)) {
+                    checkedItems[2] = true;
+                }
+            }
+        }
+        alertDialog.setMultiChoiceItems(items, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i, boolean b) {
+                if(b){
+                    planta.addTask(new Date(), items[i]);
+                }else{
+                    planta.removeTask(items[i]);
+                }
+
+            }
+        });
+        alertDialog.setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                saveTaskToPlant();
+            }
+        });
+        AlertDialog alert = alertDialog.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
+
     }
 
     private void savePlanta(View root) {
@@ -161,6 +217,28 @@ public class DetailFragment extends DialogFragment {
                     }
                 });
         Navigation.findNavController(root).navigate(R.id.nav_plant);
+    }
+
+    private void saveTaskToPlant(){
+        DocumentReference docRef = db.collection(Constants.PLANT_COLLECTION).document(planta.getId());
+        docRef.update(
+                "tareas", planta.getTareas()
+        )
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        System.out.println("Tareas agregadas a la planta: " + planta.getId());
+                        Toast.makeText(getContext(), R.string.msj_agregar_ok, Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        System.out.println("Error al modificar Planta" + " " + e.getCause());
+                        Toast.makeText(getContext(), R.string.msj_agregar_error + " " + e.getMessage(), Toast.LENGTH_LONG);
+
+                    }
+                });
     }
 
     private void eliminarPlanta(final View root, Plant planta) {
@@ -275,7 +353,7 @@ public class DetailFragment extends DialogFragment {
 
         ImageView imageViewPlant = root.findViewById(R.id.imageViewPlant);
 
-        if (planta.getImageUri() != null) {
+        if (planta.getImageUri() != null && !planta.getImageUri().equals("")) {
             Picasso.get().load(planta.getImageUri()).into(imageViewPlant);
         }
 

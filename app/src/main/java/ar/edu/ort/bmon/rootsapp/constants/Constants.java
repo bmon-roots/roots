@@ -34,4 +34,9 @@ public class Constants {
     //Error Tags
     public static final String FIREBASE_ERROR = "Firebase_Error";
     public static final String STORAGE_ERROR = "Storage Error";
+    //Detalle de planta. Agregar Tareas
+    public static final String ADD_NEW_TASK_TITLE = "Crear Nueva Tarea";
+    public static final String ADD_TASK_FUMIGATE = "Fumigar";
+    public static final String ADD_TASK_PRUNE = "Podar";
+    public static final String ADD_TASK_FERTILIZE = "Fertilizar";
 }
