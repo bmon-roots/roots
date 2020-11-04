@@ -18,7 +18,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 
 import ar.edu.ort.bmon.rootsapp.R;
+import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
+import ar.edu.ort.bmon.rootsapp.model.Tarea;
 
 
 public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter.PlantHolder> {
@@ -45,6 +47,9 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
         holder.plantita = crearPlantaDesdeModel(model, document.getId());
         holder.imageViewAptoBonzai.setVisibility(View.INVISIBLE);
         holder.imageViewAptoVenta.setVisibility(View.INVISIBLE);
+        holder.imageViewPoda.setVisibility(View.INVISIBLE);
+        holder.imageViewFumigate.setVisibility(View.INVISIBLE);
+        holder.imageViewFertilize.setVisibility(View.INVISIBLE);
 
         if(model.isBonsaiAble()){
             holder.imageViewAptoBonzai.setVisibility(View.VISIBLE);
@@ -52,7 +57,15 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
         if(model.isSaleable()){
             holder.imageViewAptoVenta.setVisibility(View.VISIBLE);
         }
-
+        for (Tarea tarea : model.getTareas()) {
+            if(tarea.getTipo().equals(Constants.ADD_TASK_FERTILIZE)){
+                holder.imageViewFertilize.setVisibility(View.VISIBLE);
+            } else if(tarea.getTipo().equals(Constants.ADD_TASK_FUMIGATE)){
+                holder.imageViewFumigate.setVisibility(View.VISIBLE);
+            } else if(tarea.getTipo().equals(Constants.ADD_TASK_PRUNE)){
+                holder.imageViewPoda.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     private Plant crearPlantaDesdeModel(@NonNull Plant model, String id) {
@@ -95,8 +108,9 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
         TextView textViewNombre;
         TextView textViewEdad;
         TextView textViewMaceta;
+        ImageView imageViewFumigate;
         ImageView imageViewPoda;
-        ImageView imageViewRiego;
+        ImageView imageViewFertilize;
         ImageView imageViewAptoBonzai;
         ImageView imageViewAptoVenta;
         CardView cardViewPlanta;
@@ -108,8 +122,9 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
             textViewNombre = itemView.findViewById(R.id.text_view_nombre);
             textViewEdad = itemView.findViewById(R.id.text_view_edad);
             textViewMaceta = itemView.findViewById(R.id.text_view_maceta);
+            imageViewFumigate = itemView.findViewById(R.id.image_view_fumigate);
             imageViewPoda = itemView.findViewById(R.id.image_view_poda);
-            imageViewRiego = itemView.findViewById(R.id.image_view_riego);
+            imageViewFertilize = itemView.findViewById(R.id.image_view_fertilize);
             imageViewAptoBonzai = itemView.findViewById(R.id.image_view_checked_bonzai);
             imageViewAptoVenta = itemView.findViewById(R.id.image_view_checked_venta);
         }
