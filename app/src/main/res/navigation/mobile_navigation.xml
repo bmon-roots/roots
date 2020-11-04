@@ -14,11 +14,11 @@
             android:id="@+id/action_nav_home_to_nav_plant_detail"
             app:destination="@id/nav_plant_detail" />
         <action
-            android:id="@+id/action_nav_plant_to_createPlantFragment"
-            app:destination="@id/createPlantFragment" />
-        <action
             android:id="@+id/action_nav_plant_to_createSpeciesFragment"
             app:destination="@id/createSpeciesFragment"/>
+        <action
+            android:id="@+id/action_nav_plant_to_createPlantFragment"
+            app:destination="@id/createPlantFragment" />
     </fragment>
 
     <fragment
@@ -44,19 +44,20 @@
         android:label="@string/menu_sign_out"
         tools:layout="@layout/fragment_signout" />
 
-    <fragment
-        android:id="@+id/createPlantFragment"
-        android:name="ar.edu.ort.bmon.rootsapp.ui.plant.CreatePlantFragment"
-        android:label="@string/createPlantFragmentTitle"
-        tools:layout="@layout/create_plant_fragment">
-        <action
-            android:id="@+id/action_createPlantFragment_to_nav_plant"
-            app:destination="@id/nav_plant" />
-    </fragment>
+
 
     <fragment
         android:id="@+id/createSpeciesFragment"
         android:name="ar.edu.ort.bmon.rootsapp.ui.plant.CreateSpeciesFragment"
         android:label="@string/createSpeciesFragmentTitle"
         tools:layout="@layout/create_species_fragment"/>
+    <fragment
+        android:id="@+id/createPlantFragment"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.plant.CreatePlantFragment"
+        android:label="@string/createPlantFragmentTitle"
+        tools:layout="@layout/create_plant_fragment" >
+        <action
+            android:id="@+id/action_createPlantFragment_to_nav_plant"
+            app:destination="@id/nav_plant" />
+    </fragment>
 </navigation>

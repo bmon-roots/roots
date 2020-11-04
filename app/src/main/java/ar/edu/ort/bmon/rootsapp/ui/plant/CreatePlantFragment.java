@@ -289,7 +289,7 @@ public class CreatePlantFragment extends Fragment {
                     public void onSuccess(DocumentReference documentReference) {
                         //Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
                         plantDocumentReference = documentReference.getId();
-                        Log.d(Constants.FIREBASE_ERROR, "Se ha creado una nueva planta");
+                        Log.d("Firebase", "Se ha creado una nueva planta");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
