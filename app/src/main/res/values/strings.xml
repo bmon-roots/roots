@@ -67,4 +67,6 @@
     <string name="logosignin">logosignin</string>
     <string name="logosignout">logosignout</string>
     <string name="logonav">logonav</string>
+    <string name="msj_agregar_ok">Se guardó correctamente</string>
+    <string name="msj_agregar_error">Error al intentar agregar la/s tarea/s</string>
 </resources>

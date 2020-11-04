@@ -179,6 +179,16 @@ public class Plant {
         this.tareas = tareas;
     }
 
+    public void addTask(Date registrationDate, String taskName){
+        Tarea tarea = new Tarea(taskName, registrationDate);
+//        if (!tareas.contains(tarea)){
+            tareas = new ArrayList<Tarea>();
+            tareas.add(tarea);
+//        }
+    }
+    public void removeTask(Tarea tarea){
+        tareas.remove(tarea);
+    }
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Plant{");
