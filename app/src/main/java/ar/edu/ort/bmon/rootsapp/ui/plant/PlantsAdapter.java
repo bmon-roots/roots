@@ -95,8 +95,9 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
         TextView textViewNombre;
         TextView textViewEdad;
         TextView textViewMaceta;
+        ImageView imageViewFumigate;
         ImageView imageViewPoda;
-        ImageView imageViewRiego;
+        ImageView imageViewFertilize;
         ImageView imageViewAptoBonzai;
         ImageView imageViewAptoVenta;
         CardView cardViewPlanta;
@@ -108,8 +109,9 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
             textViewNombre = itemView.findViewById(R.id.text_view_nombre);
             textViewEdad = itemView.findViewById(R.id.text_view_edad);
             textViewMaceta = itemView.findViewById(R.id.text_view_maceta);
+            imageViewFumigate = itemView.findViewById(R.id.image_view_fumigate);
             imageViewPoda = itemView.findViewById(R.id.image_view_poda);
-            imageViewRiego = itemView.findViewById(R.id.image_view_riego);
+            imageViewFertilize = itemView.findViewById(R.id.image_view_fertilize);
             imageViewAptoBonzai = itemView.findViewById(R.id.image_view_checked_bonzai);
             imageViewAptoVenta = itemView.findViewById(R.id.image_view_checked_venta);
         }
