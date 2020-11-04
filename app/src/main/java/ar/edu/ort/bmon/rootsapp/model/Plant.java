@@ -1,5 +1,6 @@
 package ar.edu.ort.bmon.rootsapp.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Plant {
@@ -15,6 +16,7 @@ public class Plant {
     private boolean isSaleable;
     private String ph;
     private String imageUri;
+    private ArrayList<Tarea> tareas;
 
     /*
     Constructors
@@ -34,6 +36,7 @@ public class Plant {
         setSaleable(isSaleable);
         setPh(ph);
     }
+
     public Plant(String species, String name, String age, Date registrationDate, boolean isBonsaiAble, String origin, String height, String container, boolean isSaleable, String ph, String imageUri) {
         setSpecies(species);
         setName(name);
@@ -47,6 +50,22 @@ public class Plant {
         setPh(ph);
         setImageUri(imageUri);
     }
+
+    public Plant(String species, String name, String age, Date registrationDate, boolean isBonsaiAble, String origin, String height, String container, boolean isSaleable, String ph, String imageUri, ArrayList<Tarea> tareas) {
+        setSpecies(species);
+        setName(name);
+        setAge(age);
+        setRegistrationDate(registrationDate);
+        setBonsaiAble(isBonsaiAble);
+        setOrigin(origin);
+        setHeight(height);
+        setContainer(container);
+        setSaleable(isSaleable);
+        setPh(ph);
+        setImageUri(imageUri);
+        setTareas(tareas);
+    }
+
 
     /*
     Getters
@@ -96,7 +115,13 @@ public class Plant {
         return ph;
     }
 
-    public String getImageUri() { return imageUri; }
+    public String getImageUri() {
+        return imageUri;
+    }
+
+    public ArrayList<Tarea> getTareas() {
+        return tareas;
+    }
 
     /*
     Setters
@@ -146,7 +171,13 @@ public class Plant {
         this.ph = ph;
     }
 
-    public void setImageUri(String imageUri) { this.imageUri = imageUri; }
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
+    }
+
+    public void setTareas(ArrayList<Tarea> tareas) {
+        this.tareas = tareas;
+    }
 
     @Override
     public String toString() {
@@ -160,6 +191,7 @@ public class Plant {
         sb.append(", container=").append(container);
         sb.append(", isSaleable=").append(isSaleable);
         sb.append(", ph='").append(ph).append('\'');
+        sb.append(", tasks=").append(tareas);
         sb.append('}');
         return sb.toString();
     }

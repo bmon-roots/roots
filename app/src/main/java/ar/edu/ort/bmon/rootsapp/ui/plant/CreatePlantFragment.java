@@ -46,6 +46,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -67,6 +68,7 @@ import java.util.List;
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
+import ar.edu.ort.bmon.rootsapp.model.Tarea;
 import ar.edu.ort.bmon.rootsapp.model.Species;
 
 public class CreatePlantFragment extends Fragment {
@@ -280,8 +282,16 @@ public class CreatePlantFragment extends Fragment {
                 height.getText().toString(),
                 container.getText().toString(),
                 isSaleable.isActivated(),
-                plantPh.getText().toString()
+                plantPh.getText().toString(),
+                "",
+                new ArrayList<Tarea>()
         );
+
+        System.out.println("////////");
+        System.out.println("///////2");
+        System.out.println("////////");
+        System.out.println("///////2");
+        System.out.println(plant.toString());
 
         db.collection(Constants.PLANT_COLLECTION).add(plant)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

@@ -45,6 +45,7 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
         holder.plantita = crearPlantaDesdeModel(model, document.getId());
         holder.imageViewAptoBonzai.setVisibility(View.INVISIBLE);
         holder.imageViewAptoVenta.setVisibility(View.INVISIBLE);
+
         if(model.isBonsaiAble()){
             holder.imageViewAptoBonzai.setVisibility(View.VISIBLE);
         }
