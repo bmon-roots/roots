@@ -48,7 +48,7 @@ public class ListPlantFragment extends Fragment {
 
         plantsListView = inflater.inflate(R.layout.fragment_list_plant, container, false);
         newSpeciesCustomDialog = getLayoutInflater().inflate(R.layout.create_species_fragment, null);
-        btnAddAction = plantsListView.findViewById(R.id.fab_AddActions);
+        btnAddAction = plantsListView.findViewById(R.id.floatingActionButton);
         recyclerView = plantsListView.findViewById(R.id.recyclerPlantas);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
