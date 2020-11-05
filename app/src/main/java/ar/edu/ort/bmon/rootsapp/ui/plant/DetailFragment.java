@@ -121,6 +121,8 @@ public class DetailFragment extends DialogFragment {
     }
 
     private void agregarTareaDialog() {
+        ImageView image = new ImageView(getActivity());
+        image.setImageResource(R.drawable.fumigate);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         alertDialog.setTitle(Constants.ADD_NEW_TASK_TITLE);
         final String[] items = new String[] {Constants.ADD_TASK_FUMIGATE, Constants.ADD_TASK_PRUNE, Constants.ADD_TASK_FERTILIZE };
@@ -158,7 +160,9 @@ public class DetailFragment extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 saveTaskToPlant();
             }
-        });
+        }).setView(image);
+
+
         AlertDialog alert = alertDialog.create();
         alert.setCanceledOnTouchOutside(false);
         alert.show();
