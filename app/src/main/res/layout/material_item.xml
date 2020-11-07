@@ -19,57 +19,79 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/text_view_nombre"
-            android:layout_width="112dp"
-            android:layout_height="54dp"
+            android:id="@+id/text_view_material"
+            android:layout_width="103dp"
+            android:layout_height="27dp"
             android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:gravity="left"
             android:text="Material"
-            android:textSize="30sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_contenido"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="17dp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="1L"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/text_view_material"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/remove_button"
+            android:id="@+id/substract_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="80dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="72dp"
             android:layout_marginBottom="4dp"
             android:backgroundTint="@android:color/holo_red_light"
             android:scaleType="center"
             android:src="@drawable/ic_remove"
             app:fabSize="mini"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:maxImageSize="40dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="24dp"
             android:layout_marginBottom="4dp"
             android:backgroundTint="@android:color/holo_green_light"
             android:src="@drawable/ic_add"
             app:fabSize="mini"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:maxImageSize="40dp" />
 
         <TextView
             android:id="@+id/text_view_cantidad"
-            android:layout_width="51dp"
-            android:layout_height="45dp"
+            android:layout_width="89dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="13dp"
             android:layout_weight="1"
             android:gravity="left"
             android:text="20"
-            android:textSize="40sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/substract_button"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.111"
-            tools:layout_editor_absoluteX="216dp" />
-
+            app:layout_constraintVertical_bias="0.583" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

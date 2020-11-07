@@ -32,6 +32,7 @@ public class ListMaterialFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclerView;
     private FloatingActionButton btnAddAction;
+    private MaterialAdapter materialAdapter;
 
     public static ListMaterialFragment newInstance() {
         return new ListMaterialFragment();
@@ -52,6 +53,10 @@ public class ListMaterialFragment extends Fragment {
                 new FirestoreRecyclerOptions.Builder<Material>()
                         .setQuery(query, Material.class)
                         .build();
+
+        materialAdapter = new MaterialAdapter(firestoreRecyclerOptions);
+
+        recyclerView.setAdapter(materialAdapter);
 
         return root;
     }
@@ -84,5 +89,17 @@ public class ListMaterialFragment extends Fragment {
                 builder.show();
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        materialAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        materialAdapter.stopListening();
     }
 }
