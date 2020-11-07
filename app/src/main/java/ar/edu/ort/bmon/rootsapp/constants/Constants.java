@@ -5,6 +5,7 @@ public class Constants {
     ///Firebase DB Collection Selectors
     public static final String PLANT_COLLECTION  = "plants";
     public static final String SPECIES_COLLECTION = "species";
+    public static final String MATERIAL_COLLECTION = "materials";
     //Firebase Plant Fields
     public static final String PLANT_IMAGE_URI = "imageUri";
     //Firebase Storage Collection Selectors
