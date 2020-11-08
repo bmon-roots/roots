@@ -260,8 +260,6 @@ public class DetailFragment extends DialogFragment {
                 });
         Navigation.findNavController(root).navigate(R.id.nav_plant);
 
-
-
     }
 
     private void habilitarEdicion(View root) {

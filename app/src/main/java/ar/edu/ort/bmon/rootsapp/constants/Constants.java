@@ -31,7 +31,7 @@ public class Constants {
     //Mensajes de la aplicacion
     public static final String PLANT_CREATE_SUCCESS = "Se agrego la planta exitosamente";
     public static final String PLANT_CREATE_ERROR = "Hubo un error al crear la planta, intente nuevamente";
-    public static final String MATERIAL_CREATE_SUCCESS = "Se agregaron la cantidad de materiales exitosamente";
+    public static final String MATERIAL_CREATE_SUCCESS = "Se agregaron materiales exitosamente";
     public static final String MATERIAL_CREATE_ERROR = "Hubo un error al agregar los materiaes";
     public static final String IMAGE_GALLERY_ERROR = "Hubo un error al seleccionar la foto";
     public static final String FIREBASE_STORAGE_ERROR = "Hubo un error al subir la foto. Por favor, intente nuevamente";

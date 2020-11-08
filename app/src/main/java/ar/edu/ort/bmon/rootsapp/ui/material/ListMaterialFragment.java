@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -90,8 +91,9 @@ public class ListMaterialFragment extends Fragment {
     }
 
     private void openCreateNewMaterialEntryDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
         builder.setTitle(R.string.createNewMaterialEntry);
+        builder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
 
         builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
             @Override
@@ -126,7 +128,8 @@ public class ListMaterialFragment extends Fragment {
         quantity = (EditText) materialNewEntry.findViewById(R.id.materialQuantity);
         content = (EditText) materialNewEntry.findViewById(R.id.materialContent);
 
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder alertDialog = new MaterialAlertDialogBuilder(getActivity());
+        alertDialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
         alertDialog.setTitle(R.string.createNewMaterialEntryQuantity);
         alertDialog.setView(materialNewEntry);
         alertDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
