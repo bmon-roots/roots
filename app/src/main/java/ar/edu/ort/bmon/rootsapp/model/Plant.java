@@ -185,14 +185,19 @@ public class Plant {
             tareas.add(tarea);
         }else {
             Tarea tareaExist = getTarea(taskName);
-            tareaExist.setPeriodicidadDias(periodicidadDias);
-            tareaExist.setFechaRealizada(registrationDate);
+            if (periodicidadDias != tareaExist.getPeriodicidadDias()){
+                tareaExist.setPeriodicidadDias(periodicidadDias);
+                tareaExist.setFechaRealizada(registrationDate);
+            }
         }
     }
     public Tarea getTarea(String taskName){
+        Tarea tareaExist = null;
         Tarea tarea = new Tarea(taskName);
-        int index = tareas.indexOf(tarea);
-        Tarea tareaExist = tareas.get(index);
+        if (tareas.contains(tarea)){
+            int index = tareas.indexOf(tarea);
+            tareaExist = tareas.get(index);
+        }
         return tareaExist;
     }
     public void removeTask(String taskName){

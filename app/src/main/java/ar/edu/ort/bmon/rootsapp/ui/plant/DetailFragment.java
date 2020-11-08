@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -69,7 +70,6 @@ public class DetailFragment extends DialogFragment {
                              @Nullable Bundle savedInstanceState) {
         viewReference = inflater.inflate(R.layout.fragment_detail, container, false);
         viewAddTaskCustomDialog = getLayoutInflater().inflate(R.layout.add_task_fragment, null);
-
         db = FirebaseFirestore.getInstance();
         DetailViewModel model = new ViewModelProvider(requireActivity()).get(DetailViewModel.class);
         planta = model.getSelected().getValue();
@@ -88,6 +88,35 @@ public class DetailFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        CheckBox checkFumigate = (CheckBox) viewAddTaskCustomDialog.findViewById(R.id.check_task_fumigate);
+        CheckBox checkPrune = (CheckBox) viewAddTaskCustomDialog.findViewById(R.id.check_task_prune);
+        CheckBox checkFertilize = (CheckBox) viewAddTaskCustomDialog.findViewById(R.id.check_task_fertilize);
+
+        checkFumigate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(!b){
+                    ((EditText)viewAddTaskCustomDialog.findViewById(R.id.editTextFumigatePeriodicity)).getText().clear();
+                }
+            }
+        });
+        checkPrune.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(!b){
+                    ((EditText)viewAddTaskCustomDialog.findViewById(R.id.editTextPrunePeriodicity)).getText().clear();
+                }
+            }
+        });
+        checkFertilize.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(!b){
+                    ((EditText)viewAddTaskCustomDialog.findViewById(R.id.editTextFertilizePeriodicity)).getText().clear();
+                }
+            }
+        });
+
     }
 
     @Override
@@ -153,27 +182,21 @@ public class DetailFragment extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 if (((CheckBox) viewAddTaskCustomDialog.findViewById(R.id.check_task_fumigate)).isChecked()) {
                     EditText fumigatePeriodicity = (EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextFumigatePeriodicity);
-                    if (fumigatePeriodicity.getText().toString().equals(planta.getTarea(Constants.ADD_TASK_FUMIGATE))){
-                        planta.addTask(new Date(), Constants.ADD_TASK_FUMIGATE, Integer.valueOf(fumigatePeriodicity.getText().toString()));
-                    }
+                    planta.addTask(new Date(), Constants.ADD_TASK_FUMIGATE, Integer.valueOf(fumigatePeriodicity.getText().toString()));
                 } else {
                     ((EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextFumigatePeriodicity)).getText().clear();
                     planta.removeTask(Constants.ADD_TASK_FUMIGATE);
                 }
                 if (((CheckBox) viewAddTaskCustomDialog.findViewById(R.id.check_task_prune)).isChecked()) {
                     EditText prunePeriodicity = (EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextPrunePeriodicity);
-                    if (prunePeriodicity.getText().toString().equals(planta.getTarea(Constants.ADD_TASK_PRUNE))){
-                        planta.addTask(new Date(), Constants.ADD_TASK_PRUNE, Integer.valueOf(prunePeriodicity.getText().toString()));
-                    }
+                    planta.addTask(new Date(), Constants.ADD_TASK_PRUNE, Integer.valueOf(prunePeriodicity.getText().toString()));
                 } else {
                     ((EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextPrunePeriodicity)).getText().clear();
                     planta.removeTask(Constants.ADD_TASK_PRUNE);
                 }
                 if (((CheckBox) viewAddTaskCustomDialog.findViewById(R.id.check_task_fertilize)).isChecked()) {
                     EditText fertilizePeriodicity = (EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextFertilizePeriodicity);
-                    if (fertilizePeriodicity.getText().toString().equals(planta.getTarea(Constants.ADD_TASK_FERTILIZE))){
-                        planta.addTask(new Date(), Constants.ADD_TASK_FERTILIZE, Integer.valueOf(fertilizePeriodicity.getText().toString()));
-                    }
+                    planta.addTask(new Date(), Constants.ADD_TASK_FERTILIZE, Integer.valueOf(fertilizePeriodicity.getText().toString()));
                 } else {
                     ((EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextFertilizePeriodicity)).getText().clear();
                     planta.removeTask(Constants.ADD_TASK_FERTILIZE);
