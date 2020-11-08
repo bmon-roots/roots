@@ -1,6 +1,12 @@
 package ar.edu.ort.bmon.rootsapp.ui.plant;
 
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,13 +36,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.time.Instant;
+import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalField;
 import java.util.Date;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
-import ar.edu.ort.bmon.rootsapp.model.Tarea;
+
+import static android.content.Context.ALARM_SERVICE;
 
 public class DetailFragment extends DialogFragment {
 
@@ -68,6 +78,7 @@ public class DetailFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        createNotificationChannel(); // Para las notificaciones de tareas
         viewReference = inflater.inflate(R.layout.fragment_detail, container, false);
         viewAddTaskCustomDialog = getLayoutInflater().inflate(R.layout.add_task_fragment, null);
         db = FirebaseFirestore.getInstance();
@@ -183,6 +194,7 @@ public class DetailFragment extends DialogFragment {
                 if (((CheckBox) viewAddTaskCustomDialog.findViewById(R.id.check_task_fumigate)).isChecked()) {
                     EditText fumigatePeriodicity = (EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextFumigatePeriodicity);
                     planta.addTask(new Date(), Constants.ADD_TASK_FUMIGATE, Integer.valueOf(fumigatePeriodicity.getText().toString()));
+                    createAlarmForTask(fumigatePeriodicity.getText().toString(), Constants.ADD_TASK_FUMIGATE);
                 } else {
                     ((EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextFumigatePeriodicity)).getText().clear();
                     planta.removeTask(Constants.ADD_TASK_FUMIGATE);
@@ -190,6 +202,7 @@ public class DetailFragment extends DialogFragment {
                 if (((CheckBox) viewAddTaskCustomDialog.findViewById(R.id.check_task_prune)).isChecked()) {
                     EditText prunePeriodicity = (EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextPrunePeriodicity);
                     planta.addTask(new Date(), Constants.ADD_TASK_PRUNE, Integer.valueOf(prunePeriodicity.getText().toString()));
+                    createAlarmForTask(prunePeriodicity.getText().toString(), Constants.ADD_TASK_PRUNE);
                 } else {
                     ((EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextPrunePeriodicity)).getText().clear();
                     planta.removeTask(Constants.ADD_TASK_PRUNE);
@@ -197,6 +210,7 @@ public class DetailFragment extends DialogFragment {
                 if (((CheckBox) viewAddTaskCustomDialog.findViewById(R.id.check_task_fertilize)).isChecked()) {
                     EditText fertilizePeriodicity = (EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextFertilizePeriodicity);
                     planta.addTask(new Date(), Constants.ADD_TASK_FERTILIZE, Integer.valueOf(fertilizePeriodicity.getText().toString()));
+                    createAlarmForTask(fertilizePeriodicity.getText().toString(), Constants.ADD_TASK_FERTILIZE);
                 } else {
                     ((EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextFertilizePeriodicity)).getText().clear();
                     planta.removeTask(Constants.ADD_TASK_FERTILIZE);
@@ -401,5 +415,33 @@ public class DetailFragment extends DialogFragment {
             Picasso.get().load(planta.getImageUri()).into(imageViewPlant);
         }
 
+    }
+
+    private void createAlarmForTask(String diaVencimiento, String tarea){
+        Intent intent = new Intent(getContext(),ReminderBroadcast.class);
+        intent.putExtra("tarea", tarea);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(),0,intent,0);
+        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
+
+        Instant now =  Instant.now();
+        Instant expiration = now.plus(Integer.parseInt(diaVencimiento), ChronoUnit.SECONDS);
+
+        long expirationTime = expiration.toEpochMilli();
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP,expirationTime, pendingIntent);
+    }
+
+    private void createNotificationChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "ORTReminderChannel";
+            String description = "Channel para remiender de ORT";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("notifyORT", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+
+        }
     }
 }
