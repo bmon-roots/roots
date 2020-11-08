@@ -18,7 +18,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 
 import ar.edu.ort.bmon.rootsapp.R;
+import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
+import ar.edu.ort.bmon.rootsapp.model.Tarea;
 
 
 public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter.PlantHolder> {
@@ -42,6 +44,9 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
         holder.plantita = crearPlantaDesdeModel(model, document.getId());
         holder.imageViewAptoBonzai.setVisibility(View.INVISIBLE);
         holder.imageViewAptoVenta.setVisibility(View.INVISIBLE);
+        holder.imageViewPoda.setVisibility(View.INVISIBLE);
+        holder.imageViewFumigate.setVisibility(View.INVISIBLE);
+        holder.imageViewFertilize.setVisibility(View.INVISIBLE);
 
         if(model.isBonsaiAble()){
             holder.imageViewAptoBonzai.setVisibility(View.VISIBLE);
@@ -49,7 +54,15 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
         if(model.isSaleable()){
             holder.imageViewAptoVenta.setVisibility(View.VISIBLE);
         }
-
+        for (Tarea tarea : model.getTareas()) {
+            if(tarea.getTipo().equals(Constants.ADD_TASK_FERTILIZE)){
+                holder.imageViewFertilize.setVisibility(View.VISIBLE);
+            } else if(tarea.getTipo().equals(Constants.ADD_TASK_FUMIGATE)){
+                holder.imageViewFumigate.setVisibility(View.VISIBLE);
+            } else if(tarea.getTipo().equals(Constants.ADD_TASK_PRUNE)){
+                holder.imageViewPoda.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     private Plant crearPlantaDesdeModel(@NonNull Plant model, String id) {
