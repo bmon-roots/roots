@@ -41,7 +41,7 @@ public class Material {
     @Override
     public String toString() {
         return "Material{" +
-                "tipoMaterial=" + tipoMaterial +
+                "tipoMaterial=" + tipoMaterial.ordinal() +
                 ", cantidad=" + cantidad +
                 ", contenido=" + contenido +
                 '}';
