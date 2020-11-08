@@ -179,16 +179,27 @@ public class Plant {
         this.tareas = tareas;
     }
 
-    public void addTask(Date registrationDate, String taskName){
-        Tarea tarea = new Tarea(taskName, registrationDate);
+    public void addTask(Date registrationDate, String taskName, int periodicidadDias){
+        Tarea tarea = new Tarea(taskName, registrationDate, periodicidadDias);
         if (!tareas.contains(tarea)){
             tareas.add(tarea);
+        }else {
+            Tarea tareaExist = getTarea(taskName);
+            tareaExist.setPeriodicidadDias(periodicidadDias);
+            tareaExist.setFechaRealizada(registrationDate);
         }
+    }
+    public Tarea getTarea(String taskName){
+        Tarea tarea = new Tarea(taskName);
+        int index = tareas.indexOf(tarea);
+        Tarea tareaExist = tareas.get(index);
+        return tareaExist;
     }
     public void removeTask(String taskName){
         Tarea tarea = new Tarea(taskName);
         tareas.remove(tarea);
     }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Plant{");

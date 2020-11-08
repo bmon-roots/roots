@@ -7,6 +7,7 @@ import java.util.Date;
 public class Tarea {
     private String tipo;
     private Date fechaRealizada;
+    private int periodicidadDias;
 
     public Tarea() {
     }
@@ -18,6 +19,11 @@ public class Tarea {
     public Tarea(String tipo, Date fechaRealizada) {
         this.tipo = tipo;
         this.fechaRealizada = fechaRealizada;
+    }
+    public Tarea(String tipo, Date fechaRealizada, int periodicidadDias) {
+        this.tipo = tipo;
+        this.fechaRealizada = fechaRealizada;
+        this.periodicidadDias = periodicidadDias;
     }
 
     public String getTipo() {
@@ -34,6 +40,14 @@ public class Tarea {
 
     public void setFechaRealizada(Date fechaRealizada) {
         this.fechaRealizada = fechaRealizada;
+    }
+
+    public int getPeriodicidadDias() {
+        return periodicidadDias;
+    }
+
+    public void setPeriodicidadDias(int periodicidadDias) {
+        this.periodicidadDias = periodicidadDias;
     }
 
     @Override
