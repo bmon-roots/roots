@@ -8,10 +8,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -44,6 +43,7 @@ public class DetailFragment extends DialogFragment {
     private FirebaseFirestore db;
     private Plant planta;
     private View viewReference;
+    private View viewAddTaskCustomDialog;
     private MenuItem editMenuItem;
     private MenuItem saveChangesMenuItem;
     private MenuItem deleteMenuItem;
@@ -68,6 +68,8 @@ public class DetailFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         viewReference = inflater.inflate(R.layout.fragment_detail, container, false);
+        viewAddTaskCustomDialog = getLayoutInflater().inflate(R.layout.add_task_fragment, null);
+
         db = FirebaseFirestore.getInstance();
         DetailViewModel model = new ViewModelProvider(requireActivity()).get(DetailViewModel.class);
         planta = model.getSelected().getValue();
@@ -121,49 +123,66 @@ public class DetailFragment extends DialogFragment {
     }
 
     private void agregarTareaDialog() {
-        ImageView image = new ImageView(getActivity());
-        image.setImageResource(R.drawable.fumigate);
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        AlertDialog alert;
         alertDialog.setTitle(Constants.ADD_NEW_TASK_TITLE);
-        final String[] items = new String[] {Constants.ADD_TASK_FUMIGATE, Constants.ADD_TASK_PRUNE, Constants.ADD_TASK_FERTILIZE };
-        boolean[] checkedItems = {false, false, false};
         if(null != planta.getTareas()) {
             for (int i = 0; i < planta.getTareas().size(); i++) {
                 if (planta.getTareas().get(i).getTipo().equals(Constants.ADD_TASK_FUMIGATE)) {
-                    checkedItems[0] = true;
+                    ((CheckBox) viewAddTaskCustomDialog.findViewById(R.id.check_task_fumigate)).setChecked(true);
+                    EditText fumigatePeriodicity = (EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextFumigatePeriodicity);
+                    fumigatePeriodicity.setText(String.valueOf(planta.getTareas().get(i).getPeriodicidadDias()));
                 } else if (planta.getTareas().get(i).getTipo().equals(Constants.ADD_TASK_PRUNE)) {
-                    checkedItems[1] = true;
+                    ((CheckBox) viewAddTaskCustomDialog.findViewById(R.id.check_task_prune)).setChecked(true);
+                    ((EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextPrunePeriodicity)).setText(String.valueOf(planta.getTareas().get(i).getPeriodicidadDias()));
                 } else if (planta.getTareas().get(i).getTipo().equals(Constants.ADD_TASK_FERTILIZE)) {
-                    checkedItems[2] = true;
+                    ((CheckBox) viewAddTaskCustomDialog.findViewById(R.id.check_task_fertilize)).setChecked(true);
+                    ((EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextFertilizePeriodicity)).setText(String.valueOf(planta.getTareas().get(i).getPeriodicidadDias()));
                 }
             }
         }
-        alertDialog.setMultiChoiceItems(items, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i, boolean b) {
-                if(b){
-                    planta.addTask(new Date(), items[i]);
-                }else{
-                    planta.removeTask(items[i]);
-                }
-
-            }
-        });
+        alertDialog.setView(viewAddTaskCustomDialog);
         alertDialog.setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
+                ((ViewGroup)viewAddTaskCustomDialog.getParent()).removeView(viewAddTaskCustomDialog);
             }
         });
         alertDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                if (((CheckBox) viewAddTaskCustomDialog.findViewById(R.id.check_task_fumigate)).isChecked()) {
+                    EditText fumigatePeriodicity = (EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextFumigatePeriodicity);
+                    if (fumigatePeriodicity.getText().toString().equals(planta.getTarea(Constants.ADD_TASK_FUMIGATE))){
+                        planta.addTask(new Date(), Constants.ADD_TASK_FUMIGATE, Integer.valueOf(fumigatePeriodicity.getText().toString()));
+                    }
+                } else {
+                    ((EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextFumigatePeriodicity)).getText().clear();
+                    planta.removeTask(Constants.ADD_TASK_FUMIGATE);
+                }
+                if (((CheckBox) viewAddTaskCustomDialog.findViewById(R.id.check_task_prune)).isChecked()) {
+                    EditText prunePeriodicity = (EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextPrunePeriodicity);
+                    if (prunePeriodicity.getText().toString().equals(planta.getTarea(Constants.ADD_TASK_PRUNE))){
+                        planta.addTask(new Date(), Constants.ADD_TASK_PRUNE, Integer.valueOf(prunePeriodicity.getText().toString()));
+                    }
+                } else {
+                    ((EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextPrunePeriodicity)).getText().clear();
+                    planta.removeTask(Constants.ADD_TASK_PRUNE);
+                }
+                if (((CheckBox) viewAddTaskCustomDialog.findViewById(R.id.check_task_fertilize)).isChecked()) {
+                    EditText fertilizePeriodicity = (EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextFertilizePeriodicity);
+                    if (fertilizePeriodicity.getText().toString().equals(planta.getTarea(Constants.ADD_TASK_FERTILIZE))){
+                        planta.addTask(new Date(), Constants.ADD_TASK_FERTILIZE, Integer.valueOf(fertilizePeriodicity.getText().toString()));
+                    }
+                } else {
+                    ((EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextFertilizePeriodicity)).getText().clear();
+                    planta.removeTask(Constants.ADD_TASK_FERTILIZE);
+                }
+                ((ViewGroup)viewAddTaskCustomDialog.getParent()).removeView(viewAddTaskCustomDialog);
                 saveTaskToPlant();
             }
-        }).setView(image);
-
-
-        AlertDialog alert = alertDialog.create();
+        });
+        alert = alertDialog.create();
         alert.setCanceledOnTouchOutside(false);
         alert.show();
 

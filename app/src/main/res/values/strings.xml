@@ -69,4 +69,8 @@
     <string name="logonav">logonav</string>
     <string name="msj_agregar_ok">Se guardó correctamente</string>
     <string name="msj_agregar_error">Error al intentar agregar la/s tarea/s</string>
+    <string name="task_fumigate">Fumigar</string>
+    <string name="task_prune">Podar</string>
+    <string name="task_fertilize">Fertilizar</string>
+    <string name="periodicity">Días de Periodicidad</string>
 </resources>
