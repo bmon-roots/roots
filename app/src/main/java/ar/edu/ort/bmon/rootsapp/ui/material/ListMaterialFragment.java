@@ -50,7 +50,7 @@ public class ListMaterialFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_list_material, container, false);
-        materialNewEntry = getLayoutInflater().inflate(R.layout.create_material_quantities, null);
+        materialNewEntry = getLayoutInflater().inflate(R.layout.create_material_quantities, container, false);
 
         items = new String[] {
                 TipoMaterial.Fertilizante.toString(),
@@ -120,6 +120,9 @@ public class ListMaterialFragment extends Fragment {
 
     private void openInsertMaterialQuantities(final Integer selectedItemId, final View materialNewEntry) {
 
+        if(materialNewEntry.getParent() != null) {
+            ((ViewGroup)materialNewEntry.getParent()).removeView(materialNewEntry);
+        }
         quantity = (EditText) materialNewEntry.findViewById(R.id.materialQuantity);
         content = (EditText) materialNewEntry.findViewById(R.id.materialContent);
 
