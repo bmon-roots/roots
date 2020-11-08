@@ -25,9 +25,6 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
 
     public OnTextClickListener onTextClickListener;
     public DocumentSnapshot document;
-    public DocumentSnapshot getDocument() {
-        return document;
-    }
 
     public PlantsAdapter(@NonNull FirestoreRecyclerOptions<Plant> options, OnTextClickListener onTextClickListener) {
         super(options);
@@ -76,7 +73,6 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
     @NonNull
     @Override
     public PlantHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
-        final Context pContext = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plant_item, parent, false);
         final PlantHolder pHolder = new PlantHolder(view);
         pHolder.cardViewPlanta.setOnClickListener(new View.OnClickListener() {

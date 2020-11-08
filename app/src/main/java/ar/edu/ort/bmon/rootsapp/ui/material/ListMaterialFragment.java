@@ -40,6 +40,7 @@ public class ListMaterialFragment extends Fragment {
     private EditText content;
     private CharSequence[] items;
 
+    private MaterialAdapter materialAdapter;
 
     public static ListMaterialFragment newInstance() {
         return new ListMaterialFragment();
@@ -69,6 +70,10 @@ public class ListMaterialFragment extends Fragment {
                 new FirestoreRecyclerOptions.Builder<Material>()
                         .setQuery(query, Material.class)
                         .build();
+
+        materialAdapter = new MaterialAdapter(firestoreRecyclerOptions);
+
+        recyclerView.setAdapter(materialAdapter);
 
         return root;
     }
@@ -158,5 +163,17 @@ public class ListMaterialFragment extends Fragment {
                     }
                 });
         System.out.println(material);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        materialAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        materialAdapter.stopListening();
     }
 }

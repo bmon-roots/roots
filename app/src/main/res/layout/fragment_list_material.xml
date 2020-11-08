@@ -10,7 +10,7 @@
         android:id="@+id/recyclerMateriales"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="536dp"
+        android:layout_marginBottom="252dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -24,6 +24,7 @@
         android:layout_marginBottom="16dp"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@android:color/holo_green_light"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
