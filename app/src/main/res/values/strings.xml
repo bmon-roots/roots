@@ -39,6 +39,12 @@
     <string name="createSpeciesSuccessful">Especie agregada exitosamente</string>
     <string name="createSpeciesError">Error al agregar especie, intente nuevamente</string>
 
+    <!-- Strings para el alta de materiales -->
+    <string name="createNewMaterialEntry">Seleccione un material a agregar</string>
+    <string name="createNewMaterialEntryQuantity">Seleccione la cantidad a ingresar</string>
+    <string name="materialQuantity">Ingrese la cantidad</string>
+    <string name="materialContents">Ingrese el contenido</string>
+
     <!--    Layout signout-->
     <string name="btnSignOut">Salir</string>
     <string name="txtSignout">Desea salir de la aplicación?</string>
