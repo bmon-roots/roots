@@ -79,4 +79,5 @@
     <string name="task_prune">Podar</string>
     <string name="task_fertilize">Fertilizar</string>
     <string name="periodicity">Días de Periodicidad</string>
+    <string name="menu_event">Eventos</string>
 </resources>
