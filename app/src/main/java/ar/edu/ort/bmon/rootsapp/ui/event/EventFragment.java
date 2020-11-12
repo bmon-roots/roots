@@ -30,7 +30,7 @@ public class EventFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         mViewModel = ViewModelProviders.of(this).get(EventViewModel.class);
         View root = inflater.inflate(R.layout.event_fragment, container, false);
-        final TextView title = root.findViewById(R.id.text_report);
+        final TextView title = root.findViewById(R.id.text_event);
         mViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
                     @Override
                     public void onChanged(String s) {
