@@ -39,7 +39,6 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
         document = getSnapshots().getSnapshot(holder.getAdapterPosition());
 
         holder.textViewNombre.setText(model.getSpecies());
-//        holder.textViewEdad.setText(model.getAge());
         holder.textViewMaceta.setText(model.getContainer());
         holder.plantita = crearPlantaDesdeModel(model, document.getId());
         holder.imageViewAptoBonzai.setVisibility(View.INVISIBLE);
@@ -102,7 +101,6 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
     class PlantHolder extends RecyclerView.ViewHolder {
 
         TextView textViewNombre;
-//        TextView textViewEdad;
         TextView textViewMaceta;
         ImageView imageViewFumigate;
         ImageView imageViewPoda;
@@ -116,7 +114,6 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
             super(itemView);
             cardViewPlanta = itemView.findViewById(R.id.card_planta);
             textViewNombre = itemView.findViewById(R.id.text_view_nombre);
-//            textViewEdad = itemView.findViewById(R.id.text_view_edad);
             textViewMaceta = itemView.findViewById(R.id.text_view_maceta);
             imageViewFumigate = itemView.findViewById(R.id.image_view_fumigate);
             imageViewPoda = itemView.findViewById(R.id.image_view_poda);
