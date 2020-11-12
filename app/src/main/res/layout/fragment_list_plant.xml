@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.plant.ListPlantFragment">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="411dp"
@@ -16,74 +17,44 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="0"
-        />
-
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/text_view_header_nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="17dp"
         android:text="Nombre"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
-        app:layout_constraintEnd_toStartOf="@+id/text_view_header_edad"
-        app:layout_constraintHorizontal_bias="0.28"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/toolbar2"
         app:layout_constraintTop_toTopOf="@+id/toolbar2"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <View
         android:layout_width="0.1dp"
         android:layout_height="50dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/text_view_header_edad"
-        app:layout_constraintHorizontal_bias="0.621"
-        app:layout_constraintStart_toEndOf="@+id/text_view_header_nombre"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="0.375"
-        android:background="@color/black"/>
-
-    <TextView
-        android:id="@+id/text_view_header_edad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
-        android:layout_marginBottom="16dp"
-        android:text="Edad"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="1.0"
-        />
-
-    <View
-        android:layout_width="0.1dp"
-        android:layout_height="50dp"
+        android:background="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/text_view_header_maceta"
-        app:layout_constraintStart_toEndOf="@+id/text_view_header_edad"
+        app:layout_constraintHorizontal_bias="0.58"
+        app:layout_constraintStart_toEndOf="@+id/text_view_header_nombre"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="0.35"
-        android:background="@color/black"
-        />
+        app:layout_constraintVertical_bias="0.375" />
 
     <TextView
         android:id="@+id/text_view_header_maceta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginStart="44dp"
         android:layout_marginBottom="16dp"
         android:text="Maceta"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
-        app:layout_constraintEnd_toStartOf="@+id/text_view_header_tareas"
-        app:layout_constraintHorizontal_bias="0.519"
-        app:layout_constraintStart_toEndOf="@+id/text_view_header_edad"
-        />
+        app:layout_constraintStart_toEndOf="@+id/text_view_header_nombre" />
 
     <View
         android:layout_width="0.1dp"
@@ -91,9 +62,10 @@
         android:background="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/text_view_header_tareas"
+        app:layout_constraintHorizontal_bias="0.153"
         app:layout_constraintStart_toEndOf="@+id/text_view_header_maceta"
         app:layout_constraintTop_toTopOf="@+id/guideline"
-        app:layout_constraintVertical_bias="0.35" />
+        app:layout_constraintVertical_bias="0.375" />
 
     <TextView
         android:id="@+id/text_view_header_tareas"
@@ -104,7 +76,8 @@
         android:text="Ultimas tareas"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
         app:layout_constraintEnd_toEndOf="parent"
-     />
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toEndOf="@+id/text_view_header_maceta" />
 
     <View
         android:layout_width="0.1dp"
@@ -112,6 +85,7 @@
         android:background="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/text_view_header_ab"
+        app:layout_constraintHorizontal_bias="0.746"
         app:layout_constraintStart_toEndOf="@+id/text_view_header_tareas"
         app:layout_constraintTop_toTopOf="@+id/guideline"
         app:layout_constraintVertical_bias="0.375" />
