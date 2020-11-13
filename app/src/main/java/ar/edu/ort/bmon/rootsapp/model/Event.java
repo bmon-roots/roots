@@ -2,7 +2,7 @@ package ar.edu.ort.bmon.rootsapp.model;
 
 import java.util.Date;
 
-public class Evento {
+public class Event {
 
     private String tipo;
     private String especie;
@@ -17,10 +17,10 @@ public class Evento {
     private double ph;
     private TipoTarea tarea;
 
-    public Evento() {
+    public Event() {
     }
 
-    public Evento(String tipo, String especie, int cantidadInicial, int privatecantidadActivas, Date fechaInicio, Date fechaFinalizacion, Date primerosBrotes, Date brotoLaMitad, double temperatura, int humedad, double ph, TipoTarea tarea) {
+    public Event(String tipo, String especie, int cantidadInicial, int privatecantidadActivas, Date fechaInicio, Date fechaFinalizacion, Date primerosBrotes, Date brotoLaMitad, double temperatura, int humedad, double ph, TipoTarea tarea) {
         this.tipo = tipo;
         this.especie = especie;
         this.cantidadInicial = cantidadInicial;

@@ -6,6 +6,7 @@ public class Constants {
     public static final String PLANT_COLLECTION  = "plants";
     public static final String SPECIES_COLLECTION = "species";
     public static final String MATERIAL_COLLECTION = "materials";
+    public static final String EVENTS_COLLECTION = "events";
     //Firebase Plant Fields
     public static final String PLANT_IMAGE_URI = "imageUri";
     //Firebase Storage Collection Selectors
@@ -43,4 +44,7 @@ public class Constants {
     public static final String ADD_TASK_FUMIGATE = "Fumigar";
     public static final String ADD_TASK_PRUNE = "Podar";
     public static final String ADD_TASK_FERTILIZE = "Fertilizar";
+    // Eventos
+    public static final String GERMINATION = "Germinaciones";
+    public static final String CUTTING = "Esquejes";
 }
