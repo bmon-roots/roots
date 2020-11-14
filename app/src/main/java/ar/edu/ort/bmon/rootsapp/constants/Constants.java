@@ -15,6 +15,8 @@ public class Constants {
     public static final String ADD_NEW_ENTRY_TITLE = "Crear Nueva Entrada";
     public static final String ADD_NEW_PLANT = "Nueva Planta";
     public static final String ADD_NEW_SPECIES = "Nueva Especie";
+    public static final String ATTACH_IMAGE_TO_PLANT_ENTRY_TITLE = "Agregar Imagen";
+    public static final String ATTACH_IMAGE_TO_PLANT_MESSAGE = "Desea agregar una imagen a esta planta?";
     //Constantes del ProgressDialog
     public static final String UPLOADING_PHOTO = "Subiendo foto";
     public static final String PERCENTAGE_COMPLETE = " % Completado";
@@ -45,6 +47,7 @@ public class Constants {
     public static final String ADD_TASK_PRUNE = "Podar";
     public static final String ADD_TASK_FERTILIZE = "Fertilizar";
     // Eventos
+    public static final String CREATE_NEW_EVENT_TITLE = "Crear un evento";
     public static final String GERMINATION = "Germinaciones";
     public static final String CUTTING = "Esquejes";
 }

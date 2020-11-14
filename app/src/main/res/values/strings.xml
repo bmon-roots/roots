@@ -59,6 +59,8 @@
 <!--    Pantalla editar Planta-->
     <string name="editPlantaTitulo">DETALLE DE PLANTA</string>
 
+    <!-- Menu Listado Eventos -->
+    <string name="createNewEvent">Crear Evento</string>
 
 <!--    Mensajes genericos-->
     <string name="dialog_delete">Seguro desea eliminar?</string>
