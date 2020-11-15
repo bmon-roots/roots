@@ -61,7 +61,7 @@ public class ListPlantFragment extends Fragment {
 
         model = new ViewModelProvider(requireActivity()).get(DetailViewModel.class);
 
-        plantsAdapter = new PlantsAdapter(firestoreRecyclerOptions, new OnTextClickListener() {
+        plantsAdapter = new PlantsAdapter(firestoreRecyclerOptions, new PlantOnTextClickListener() {
             @Override
             public DetailViewModel onTextClick() {
                 return model;
