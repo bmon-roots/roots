@@ -97,4 +97,11 @@
     <string name="menu_event">Eventos</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="eventEstimatedNewSproutDate">Ingrese Fecha estimada</string>
+    <string name="eventPH">Ingrese PH</string>
+    <string name="eventHumidity">Ingrese Humedad</string>
+    <string name="eventTemperature">Ingrese Temperatura</string>
+    <string name="eventHumidityLabel">Humedad</string>
+    <string name="eventPHLabel">PH</string>
+    <string name="eventTemperatureLabel">Temperatura</string>
 </resources>
