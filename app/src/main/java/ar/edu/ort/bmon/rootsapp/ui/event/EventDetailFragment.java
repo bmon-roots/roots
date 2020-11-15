@@ -70,12 +70,12 @@ public class EventDetailFragment extends DialogFragment {
         db = FirebaseFirestore.getInstance();
 //        event = model.getSelected().getValue();
         event = new Event();
-        event.setEspecie("Prueba ESP");
-        event.setCantidadActivas(45);
-        event.setTemperatura(32);
-        event.setHumedad(85);
-        event.setPh(7);
-        event.setPrimerosBrotes(new Date());
+//        event.setEspecie("Prueba ESP");
+//        event.setCantidadActivas(45);
+//        event.setTemperatura(32);
+//        event.setHumedad(85);
+//        event.setPh(7);
+//        event.setPrimerosBrotes(new Date());
         loadDetailValue(viewReference);
         return viewReference;
     }
