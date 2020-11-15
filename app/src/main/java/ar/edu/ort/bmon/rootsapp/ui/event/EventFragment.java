@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +38,7 @@ public class EventFragment extends Fragment {
     private EventAdapter eventAdapter;
     private EventCuttingAdapter eventCuttingAdapter;
     private MenuItem createNewEvent;
+    private View viewReference;
     private ConstraintLayout expandableLayout;
     private ConstraintLayout expandableLayoutCutting;
     private CardView germinationsCard;
@@ -111,7 +113,6 @@ public class EventFragment extends Fragment {
         return root;
     }
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -126,14 +127,17 @@ public class EventFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        createNewEventDialog();        
+        int selectionId = item.getItemId();
+        if (selectionId == R.id.menu_create_event) {
+            createNewEventDialog();
+        }
         return super.onOptionsItemSelected(item);
     }
 
     private void createNewEventDialog() {
         AlertDialog.Builder createNewEventDialog = new AlertDialog.Builder(getActivity());
         createNewEventDialog.setTitle(Constants.CREATE_NEW_EVENT_TITLE);
-        String[] eventOptions = new String[] { "Germinacion", "Esqueje" };
+        String[] eventOptions = new String[] { Constants.GERMINATION, Constants.CUTTING };
         createNewEventDialog.setSingleChoiceItems(eventOptions, -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -150,6 +154,11 @@ public class EventFragment extends Fragment {
         createNewEventDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                Bundle bundle = new Bundle();
+                ListView selectionList = ((AlertDialog) dialog).getListView();
+                Integer selectedItemId = (Integer)selectionList.getTag();
+                bundle.putString(Constants.SELECTED_EVENT, selectedItemId.toString());
+                Navigation.findNavController(viewReference).navigate(R.id.action_nav_event_to_nav_create_event, bundle);
                 dialog.dismiss();
             }
         });

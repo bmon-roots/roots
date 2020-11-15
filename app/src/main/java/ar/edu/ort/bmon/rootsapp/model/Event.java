@@ -90,7 +90,7 @@ public class Event {
         return cantidadInicial;
     }
 
-    public int getCantidadActivas() {
+    public int getPrivatecantidadActivas() {
         return cantidadActivas;
     }
 
@@ -134,59 +134,59 @@ public class Event {
         return usoHormonas;
     }
 
-    public void setTipo(String tipo) {
+    private void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
-    public void setEspecie(String especie) {
+    private void setEspecie(String especie) {
         this.especie = especie;
     }
 
-    public void setCantidadInicial(int cantidadInicial) {
+    private void setCantidadInicial(int cantidadInicial) {
         this.cantidadInicial = cantidadInicial;
     }
 
-    public void setCantidadActivas(int cantidadActivas) {
+    private void setCantidadActivas(int cantidadActivas) {
         this.cantidadActivas = cantidadActivas;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    private void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public void setFechaFinalizacion(Date fechaFinalizacion) {
+    private void setFechaFinalizacion(Date fechaFinalizacion) {
         this.fechaFinalizacion = fechaFinalizacion;
     }
 
-    public void setPrimerosBrotes(Date primerosBrotes) {
+    private void setPrimerosBrotes(Date primerosBrotes) {
         this.primerosBrotes = primerosBrotes;
     }
 
-    public void setBrotoLaMitad(Date brotoLaMitad) {
+    private void setBrotoLaMitad(Date brotoLaMitad) {
         this.brotoLaMitad = brotoLaMitad;
     }
 
-    public void setTemperatura(double temperatura) {
+    private void setTemperatura(double temperatura) {
         this.temperatura = temperatura;
     }
 
-    public void setHumedad(int humedad) {
+    private void setHumedad(int humedad) {
         this.humedad = humedad;
     }
 
-    public void setPh(double ph) {
+    private void setPh(double ph) {
         this.ph = ph;
     }
 
-    public void setTarea(TipoTarea tarea) {
+    private void setTarea(TipoTarea tarea) {
         this.tarea = tarea;
     }
 
-    public void setFechaEstratificacion(Date fechaEstratificacion) {
+    private void setFechaEstratificacion(Date fechaEstratificacion) {
         this.fechaEstratificacion = fechaEstratificacion;
     }
 
-    public void setUsoHormonas(boolean usoHormonas) {
+    private void setUsoHormonas(boolean usoHormonas) {
         this.usoHormonas = usoHormonas;
     }
 
