@@ -64,7 +64,11 @@
         android:name="ar.edu.ort.bmon.rootsapp.ui.event.CreateEventFragment"
         android:label="Crear nuevo evento"
         tools:layout="@layout/create_event_fragment"
-        />
+        >
+        <action
+            android:id="@+id/action_nav_create_event_to_nav_event"
+            app:destination="@id/nav_event" />
+    </fragment>
 
 
 

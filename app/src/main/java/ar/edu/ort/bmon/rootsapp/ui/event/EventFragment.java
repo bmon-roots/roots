@@ -80,7 +80,10 @@ public class EventFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        createNewEventDialog();        
+        int selectionId = item.getItemId();
+        if (selectionId == R.id.menu_create_event) {
+            createNewEventDialog();
+        }
         return super.onOptionsItemSelected(item);
     }
 

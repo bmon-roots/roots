@@ -51,4 +51,8 @@ public class Constants {
     public static final String GERMINATION = "Germinaciones";
     public static final String CUTTING = "Esquejes";
     public static final String SELECTED_EVENT = "Selected Event";
+    public static final String SPECIES_SELECTION_DIALOG = "Seleccione una especie";
+    public static final String CREATE_EVENT_SUCCESS = "Evento creado satisfactoriamente";
+    public static final String CREATE_EVENT_ERROR = "Hubo un problema al crear el evento, intente nuevamente";
+    public static final String MISSING_DATA_INPUTS_EVENT = "Por favor complete todos los campos";
 }

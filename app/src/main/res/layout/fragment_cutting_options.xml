@@ -27,6 +27,8 @@
         android:layout_marginEnd="36dp"
         android:ems="10"
         android:inputType="date"
+        android:clickable="true"
+        android:focusable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

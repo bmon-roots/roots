@@ -144,10 +144,10 @@ public class CreatePlantFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        insertDataIntoFirebase();
         int selectionId = item.getItemId();
 
         if (selectionId == R.id.save_plant) {
+            insertDataIntoFirebase();
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
             alertDialogBuilder.setTitle(Constants.ATTACH_IMAGE_TO_PLANT_ENTRY_TITLE);
             alertDialogBuilder.setMessage(Constants.ATTACH_IMAGE_TO_PLANT_MESSAGE);
