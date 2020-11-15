@@ -93,7 +93,6 @@ public class DetailFragment extends DialogFragment {
         super.onActivityCreated(savedInstanceState);
         detailViewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
         // TODO: Use the ViewModel
-
     }
 
     @Override

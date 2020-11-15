@@ -36,9 +36,9 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
     protected void onBindViewHolder(@NonNull EventHolder holder, int position, @NonNull Event model) {
         holder.eventCard.setVisibility(View.GONE);
         holder.eventCard.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
-        document = getSnapshots().getSnapshot(holder.getAdapterPosition());
-        holder.evento = crearEventoDesdeModel(model, document.getId());
         if(model.getTipo().equals(Constants.GERMINATION)){
+            document = getSnapshots().getSnapshot(holder.getAdapterPosition());
+            holder.evento = crearEventoDesdeModel(model, document.getId());
             holder.eventCard.setVisibility(View.VISIBLE);
             holder.eventCard.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             holder.eventGroup.setText(model.getEspecie());

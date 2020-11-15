@@ -61,7 +61,7 @@
 
     <!-- Menu Listado Eventos -->
     <string name="createNewEvent">Crear Evento</string>
-    <string name="selectEventSpeciesType">Pulse para seleccionar la especie</string>
+    <string name="selectEventSpeciesType">Seleccione la especie</string>
     <string name="eventQuantityLabel">Cantidad</string>
     <string name="eventTemperatureRangeLabel">Rango de temperaturas</string>
     <string name="eventHumidityRangeLabel">Rango humedad</string>

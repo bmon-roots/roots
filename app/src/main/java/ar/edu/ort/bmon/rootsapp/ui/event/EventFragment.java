@@ -57,10 +57,10 @@ public class EventFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.event_fragment, container, false);
+        viewReference = inflater.inflate(R.layout.event_fragment, container, false);
 
-        recyclerViewGermination = root.findViewById(R.id.recyclerGerminacion);
-        recyclerViewCutting = root.findViewById(R.id.recyclerCutting);
+        recyclerViewGermination = viewReference.findViewById(R.id.recyclerGerminacion);
+        recyclerViewCutting = viewReference.findViewById(R.id.recyclerCutting);
 
         recyclerViewGermination.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewCutting.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -82,18 +82,26 @@ public class EventFragment extends Fragment {
         });
 
 
-        eventCuttingAdapter = new EventCuttingAdapter(firestoreRecyclerOptions);
+        eventCuttingAdapter = new EventCuttingAdapter(firestoreRecyclerOptions, new EventOnTextClickListener() {
+            @Override
+            public EventViewModel onTextClick() {
+                return model;
+            }
+        });
 
         recyclerViewGermination.setAdapter(eventAdapter);
         recyclerViewCutting.setAdapter(eventCuttingAdapter);
 
-        expandableLayout = root.findViewById(R.id.expandableLayout);
-        expandableLayoutCutting = root.findViewById(R.id.expandableLayoutCutting);
+        expandableLayout = viewReference.findViewById(R.id.expandableLayout);
+        expandableLayoutCutting = viewReference.findViewById(R.id.expandableLayoutCutting);
 
-		germinationsCard = root.findViewById(R.id.card_germination);
-		cuttingCard = root.findViewById(R.id.card_cutting);
+		germinationsCard = viewReference.findViewById(R.id.card_germination);
+		cuttingCard = viewReference.findViewById(R.id.card_cutting);
 
-		germinationsCard.setOnClickListener(new View.OnClickListener() {
+        expandableLayout.setVisibility(View.GONE);
+        expandableLayoutCutting.setVisibility(View.GONE);
+
+        germinationsCard.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				expanded = !expanded;
@@ -110,7 +118,7 @@ public class EventFragment extends Fragment {
             }
         });
 
-        return root;
+        return viewReference;
     }
 
     @Override

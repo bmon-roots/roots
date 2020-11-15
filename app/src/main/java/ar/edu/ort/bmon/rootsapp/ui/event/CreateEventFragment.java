@@ -239,7 +239,7 @@ public class CreateEventFragment extends Fragment {
     }
 
     private Uri getImageForEventType(int selectedOption) {
-        String imageForEvent = selectedOption == 0 ? "ic_sprouts" : "ic_germination";
+        String imageForEvent = selectedOption == 0 ? "ic_germination" : "ic_sprouts";
         return Uri.parse("android.resource://ar.edu.ort.bmon.rootsapp/drawable/" + imageForEvent);
     }
 
