@@ -1,6 +1,5 @@
 package ar.edu.ort.bmon.rootsapp.ui.event;
 
-import android.util.EventLog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +19,10 @@ import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Event;
 
 
-public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.EventHolder> {
+public class EventCuttingAdapter extends FirestoreRecyclerAdapter<Event, EventCuttingAdapter.EventHolder> {
 
 
-    public EventAdapter(@NonNull FirestoreRecyclerOptions<Event> options) {
+    public EventCuttingAdapter(@NonNull FirestoreRecyclerOptions<Event> options) {
         super(options);
     }
 
@@ -31,13 +30,12 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
     protected void onBindViewHolder(@NonNull EventHolder holder, int position, @NonNull Event model) {
         holder.eventCard.setVisibility(View.GONE);
         holder.eventCard.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
-        if(model.getTipo().equals(Constants.GERMINATION)){
+        if(model.getTipo().equals(Constants.CUTTING)){
             holder.eventCard.setVisibility(View.VISIBLE);
             holder.eventCard.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             holder.eventGroup.setText(model.getEspecie());
-            holder.eventTypeImage.setBackgroundResource(R.drawable.ic_germination);
+            holder.eventTypeImage.setBackgroundResource(R.drawable.ic_sprouts);
         }
-
     }
 
     @NonNull
@@ -45,7 +43,7 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
     public EventHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_item, parent, false);
 
-        return new EventAdapter.EventHolder(view);
+        return new EventCuttingAdapter.EventHolder(view);
     }
 
     public class EventHolder extends RecyclerView.ViewHolder {

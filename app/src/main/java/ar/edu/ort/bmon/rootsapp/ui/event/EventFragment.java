@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -32,7 +35,15 @@ public class EventFragment extends Fragment {
     private RecyclerView recyclerViewGermination;
     private RecyclerView recyclerViewCutting;
     private EventAdapter eventAdapter;
+    private EventCuttingAdapter eventCuttingAdapter;
     private MenuItem createNewEvent;
+    private ConstraintLayout expandableLayout;
+    private ConstraintLayout expandableLayoutCutting;
+    private CardView germinationsCard;
+    private CardView cuttingCard;
+    private boolean expanded;
+    private boolean cuttingExpanded;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +58,7 @@ public class EventFragment extends Fragment {
 
         recyclerViewGermination = root.findViewById(R.id.recyclerGerminacion);
         recyclerViewCutting = root.findViewById(R.id.recyclerCutting);
+
         recyclerViewGermination.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewCutting.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -58,11 +70,37 @@ public class EventFragment extends Fragment {
                         .build();
 
         eventAdapter = new EventAdapter(firestoreRecyclerOptions);
+        eventCuttingAdapter = new EventCuttingAdapter(firestoreRecyclerOptions);
 
         recyclerViewGermination.setAdapter(eventAdapter);
+        recyclerViewCutting.setAdapter(eventCuttingAdapter);
+
+        expandableLayout = root.findViewById(R.id.expandableLayout);
+        expandableLayoutCutting = root.findViewById(R.id.expandableLayoutCutting);
+
+		germinationsCard = root.findViewById(R.id.card_germination);
+		cuttingCard = root.findViewById(R.id.card_cutting);
+
+		germinationsCard.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				expanded = !expanded;
+			 	expandableLayout.setVisibility(expanded ? View.VISIBLE : View.GONE);
+			}
+		});
+
+
+        cuttingCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cuttingExpanded = !cuttingExpanded;
+                expandableLayoutCutting.setVisibility(cuttingExpanded ? View.VISIBLE : View.GONE);
+            }
+        });
 
         return root;
     }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -107,4 +145,19 @@ public class EventFragment extends Fragment {
         });
         createNewEventDialog.create().show();
     }
+
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		eventCuttingAdapter.startListening();
+		eventAdapter.startListening();
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		eventAdapter.stopListening();
+		eventCuttingAdapter.stopListening();
+	}
 }

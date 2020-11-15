@@ -7,7 +7,7 @@ public class Event {
     private String tipo;
     private String especie;
     private int cantidadInicial;
-    private int privatecantidadActivas;
+    private int cantidadActivas;
     private Date fechaInicio;
     private Date fechaFinalizacion;
     private Date primerosBrotes;
@@ -20,11 +20,11 @@ public class Event {
     public Event() {
     }
 
-    public Event(String tipo, String especie, int cantidadInicial, int privatecantidadActivas, Date fechaInicio, Date fechaFinalizacion, Date primerosBrotes, Date brotoLaMitad, double temperatura, int humedad, double ph, TipoTarea tarea) {
+    public Event(String tipo, String especie, int cantidadInicial, int cantidadActivas, Date fechaInicio, Date fechaFinalizacion, Date primerosBrotes, Date brotoLaMitad, double temperatura, int humedad, double ph, TipoTarea tarea) {
         this.tipo = tipo;
         this.especie = especie;
         this.cantidadInicial = cantidadInicial;
-        this.privatecantidadActivas = privatecantidadActivas;
+        this.cantidadActivas = cantidadActivas;
         this.fechaInicio = fechaInicio;
         this.fechaFinalizacion = fechaFinalizacion;
         this.primerosBrotes = primerosBrotes;
@@ -59,12 +59,12 @@ public class Event {
         this.cantidadInicial = cantidadInicial;
     }
 
-    public int getPrivatecantidadActivas() {
-        return privatecantidadActivas;
+    public int getCantidadActivas() {
+        return cantidadActivas;
     }
 
-    public void setPrivatecantidadActivas(int privatecantidadActivas) {
-        this.privatecantidadActivas = privatecantidadActivas;
+    public void setCantidadActivas(int cantidadActivas) {
+        this.cantidadActivas = cantidadActivas;
     }
 
     public Date getFechaInicio() {
