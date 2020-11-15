@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,6 +34,7 @@ public class EventFragment extends Fragment {
     private RecyclerView recyclerViewCutting;
     private EventAdapter eventAdapter;
     private MenuItem createNewEvent;
+    private View viewReference;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,10 +45,10 @@ public class EventFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.event_fragment, container, false);
+        viewReference = inflater.inflate(R.layout.event_fragment, container, false);
 
-        recyclerViewGermination = root.findViewById(R.id.recyclerGerminacion);
-        recyclerViewCutting = root.findViewById(R.id.recyclerCutting);
+        recyclerViewGermination = viewReference.findViewById(R.id.recyclerGerminacion);
+        recyclerViewCutting = viewReference.findViewById(R.id.recyclerCutting);
         recyclerViewGermination.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewCutting.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -61,7 +63,7 @@ public class EventFragment extends Fragment {
 
         recyclerViewGermination.setAdapter(eventAdapter);
 
-        return root;
+        return viewReference;
     }
 
     @Override
@@ -85,7 +87,7 @@ public class EventFragment extends Fragment {
     private void createNewEventDialog() {
         AlertDialog.Builder createNewEventDialog = new AlertDialog.Builder(getActivity());
         createNewEventDialog.setTitle(Constants.CREATE_NEW_EVENT_TITLE);
-        String[] eventOptions = new String[] { "Germinacion", "Esqueje" };
+        String[] eventOptions = new String[] { Constants.GERMINATION, Constants.CUTTING };
         createNewEventDialog.setSingleChoiceItems(eventOptions, -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -102,6 +104,11 @@ public class EventFragment extends Fragment {
         createNewEventDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                Bundle bundle = new Bundle();
+                ListView selectionList = ((AlertDialog) dialog).getListView();
+                Integer selectedItemId = (Integer)selectionList.getTag();
+                bundle.putString(Constants.SELECTED_EVENT, selectedItemId.toString());
+                Navigation.findNavController(viewReference).navigate(R.id.action_nav_event_to_nav_create_event, bundle);
                 dialog.dismiss();
             }
         });

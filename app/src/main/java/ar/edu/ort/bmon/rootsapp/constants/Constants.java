@@ -50,4 +50,5 @@ public class Constants {
     public static final String CREATE_NEW_EVENT_TITLE = "Crear un evento";
     public static final String GERMINATION = "Germinaciones";
     public static final String CUTTING = "Esquejes";
+    public static final String SELECTED_EVENT = "Selected Event";
 }
