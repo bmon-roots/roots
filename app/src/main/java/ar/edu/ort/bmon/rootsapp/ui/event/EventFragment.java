@@ -64,7 +64,6 @@ public class EventFragment extends Fragment {
         recyclerViewGermination.setAdapter(eventAdapter);
 
         return viewReference;
->>>>>>> features/create_event
     }
 
     @Override
