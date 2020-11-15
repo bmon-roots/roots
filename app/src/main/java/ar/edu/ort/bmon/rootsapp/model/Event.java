@@ -22,6 +22,30 @@ public class Event {
     public Event() {
     }
 
+    public Event(String tipo, String especie, int cantidadInicial, Date fechaInicio, Date primerosBrotes, double temperatura, int humedad, double ph, Date fechaEstratificacion) {
+        this.tipo = tipo;
+        this.especie = especie;
+        this.cantidadInicial = cantidadInicial;
+        this.fechaInicio = fechaInicio;
+        this.primerosBrotes = primerosBrotes;
+        this.temperatura = temperatura;
+        this.humedad = humedad;
+        this.ph = ph;
+        this.fechaEstratificacion = fechaEstratificacion;
+    }
+
+    public Event(String tipo, String especie, int cantidadInicial, Date fechaInicio, Date primerosBrotes, double temperatura, int humedad, double ph, boolean usoHormonas) {
+        this.tipo = tipo;
+        this.especie = especie;
+        this.cantidadInicial = cantidadInicial;
+        this.fechaInicio = fechaInicio;
+        this.primerosBrotes = primerosBrotes;
+        this.temperatura = temperatura;
+        this.humedad = humedad;
+        this.ph = ph;
+        this.usoHormonas = usoHormonas;
+    }
+
     public Event(String tipo, String especie, int cantidadInicial, int cantidadActivas, Date fechaInicio, Date fechaFinalizacion, Date primerosBrotes, Date brotoLaMitad, double temperatura, int humedad, double ph, TipoTarea tarea, Date fechaEstratificacion) {
         setTipo(tipo);
         setEspecie(especie);
