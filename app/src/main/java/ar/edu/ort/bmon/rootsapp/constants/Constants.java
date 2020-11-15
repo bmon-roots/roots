@@ -6,6 +6,7 @@ public class Constants {
     public static final String PLANT_COLLECTION  = "plants";
     public static final String SPECIES_COLLECTION = "species";
     public static final String MATERIAL_COLLECTION = "materials";
+    public static final String EVENTS_COLLECTION = "events";
     //Firebase Plant Fields
     public static final String PLANT_IMAGE_URI = "imageUri";
     //Firebase Storage Collection Selectors
@@ -14,6 +15,8 @@ public class Constants {
     public static final String ADD_NEW_ENTRY_TITLE = "Crear Nueva Entrada";
     public static final String ADD_NEW_PLANT = "Nueva Planta";
     public static final String ADD_NEW_SPECIES = "Nueva Especie";
+    public static final String ATTACH_IMAGE_TO_PLANT_ENTRY_TITLE = "Agregar Imagen";
+    public static final String ATTACH_IMAGE_TO_PLANT_MESSAGE = "Desea agregar una imagen a esta planta?";
     //Constantes del ProgressDialog
     public static final String UPLOADING_PHOTO = "Subiendo foto";
     public static final String PERCENTAGE_COMPLETE = " % Completado";
@@ -43,4 +46,9 @@ public class Constants {
     public static final String ADD_TASK_FUMIGATE = "Fumigar";
     public static final String ADD_TASK_PRUNE = "Podar";
     public static final String ADD_TASK_FERTILIZE = "Fertilizar";
+    // Eventos
+    public static final String CREATE_NEW_EVENT_TITLE = "Crear un evento";
+    public static final String GERMINATION = "Germinaciones";
+    public static final String CUTTING = "Esquejes";
+    public static final String SELECTED_EVENT = "Selected Event";
 }

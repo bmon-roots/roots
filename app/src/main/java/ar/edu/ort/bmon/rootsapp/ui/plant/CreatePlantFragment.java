@@ -149,15 +149,15 @@ public class CreatePlantFragment extends Fragment {
 
         if (selectionId == R.id.save_plant) {
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-            alertDialogBuilder.setTitle("Agregar Imagen");
-            alertDialogBuilder.setMessage("Desea agregar una imagen a esta planta?");
-            alertDialogBuilder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            alertDialogBuilder.setTitle(Constants.ATTACH_IMAGE_TO_PLANT_ENTRY_TITLE);
+            alertDialogBuilder.setMessage(Constants.ATTACH_IMAGE_TO_PLANT_MESSAGE);
+            alertDialogBuilder.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     showSelectPhotoDialog();
                 }
             });
-            alertDialogBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            alertDialogBuilder.setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
