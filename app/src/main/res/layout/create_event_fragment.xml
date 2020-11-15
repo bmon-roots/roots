@@ -54,13 +54,17 @@
         android:layout_width="125dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/eventQuantityLabel"
         android:textAlignment="center"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextCantidadEvento"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline12"
+        app:layout_constraintVertical_bias="0.037" />
 
     <EditText
         android:id="@+id/editTextCantidadEvento"
@@ -102,7 +106,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewCantidad"
-        app:layout_constraintVertical_bias="0.027" />
+        app:layout_constraintVertical_bias="0.036" />
 
     <TextView
         android:id="@+id/textViewRangoPH"
@@ -118,7 +122,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewRangoHumedad"
-        app:layout_constraintVertical_bias="0.056" />
+        app:layout_constraintVertical_bias="0.064" />
 
     <TextView
         android:id="@+id/textViewFechaNuevosBrotes"
@@ -134,7 +138,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewRangoPH"
-        app:layout_constraintVertical_bias="0.037" />
+        app:layout_constraintVertical_bias="0.081" />
 
     <TextView
         android:id="@+id/textViewRangoHumedad"
@@ -150,7 +154,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewRangoTemperaturas"
-        app:layout_constraintVertical_bias="0.063" />
+        app:layout_constraintVertical_bias="0.021" />
 
     <EditText
         android:id="@+id/editTextRangoTemperaturas"
