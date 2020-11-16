@@ -55,7 +55,7 @@
         android:layout_height="20dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/eventQuantityLabel"
+        android:text="@string/eventActiveQuantityLabel"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@+id/editTextCantidadEventoDetail"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
@@ -114,18 +114,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textViewFechaNuevosBrotes"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="16dp"
-        android:text="@string/eventEstimatedSproutDateLabel"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextFechaNuevosBrotes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
         android:id="@+id/textViewRangoHumedad"
         android:layout_width="100dp"
         android:layout_height="20dp"
@@ -142,7 +130,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
@@ -161,7 +149,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
@@ -180,7 +168,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
@@ -194,17 +182,28 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextRangoHumedad"
         app:layout_constraintVertical_bias="0.0" />
 
+    <TextView
+        android:id="@+id/textViewFechaNuevosBrotes"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/eventSproutDateLabel"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextFechaNuevosBrotes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
     <EditText
         android:id="@+id/editTextFechaNuevosBrotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:enabled="false"
-        android:hint="@string/eventEstimatedNewSproutDate"
+        android:hint="@string/eventNewSproutDate"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -213,18 +212,46 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextRangoPH"
         app:layout_constraintVertical_bias="0.0" />
 
+    <TextView
+        android:id="@+id/textViewFechaMitadBrotes"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/eventMiddleSproutDateLabel"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextFechaMitadBrotes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+    <EditText
+        android:id="@+id/editTextFechaMitadBrotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:enabled="false"
+        android:hint="@string/eventNewSproutDate"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textViewFechaMitadBrotes"
+        app:layout_constraintTop_toBottomOf="@+id/editTextFechaNuevosBrotes"
+        app:layout_constraintVertical_bias="0.0" />
+
     <FrameLayout
         android:id="@+id/frameOptionsLayout"
         android:layout_width="match_parent"
         android:layout_height="114dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextFechaNuevosBrotes"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/editTextFechaMitadBrotes">
 
     </FrameLayout>
 

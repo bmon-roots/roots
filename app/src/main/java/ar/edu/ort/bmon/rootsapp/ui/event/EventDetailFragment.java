@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -38,12 +39,14 @@ import java.util.Date;
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Event;
+import ar.edu.ort.bmon.rootsapp.model.TipoTarea;
 import ar.edu.ort.bmon.rootsapp.ui.plant.DetailViewModel;
 
 public class EventDetailFragment extends DialogFragment {
 
     private EventDetailViewModel mViewModel;
     private View viewReference;
+    private ImageView eventImage;
     private MenuItem editMenuItem;
     private MenuItem deleteMenuItem;
     private MenuItem saveChangesMenuItem;
@@ -67,16 +70,13 @@ public class EventDetailFragment extends DialogFragment {
 
         viewReference = inflater.inflate(R.layout.event_detail_fragment, container, false);
         EventDetailViewModel model = new ViewModelProvider(requireActivity()).get(EventDetailViewModel.class);
+        eventImage = viewReference.findViewById(R.id.eventDetailImageView);
+
         db = FirebaseFirestore.getInstance();
 //        event = model.getSelected().getValue();
-        event = new Event();
-//        event.setEspecie("Prueba ESP");
-//        event.setCantidadActivas(45);
-//        event.setTemperatura(32);
-//        event.setHumedad(85);
-//        event.setPh(7);
-//        event.setPrimerosBrotes(new Date());
+        event = new Event(Constants.CUTTING, "especie prueba", 0, 40, new Date(), new Date(), new Date(), new Date(), 33, 85, 7, TipoTarea.Bajar_Humedad, new Date());
         loadDetailValue(viewReference);
+        setEventImage(event.getTipo());
         return viewReference;
     }
 
@@ -89,7 +89,7 @@ public class EventDetailFragment extends DialogFragment {
 //        }
 
         TextView tipoEventoTV = (TextView) root.findViewById(R.id.textViewSelectedEventDetailType);
-        tipoEventoTV.setText(event.getEspecie());
+        tipoEventoTV.setText(event.getTipo());
 
         TextView especieTV = (TextView) root.findViewById(R.id.textViewSelectedSpecies);
         especieTV.setText(event.getEspecie());
@@ -114,6 +114,14 @@ public class EventDetailFragment extends DialogFragment {
 
     }
 
+    private void setEventImage(String eventName) {
+        Uri eventImageUri = getImageForEventType(eventName);
+        eventImage.setImageURI(eventImageUri);
+    }
+    private Uri getImageForEventType(String eventName) {
+        String imageForEvent = eventName.equals(Constants.CUTTING)  ? "ic_sprouts" : "ic_germination";
+        return Uri.parse("android.resource://ar.edu.ort.bmon.rootsapp/drawable/" + imageForEvent);
+    }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

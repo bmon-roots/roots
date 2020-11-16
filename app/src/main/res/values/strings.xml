@@ -75,6 +75,9 @@
     <string name="eventHumidityRange">Ingrese un rango</string>
     <string name="eventEstimatedSproutDate">Ingrese fecha estimada</string>
 
+    <string name="eventSproutDateLabel">Fecha primeros brotes</string>
+    <string name="eventNewSproutDate">Fecha primeros brotes</string>
+
     <!--    Mensajes genericos-->
     <string name="dialog_delete">Seguro desea eliminar?</string>
     <string name="dialog_edit">Se guardarán los cambios</string>
@@ -104,4 +107,6 @@
     <string name="eventHumidityLabel">Humedad</string>
     <string name="eventPHLabel">PH</string>
     <string name="eventTemperatureLabel">Temperatura</string>
+    <string name="eventActiveQuantityLabel">Cantidad Activa</string>
+    <string name="eventMiddleSproutDateLabel">Brotes al 50%</string>
 </resources>
