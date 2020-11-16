@@ -24,7 +24,8 @@ import ar.edu.ort.bmon.rootsapp.model.Event;
 public class EventCuttingAdapter extends FirestoreRecyclerAdapter<Event, EventCuttingAdapter.EventHolder> {
 
     public EventOnTextClickListener eventOnTextClickListener;
-    public DocumentSnapshot document;
+    public View view;
+    public EventHolder eventHolder;
 
     public EventCuttingAdapter(@NonNull FirestoreRecyclerOptions<Event> options, EventOnTextClickListener eventOnTextClickListener) {
         super(options);
@@ -33,19 +34,29 @@ public class EventCuttingAdapter extends FirestoreRecyclerAdapter<Event, EventCu
 
     @Override
     protected void onBindViewHolder(@NonNull EventHolder holder, int position, @NonNull Event model) {
+        this.eventHolder = holder;
+
         holder.eventCard.setVisibility(View.GONE);
         holder.eventCard.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
-        if(model.getTipo().equals(Constants.CUTTING)){
-            document = getSnapshots().getSnapshot(holder.getAdapterPosition());
-            holder.evento = crearEventoDesdeModel(model, document.getId());
+        if (model.getTipo().equals(Constants.CUTTING)) {
+            eventHolder.evento = crearEventoDesdeModel(model);
             holder.eventCard.setVisibility(View.VISIBLE);
             holder.eventCard.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             holder.eventGroup.setText(model.getEspecie());
             holder.eventTypeImage.setBackgroundResource(R.drawable.ic_sprouts);
         }
+
+        eventHolder.eventCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EventViewModel model = eventOnTextClickListener.onTextClick();
+                model.select(eventHolder.evento);
+                Navigation.findNavController(view).navigate(R.id.nav_material);
+            }
+        });
     }
 
-    private Event crearEventoDesdeModel(Event model, String id) {
+    private Event crearEventoDesdeModel(Event model) {
         Event evento = new Event();
         evento.setTipo(model.getTipo());
         evento.setEspecie(model.getEspecie());
@@ -68,16 +79,7 @@ public class EventCuttingAdapter extends FirestoreRecyclerAdapter<Event, EventCu
     @NonNull
     @Override
     public EventHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_item, parent, false);
-        final EventHolder eventHolder = new EventHolder(view);
-        eventHolder.eventCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EventDetailViewModel model = eventOnTextClickListener.onTextClick();
-                model.select(eventHolder.evento);
-                Navigation.findNavController(view).navigate(R.id.nav_event_detail);
-            }
-        });
+        this.view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_item, parent, false);
 
         return new EventCuttingAdapter.EventHolder(view);
     }
