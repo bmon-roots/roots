@@ -21,13 +21,12 @@ import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Event;
 
 
-public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.EventHolder> {
+public class EventCuttingAdapter extends FirestoreRecyclerAdapter<Event, EventCuttingAdapter.EventHolder> {
 
     public EventOnTextClickListener eventOnTextClickListener;
     public DocumentSnapshot document;
 
-
-    public EventAdapter(@NonNull FirestoreRecyclerOptions<Event> options, EventOnTextClickListener eventOnTextClickListener) {
+    public EventCuttingAdapter(@NonNull FirestoreRecyclerOptions<Event> options, EventOnTextClickListener eventOnTextClickListener) {
         super(options);
         this.eventOnTextClickListener = eventOnTextClickListener;
     }
@@ -36,13 +35,13 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
     protected void onBindViewHolder(@NonNull EventHolder holder, int position, @NonNull Event model) {
         holder.eventCard.setVisibility(View.GONE);
         holder.eventCard.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
-        if(model.getTipo().equals(Constants.GERMINATION)){
+        if(model.getTipo().equals(Constants.CUTTING)){
             document = getSnapshots().getSnapshot(holder.getAdapterPosition());
             holder.evento = crearEventoDesdeModel(model, document.getId());
             holder.eventCard.setVisibility(View.VISIBLE);
             holder.eventCard.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             holder.eventGroup.setText(model.getEspecie());
-            holder.eventTypeImage.setBackgroundResource(R.drawable.ic_germination);
+            holder.eventTypeImage.setBackgroundResource(R.drawable.ic_sprouts);
         }
     }
 
@@ -79,7 +78,8 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
                 Navigation.findNavController(view).navigate(R.id.nav_material);
             }
         });
-        return new EventAdapter.EventHolder(view);
+
+        return new EventCuttingAdapter.EventHolder(view);
     }
 
     public class EventHolder extends RecyclerView.ViewHolder {

@@ -1,6 +1,5 @@
 package ar.edu.ort.bmon.rootsapp.ui.plant;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +16,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 
-import java.time.Instant;
-import java.time.temporal.ChronoField;
-import java.time.temporal.ChronoUnit;
-
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
@@ -29,12 +24,12 @@ import ar.edu.ort.bmon.rootsapp.model.Tarea;
 
 public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter.PlantHolder> {
 
-    public OnTextClickListener onTextClickListener;
+    public PlantOnTextClickListener plantOnTextClickListener;
     public DocumentSnapshot document;
 
-    public PlantsAdapter(@NonNull FirestoreRecyclerOptions<Plant> options, OnTextClickListener onTextClickListener) {
+    public PlantsAdapter(@NonNull FirestoreRecyclerOptions<Plant> options, PlantOnTextClickListener plantOnTextClickListener) {
         super(options);
-        this.onTextClickListener = onTextClickListener;
+        this.plantOnTextClickListener = plantOnTextClickListener;
     }
 
     @Override
@@ -94,7 +89,7 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
         pHolder.cardViewPlanta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DetailViewModel model = onTextClickListener.onTextClick();
+                DetailViewModel model = plantOnTextClickListener.onTextClick();
                 model.select(pHolder.plantita);
                 Navigation.findNavController(view).navigate(R.id.nav_plant_detail);
             }

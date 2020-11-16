@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -40,7 +41,7 @@ public class ListPlantFragment extends Fragment {
     PlantsAdapter plantsAdapter;
     private DetailViewModel model;
     private FloatingActionButton btnAddAction;
-    private AlertDialog.Builder dialog;
+    private MaterialAlertDialogBuilder dialog;
     private View newSpeciesCustomDialog;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -61,7 +62,7 @@ public class ListPlantFragment extends Fragment {
 
         model = new ViewModelProvider(requireActivity()).get(DetailViewModel.class);
 
-        plantsAdapter = new PlantsAdapter(firestoreRecyclerOptions, new OnTextClickListener() {
+        plantsAdapter = new PlantsAdapter(firestoreRecyclerOptions, new PlantOnTextClickListener() {
             @Override
             public DetailViewModel onTextClick() {
                 return model;
@@ -75,7 +76,8 @@ public class ListPlantFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        dialog = new AlertDialog.Builder(getActivity());
+        dialog = new MaterialAlertDialogBuilder(getActivity());
+        dialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
         String[] alertDialogOptions = new String[] {Constants.ADD_NEW_PLANT, Constants.ADD_NEW_SPECIES};
         dialog.setTitle(Constants.ADD_NEW_ENTRY_TITLE);
         dialog.setSingleChoiceItems(alertDialogOptions, -1, new DialogInterface.OnClickListener() {
@@ -124,7 +126,8 @@ public class ListPlantFragment extends Fragment {
     }
 
     private void showCreateNewSpeciesDialog(final View speciesName) {
-        AlertDialog.Builder newSpeciesDialog = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder newSpeciesDialog = new MaterialAlertDialogBuilder(getActivity());
+        newSpeciesDialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
         newSpeciesDialog.setTitle(R.string.createSpeciesFragmentTitle);
 
         //Configuracion del newSpeciesDialog

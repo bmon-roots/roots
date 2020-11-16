@@ -1,17 +1,25 @@
 package ar.edu.ort.bmon.rootsapp.ui.event;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import ar.edu.ort.bmon.rootsapp.model.Event;
+
 public class EventViewModel extends ViewModel {
-    private MutableLiveData<String> mText;
+
+
+    private MutableLiveData<Event> selected;
 
     public EventViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("Fragment de Eventos");
+        selected = new MutableLiveData<Event>();
     }
 
-    public MutableLiveData<String> getText() {
-        return mText;
+    public void select(Event item) {
+        selected.setValue(item);
+    }
+
+    public LiveData<Event> getSelected() {
+        return selected;
     }
 }

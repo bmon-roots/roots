@@ -82,111 +82,111 @@ public class Event {
         return tipo;
     }
 
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public String getEspecie() {
         return especie;
+    }
+
+    public void setEspecie(String especie) {
+        this.especie = especie;
     }
 
     public int getCantidadInicial() {
         return cantidadInicial;
     }
 
-    public int getPrivatecantidadActivas() {
+    public void setCantidadInicial(int cantidadInicial) {
+        this.cantidadInicial = cantidadInicial;
+    }
+
+    public int getCantidadActivas() {
         return cantidadActivas;
+    }
+
+    public void setCantidadActivas(int cantidadActivas) {
+        this.cantidadActivas = cantidadActivas;
     }
 
     public Date getFechaInicio() {
         return fechaInicio;
     }
 
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
     public Date getFechaFinalizacion() {
         return fechaFinalizacion;
+    }
+
+    public void setFechaFinalizacion(Date fechaFinalizacion) {
+        this.fechaFinalizacion = fechaFinalizacion;
     }
 
     public Date getPrimerosBrotes() {
         return primerosBrotes;
     }
 
+    public void setPrimerosBrotes(Date primerosBrotes) {
+        this.primerosBrotes = primerosBrotes;
+    }
+
     public Date getBrotoLaMitad() {
         return brotoLaMitad;
+    }
+
+    public void setBrotoLaMitad(Date brotoLaMitad) {
+        this.brotoLaMitad = brotoLaMitad;
     }
 
     public double getTemperatura() {
         return temperatura;
     }
 
+    public void setTemperatura(double temperatura) {
+        this.temperatura = temperatura;
+    }
+
     public int getHumedad() {
         return humedad;
+    }
+
+    public void setHumedad(int humedad) {
+        this.humedad = humedad;
     }
 
     public double getPh() {
         return ph;
     }
 
+    public void setPh(double ph) {
+        this.ph = ph;
+    }
+
     public TipoTarea getTarea() {
         return tarea;
+    }
+
+    public void setTarea(TipoTarea tarea) {
+        this.tarea = tarea;
     }
 
     public Date getFechaEstratificacion() {
         return fechaEstratificacion;
     }
 
+    public void setFechaEstratificacion(Date fechaEstratificacion) {
+        this.fechaEstratificacion = fechaEstratificacion;
+    }
+
     public boolean isUsoHormonas() {
         return usoHormonas;
     }
 
-    private void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    private void setEspecie(String especie) {
-        this.especie = especie;
-    }
-
-    private void setCantidadInicial(int cantidadInicial) {
-        this.cantidadInicial = cantidadInicial;
-    }
-
-    private void setCantidadActivas(int cantidadActivas) {
-        this.cantidadActivas = cantidadActivas;
-    }
-
-    private void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    private void setFechaFinalizacion(Date fechaFinalizacion) {
-        this.fechaFinalizacion = fechaFinalizacion;
-    }
-
-    private void setPrimerosBrotes(Date primerosBrotes) {
-        this.primerosBrotes = primerosBrotes;
-    }
-
-    private void setBrotoLaMitad(Date brotoLaMitad) {
-        this.brotoLaMitad = brotoLaMitad;
-    }
-
-    private void setTemperatura(double temperatura) {
-        this.temperatura = temperatura;
-    }
-
-    private void setHumedad(int humedad) {
-        this.humedad = humedad;
-    }
-
-    private void setPh(double ph) {
-        this.ph = ph;
-    }
-
-    private void setTarea(TipoTarea tarea) {
-        this.tarea = tarea;
-    }
-
-    private void setFechaEstratificacion(Date fechaEstratificacion) {
-        this.fechaEstratificacion = fechaEstratificacion;
-    }
-
-    private void setUsoHormonas(boolean usoHormonas) {
+    public void setUsoHormonas(boolean usoHormonas) {
         this.usoHormonas = usoHormonas;
     }
 

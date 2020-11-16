@@ -6,7 +6,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -33,8 +37,17 @@ public class EventFragment extends Fragment {
     private RecyclerView recyclerViewGermination;
     private RecyclerView recyclerViewCutting;
     private EventAdapter eventAdapter;
+    private EventCuttingAdapter eventCuttingAdapter;
     private MenuItem createNewEvent;
     private View viewReference;
+    private ConstraintLayout expandableLayout;
+    private ConstraintLayout expandableLayoutCutting;
+    private CardView germinationsCard;
+    private CardView cuttingCard;
+    private boolean expanded;
+    private boolean cuttingExpanded;
+    private EventViewModel model;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +62,7 @@ public class EventFragment extends Fragment {
 
         recyclerViewGermination = viewReference.findViewById(R.id.recyclerGerminacion);
         recyclerViewCutting = viewReference.findViewById(R.id.recyclerCutting);
+
         recyclerViewGermination.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewCutting.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -59,9 +73,51 @@ public class EventFragment extends Fragment {
                         .setQuery(query, Event.class)
                         .build();
 
-        eventAdapter = new EventAdapter(firestoreRecyclerOptions);
+        model = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
+
+        eventAdapter = new EventAdapter(firestoreRecyclerOptions, new EventOnTextClickListener() {
+            @Override
+            public EventViewModel onTextClick() {
+                return model;
+            }
+        });
+
+
+        eventCuttingAdapter = new EventCuttingAdapter(firestoreRecyclerOptions, new EventOnTextClickListener() {
+            @Override
+            public EventViewModel onTextClick() {
+                return model;
+            }
+        });
 
         recyclerViewGermination.setAdapter(eventAdapter);
+        recyclerViewCutting.setAdapter(eventCuttingAdapter);
+
+        expandableLayout = viewReference.findViewById(R.id.expandableLayout);
+        expandableLayoutCutting = viewReference.findViewById(R.id.expandableLayoutCutting);
+
+		germinationsCard = viewReference.findViewById(R.id.card_germination);
+		cuttingCard = viewReference.findViewById(R.id.card_cutting);
+
+        expandableLayout.setVisibility(View.GONE);
+        expandableLayoutCutting.setVisibility(View.GONE);
+
+        germinationsCard.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				expanded = !expanded;
+			 	expandableLayout.setVisibility(expanded ? View.VISIBLE : View.GONE);
+			}
+		});
+
+
+        cuttingCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cuttingExpanded = !cuttingExpanded;
+                expandableLayoutCutting.setVisibility(cuttingExpanded ? View.VISIBLE : View.GONE);
+            }
+        });
 
         return viewReference;
     }
@@ -88,7 +144,8 @@ public class EventFragment extends Fragment {
     }
 
     private void createNewEventDialog() {
-        AlertDialog.Builder createNewEventDialog = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder createNewEventDialog = new MaterialAlertDialogBuilder(getActivity());
+        createNewEventDialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
         createNewEventDialog.setTitle(Constants.CREATE_NEW_EVENT_TITLE);
         String[] eventOptions = new String[] { Constants.GERMINATION, Constants.CUTTING };
         createNewEventDialog.setSingleChoiceItems(eventOptions, -1, new DialogInterface.OnClickListener() {
@@ -117,4 +174,19 @@ public class EventFragment extends Fragment {
         });
         createNewEventDialog.create().show();
     }
+
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		eventCuttingAdapter.startListening();
+		eventAdapter.startListening();
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		eventAdapter.stopListening();
+		eventCuttingAdapter.stopListening();
+	}
 }
