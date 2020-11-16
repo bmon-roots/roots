@@ -73,8 +73,8 @@ public class EventDetailFragment extends DialogFragment {
         eventImage = viewReference.findViewById(R.id.eventDetailImageView);
 
         db = FirebaseFirestore.getInstance();
-//        event = model.getSelected().getValue();
-        event = new Event(Constants.CUTTING, "especie prueba", 0, 40, new Date(), new Date(), new Date(), new Date(), 33, 85, 7, TipoTarea.Bajar_Humedad, new Date());
+        event = model.getSelected().getValue();
+//        event = new Event(Constants.CUTTING, "especie prueba", 0, 40, new Date(), new Date(), new Date(), new Date(), 33, 85, 7, TipoTarea.Bajar_Humedad, new Date());
         loadDetailValue(viewReference);
         setEventImage(event.getTipo());
         return viewReference;
@@ -95,7 +95,7 @@ public class EventDetailFragment extends DialogFragment {
         especieTV.setText(event.getEspecie());
 
         EditText cantidadET = (EditText) root.findViewById(R.id.editTextCantidadEventoDetail);
-        cantidadET.setText(String.valueOf(event.getPrivatecantidadActivas()));
+        cantidadET.setText(String.valueOf(event.getCantidadActivas()));
 
         EditText rangoTemperatura = (EditText)root.findViewById(R.id.editTextRangoTemperaturas);
         rangoTemperatura.setText(String.valueOf(event.getTemperatura()));

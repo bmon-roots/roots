@@ -46,7 +46,7 @@ public class EventFragment extends Fragment {
     private CardView cuttingCard;
     private boolean expanded;
     private boolean cuttingExpanded;
-    private EventViewModel model;
+    private EventDetailViewModel model;
 
 
     @Override
@@ -73,11 +73,11 @@ public class EventFragment extends Fragment {
                         .setQuery(query, Event.class)
                         .build();
 
-        model = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
+        model = new ViewModelProvider(requireActivity()).get(EventDetailViewModel.class);
 
         eventAdapter = new EventAdapter(firestoreRecyclerOptions, new EventOnTextClickListener() {
             @Override
-            public EventViewModel onTextClick() {
+            public EventDetailViewModel onTextClick() {
                 return model;
             }
         });
@@ -85,7 +85,7 @@ public class EventFragment extends Fragment {
 
         eventCuttingAdapter = new EventCuttingAdapter(firestoreRecyclerOptions, new EventOnTextClickListener() {
             @Override
-            public EventViewModel onTextClick() {
+            public EventDetailViewModel onTextClick() {
                 return model;
             }
         });

@@ -73,9 +73,9 @@ public class EventCuttingAdapter extends FirestoreRecyclerAdapter<Event, EventCu
         eventHolder.eventCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventViewModel model = eventOnTextClickListener.onTextClick();
+                EventDetailViewModel model = eventOnTextClickListener.onTextClick();
                 model.select(eventHolder.evento);
-                Navigation.findNavController(view).navigate(R.id.nav_material);
+                Navigation.findNavController(view).navigate(R.id.nav_event_detail);
             }
         });
 
