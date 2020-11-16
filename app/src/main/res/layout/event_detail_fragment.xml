@@ -25,61 +25,98 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text=""
+        android:text="Germinaciones"
+        android:textSize="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.388"
         app:layout_constraintStart_toEndOf="@+id/eventDetailImageView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.064" />
+        app:layout_constraintVertical_bias="0.023" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="236dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="64dp"
+        app:cardBackgroundColor="@android:color/holo_green_light"
+        app:cardCornerRadius="25dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toTopOf="@+id/guideline12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.805"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSelectedEventType"
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/textViewSelectedSpecies"
+            android:layout_width="205dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="2dp"
+            android:gravity="center"
+            android:text="Acer Palmatum"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.724"
+            app:layout_constraintStart_toEndOf="@+id/eventDetailImageView"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSelectedEventDetailType"
+            app:layout_constraintVertical_bias="0.036" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/textViewSelectedSpecies"
-        android:layout_width="225dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/textViewCantidad2"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="169dp"
+        android:text="@string/eventInitialQuantityLabel"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextCantidadEventoDetail2"
+        android:layout_width="148dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="0dp"
+        android:ems="10"
+        android:enabled="false"
+        android:hint="@string/eventQuantity"
+        android:inputType="number"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.724"
-        app:layout_constraintStart_toEndOf="@+id/eventDetailImageView"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSelectedEventDetailType"
-        app:layout_constraintVertical_bias="0.036" />
+        app:layout_constraintHorizontal_bias="0.21"
+        app:layout_constraintStart_toEndOf="@+id/textViewCantidad2"
+        app:layout_constraintTop_toTopOf="@+id/guideline12" />
 
     <TextView
         android:id="@+id/textViewCantidad"
         android:layout_width="100dp"
         android:layout_height="20dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="18dp"
         android:text="@string/eventActiveQuantityLabel"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextCantidadEventoDetail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCantidad2" />
 
     <EditText
         android:id="@+id/editTextCantidadEventoDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="148dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="5dp"
         android:ems="10"
         android:enabled="false"
         android:hint="@string/eventQuantity"
         android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:textSize="12dp"
         app:layout_constraintStart_toEndOf="@+id/textViewCantidad"
-        app:layout_constraintTop_toTopOf="@+id/guideline12"
-        app:layout_constraintVertical_bias="0.021" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextCantidadEventoDetail2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline12"
@@ -93,154 +130,124 @@
         android:layout_width="100dp"
         android:layout_height="20dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/eventTemperatureLabel"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextRangoTemperaturas"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCantidad" />
 
     <TextView
         android:id="@+id/textViewRangoPH"
         android:layout_width="100dp"
         android:layout_height="20dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="@string/eventPHLabel"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextRangoPH"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRangoHumedad" />
 
     <TextView
         android:id="@+id/textViewRangoHumedad"
         android:layout_width="100dp"
         android:layout_height="20dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="@string/eventHumidityLabel"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextRangoHumedad"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRangoTemperaturas" />
 
     <EditText
         android:id="@+id/editTextRangoTemperaturas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="32dp"
         android:ems="10"
         android:enabled="false"
         android:hint="@string/eventTemperature"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:textSize="12dp"
         app:layout_constraintStart_toEndOf="@+id/textViewRangoTemperaturas"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCantidadEventoDetail"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextCantidadEventoDetail" />
 
     <EditText
         android:id="@+id/editTextRangoHumedad"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="270dp"
+        android:layout_marginEnd="118dp"
         android:ems="10"
         android:enabled="false"
         android:hint="@string/eventHumidity"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textViewRangoHumedad"
-        app:layout_constraintTop_toBottomOf="@+id/editTextRangoTemperaturas"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextRangoPH"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="305dp"
+        android:layout_marginEnd="116dp"
         android:ems="10"
         android:enabled="false"
         android:hint="@string/eventPH"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textViewRangoPH"
-        app:layout_constraintTop_toBottomOf="@+id/editTextRangoHumedad"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewFechaNuevosBrotes"
-        android:layout_width="150dp"
+        android:layout_width="110dp"
         android:layout_height="20dp"
         android:layout_marginStart="16dp"
-        android:text="@string/eventSproutDateLabel"
+        android:layout_marginTop="12dp"
+        android:text="Primeros brotes"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextFechaNuevosBrotes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRangoPH" />
+
     <EditText
         android:id="@+id/editTextFechaNuevosBrotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="336dp"
+        android:layout_marginEnd="118dp"
         android:ems="10"
         android:enabled="false"
-        android:hint="@string/eventNewSproutDate"
+        android:hint="@string/eventMiddleSproutDateLabel"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textViewFechaNuevosBrotes"
-        app:layout_constraintTop_toBottomOf="@+id/editTextRangoPH"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewFechaMitadBrotes"
-        android:layout_width="150dp"
+        android:layout_width="110dp"
         android:layout_height="20dp"
         android:layout_marginStart="16dp"
-        android:text="@string/eventMiddleSproutDateLabel"
+        android:layout_marginTop="28dp"
+        android:text="Brotes al 50%"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/editTextFechaMitadBrotes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFechaNuevosBrotes" />
+
     <EditText
         android:id="@+id/editTextFechaMitadBrotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="384dp"
+        android:layout_marginEnd="116dp"
         android:ems="10"
         android:enabled="false"
         android:hint="@string/eventMiddleSproutDate"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textViewFechaMitadBrotes"
-        app:layout_constraintTop_toBottomOf="@+id/editTextFechaNuevosBrotes"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:id="@+id/frameOptionsLayout"
