@@ -99,8 +99,8 @@ public class EventFragment extends Fragment {
 		germinationsCard = viewReference.findViewById(R.id.card_germination);
 		cuttingCard = viewReference.findViewById(R.id.card_cutting);
 
-        expandableLayout.setVisibility(View.GONE);
-        expandableLayoutCutting.setVisibility(View.GONE);
+//        expandableLayout.setVisibility(View.GONE);
+//        expandableLayoutCutting.setVisibility(View.GONE);
 
         germinationsCard.setOnClickListener(new View.OnClickListener() {
 			@Override
