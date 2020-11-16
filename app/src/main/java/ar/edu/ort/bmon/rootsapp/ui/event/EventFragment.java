@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -143,7 +144,8 @@ public class EventFragment extends Fragment {
     }
 
     private void createNewEventDialog() {
-        AlertDialog.Builder createNewEventDialog = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder createNewEventDialog = new MaterialAlertDialogBuilder(getActivity());
+        createNewEventDialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
         createNewEventDialog.setTitle(Constants.CREATE_NEW_EVENT_TITLE);
         String[] eventOptions = new String[] { Constants.GERMINATION, Constants.CUTTING };
         createNewEventDialog.setSingleChoiceItems(eventOptions, -1, new DialogInterface.OnClickListener() {

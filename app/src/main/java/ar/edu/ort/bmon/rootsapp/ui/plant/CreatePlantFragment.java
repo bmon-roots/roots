@@ -148,7 +148,9 @@ public class CreatePlantFragment extends Fragment {
 
         if (selectionId == R.id.save_plant) {
             insertDataIntoFirebase();
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+//            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+            MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(getActivity());
+            alertDialogBuilder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
             alertDialogBuilder.setTitle(Constants.ATTACH_IMAGE_TO_PLANT_ENTRY_TITLE);
             alertDialogBuilder.setMessage(Constants.ATTACH_IMAGE_TO_PLANT_MESSAGE);
             alertDialogBuilder.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
