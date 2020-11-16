@@ -35,7 +35,7 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
     @Override
     protected void onBindViewHolder(@NonNull EventHolder holder, int position, @NonNull Event model) {
         this.eventHolder = holder;
-
+        final DocumentSnapshot document = getSnapshots().getSnapshot(holder.getAdapterPosition());
         holder.eventCard.setVisibility(View.GONE);
         holder.eventCard.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
         if(model.getTipo().equals(Constants.GERMINATION)){
@@ -49,9 +49,10 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
         eventHolder.eventCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventViewModel model = eventOnTextClickListener.onTextClick();
+                EventDetailViewModel model = eventOnTextClickListener.onTextClick();
                 model.select(eventHolder.evento);
-                Navigation.findNavController(view).navigate(R.id.nav_material);
+                model.selectId(document.getId());
+                Navigation.findNavController(view).navigate(R.id.nav_event_detail);
             }
         });
     }

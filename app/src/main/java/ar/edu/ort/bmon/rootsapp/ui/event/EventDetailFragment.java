@@ -44,7 +44,7 @@ import ar.edu.ort.bmon.rootsapp.ui.plant.DetailViewModel;
 
 public class EventDetailFragment extends DialogFragment {
 
-    private EventDetailViewModel mViewModel;
+    private EventDetailViewModel eventDetailViewModel;
     private View viewReference;
     private ImageView eventImage;
     private MenuItem editMenuItem;
@@ -52,6 +52,7 @@ public class EventDetailFragment extends DialogFragment {
     private MenuItem saveChangesMenuItem;
     private FirebaseFirestore db;
     private Event event;
+    private String eventId;
 
 
     public static EventDetailFragment newInstance() {
@@ -74,6 +75,7 @@ public class EventDetailFragment extends DialogFragment {
 
         db = FirebaseFirestore.getInstance();
         event = model.getSelected().getValue();
+        eventId = model.getIdSelected().getValue();
 //        event = new Event(Constants.CUTTING, "especie prueba", 0, 40, new Date(), new Date(), new Date(), new Date(), 33, 85, 7, TipoTarea.Bajar_Humedad, new Date());
         loadDetailValue(viewReference);
         setEventImage(event.getTipo());
@@ -125,7 +127,7 @@ public class EventDetailFragment extends DialogFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(EventDetailViewModel.class);
+        eventDetailViewModel = ViewModelProviders.of(this).get(EventDetailViewModel.class);
         // TODO: Use the ViewModel
     }
 
@@ -204,7 +206,7 @@ public class EventDetailFragment extends DialogFragment {
     }
 
     private void deleteEvent(View viewReference, Event event) {
-        DocumentReference docRef = db.collection(Constants.EVENTS_COLLECTION).document(event.getTipo());
+        DocumentReference docRef = db.collection(Constants.EVENTS_COLLECTION).document(eventId);
         docRef.delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -243,27 +245,24 @@ public class EventDetailFragment extends DialogFragment {
     }
 
     private void saveEvent(View root) {
-        DocumentReference docRef = db.collection(Constants.EVENTS_COLLECTION).document(event.getTipo());
+        DocumentReference docRef = db.collection(Constants.EVENTS_COLLECTION).document(eventId);
 
         EditText cantidadET = (EditText) root.findViewById(R.id.editTextCantidadEventoDetail);
         EditText rangoTemperaturaET = (EditText)root.findViewById(R.id.editTextRangoTemperaturas);
         EditText rangoHumedadET = (EditText)root.findViewById(R.id.editTextRangoHumedad);
         EditText rangoPhET = (EditText)root.findViewById(R.id.editTextRangoPH);
         EditText fechaNuevosBrotesET = (EditText)root.findViewById(R.id.editTextFechaNuevosBrotes);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String nuevosBrotesDate = dateFormat.format(fechaNuevosBrotesET.getText());
 
-        String cantidad = cantidadET.getText().toString();
-        String temperatura = rangoTemperaturaET.getText().toString();
-        String humedad = rangoHumedadET.getText().toString();
-        String rangoPh = rangoPhET.getText().toString();
-        String fechaBrotes = nuevosBrotesDate;
-
+        Integer cantidad = Integer.valueOf(cantidadET.getText().toString());
+        Double temperatura = Double.valueOf(rangoTemperaturaET.getText().toString());
+        Double humedad = Double.valueOf(rangoHumedadET.getText().toString());
+        Double rangoPh = Double.valueOf(rangoPhET.getText().toString());
         docRef.update(
                 "temperatura", temperatura,
                 "humedad", humedad,
                 "ph", rangoPh,
-                "brotoLaMitad", fechaBrotes,
+                "brotoLaMitad", new Date(),
+                "primerosBrotes", new Date(),
                 "cantidadActivas", cantidad
         )
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -292,6 +291,7 @@ public class EventDetailFragment extends DialogFragment {
         root.findViewById(R.id.editTextRangoHumedad).setEnabled(true);
         root.findViewById(R.id.editTextRangoPH).setEnabled(true);
         root.findViewById(R.id.editTextFechaNuevosBrotes).setEnabled(true);
+        root.findViewById(R.id.editTextFechaMitadBrotes).setEnabled(true);
     }
 
 }

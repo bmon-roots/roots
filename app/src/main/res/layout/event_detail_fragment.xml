@@ -233,7 +233,7 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:enabled="false"
-        android:hint="@string/eventNewSproutDate"
+        android:hint="@string/eventMiddleSproutDate"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
