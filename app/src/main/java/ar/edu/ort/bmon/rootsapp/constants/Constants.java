@@ -55,4 +55,5 @@ public class Constants {
     public static final String CREATE_EVENT_SUCCESS = "Evento creado satisfactoriamente";
     public static final String CREATE_EVENT_ERROR = "Hubo un problema al crear el evento, intente nuevamente";
     public static final String MISSING_DATA_INPUTS_EVENT = "Por favor complete todos los campos";
+    public static final String GRUPOS = "Grupos";
 }

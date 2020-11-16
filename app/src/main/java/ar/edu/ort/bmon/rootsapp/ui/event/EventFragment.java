@@ -21,11 +21,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
@@ -72,6 +77,28 @@ public class EventFragment extends Fragment {
                 new FirestoreRecyclerOptions.Builder<Event>()
                         .setQuery(query, Event.class)
                         .build();
+        Query queryCutting = query.whereEqualTo("tipo", Constants.CUTTING);
+        Task<QuerySnapshot> cutting = queryCutting.get();
+
+        cutting.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                int cuttingQuantity = task.getResult().size();
+                TextView cuttingTV = viewReference.findViewById(R.id.text_view_grupos_cutting);
+                cuttingTV.setText(String.valueOf(cuttingQuantity)  +" " +  Constants.GRUPOS);
+            }
+        });
+
+        Query queryGermination = query.whereEqualTo("tipo", Constants.GERMINATION);
+        Task<QuerySnapshot> germination = queryGermination.get();
+        germination.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                int germinationQuantity = task.getResult().size();
+                TextView germinationTV = viewReference.findViewById(R.id.text_view_grupos_germination);
+                germinationTV.setText(String.valueOf(germinationQuantity) + " " + Constants.GRUPOS);
+            }
+        });
 
         model = new ViewModelProvider(requireActivity()).get(EventDetailViewModel.class);
 
@@ -101,7 +128,6 @@ public class EventFragment extends Fragment {
 
         expandableLayout.setVisibility(View.GONE);
         expandableLayoutCutting.setVisibility(View.GONE);
-
         germinationsCard.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
