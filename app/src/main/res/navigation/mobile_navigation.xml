@@ -38,16 +38,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_event_detail"
-        android:name="ar.edu.ort.bmon.rootsapp.ui.event.EventDetailFragment"
-        tools:layout="@layout/event_detail_fragment" />
-
-    <fragment
-        android:id="@+id/nav_plant_detail"
-        android:name="ar.edu.ort.bmon.rootsapp.ui.plant.DetailFragment"
-        tools:layout="@layout/fragment_detail" />
-
-    <fragment
         android:id="@+id/nav_report"
         android:name="ar.edu.ort.bmon.rootsapp.ui.report.ReportFragment"
         android:label="@string/menu_report"
@@ -58,6 +48,16 @@
         android:name="ar.edu.ort.bmon.rootsapp.ui.signout.SignoutFragment"
         android:label="@string/menu_sign_out"
         tools:layout="@layout/fragment_signout" />
+
+    <fragment
+        android:id="@+id/nav_event_detail"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.event.EventDetailFragment"
+        tools:layout="@layout/event_detail_fragment" />
+
+    <fragment
+        android:id="@+id/nav_plant_detail"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.plant.DetailFragment"
+        tools:layout="@layout/fragment_detail" />
 
     <fragment
         android:id="@+id/nav_create_event"

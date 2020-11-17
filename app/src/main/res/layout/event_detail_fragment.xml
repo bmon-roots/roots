@@ -81,8 +81,7 @@
     <EditText
         android:id="@+id/editTextCantidadEventoDetail2"
         android:layout_width="148dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="0dp"
+        android:layout_height="32dp"
         android:ems="10"
         android:enabled="false"
         android:hint="@string/eventQuantity"
@@ -107,9 +106,9 @@
     <EditText
         android:id="@+id/editTextCantidadEventoDetail"
         android:layout_width="148dp"
-        android:layout_height="32dp"
+        android:layout_height="34dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="6dp"
         android:ems="10"
         android:enabled="false"
         android:hint="@string/eventQuantity"

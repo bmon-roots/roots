@@ -15,7 +15,7 @@
     <!-- Opciones de menu -->
     <string name="menu_plant">Plantas</string>
     <string name="menu_material">Materiales</string>
-    <string name="menu_report">Reportes</string>
+    <string name="menu_report">Informes</string>
     <string name="menu_sign_out">Cerrar Sesión</string>
 
     <!-- Strings used for fragments for Create Plant -->
