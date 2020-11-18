@@ -31,12 +31,11 @@
         android:id="@+id/nav_event"
         android:name="ar.edu.ort.bmon.rootsapp.ui.event.EventFragment"
         android:label="@string/menu_event"
-        tools:layout="@layout/event_fragment"/>
-
-    <fragment
-        android:id="@+id/nav_plant_detail"
-        android:name="ar.edu.ort.bmon.rootsapp.ui.plant.DetailFragment"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/event_fragment">
+        <action
+            android:id="@+id/action_nav_event_to_nav_create_event"
+            app:destination="@id/nav_create_event" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_report"
@@ -49,6 +48,27 @@
         android:name="ar.edu.ort.bmon.rootsapp.ui.signout.SignoutFragment"
         android:label="@string/menu_sign_out"
         tools:layout="@layout/fragment_signout" />
+
+    <fragment
+        android:id="@+id/nav_event_detail"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.event.EventDetailFragment"
+        tools:layout="@layout/event_detail_fragment" />
+
+    <fragment
+        android:id="@+id/nav_plant_detail"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.plant.DetailFragment"
+        tools:layout="@layout/fragment_detail" />
+
+    <fragment
+        android:id="@+id/nav_create_event"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.event.CreateEventFragment"
+        android:label="Crear nuevo evento"
+        tools:layout="@layout/create_event_fragment"
+        >
+        <action
+            android:id="@+id/action_nav_create_event_to_nav_event"
+            app:destination="@id/nav_event" />
+    </fragment>
 
 
 

@@ -93,7 +93,6 @@ public class DetailFragment extends DialogFragment {
         super.onActivityCreated(savedInstanceState);
         detailViewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
         // TODO: Use the ViewModel
-
     }
 
     @Override
@@ -325,13 +324,11 @@ public class DetailFragment extends DialogFragment {
     private void habilitarEdicion(View root) {
         editMenuItem.setVisible(false);
         saveChangesMenuItem.setVisible(true);
-        //root.findViewById(R.id.editTextEspecie).setEnabled(true);
         root.findViewById(R.id.editTextNombre).setEnabled(true);
         root.findViewById(R.id.editTextAltura).setEnabled(true);
         root.findViewById(R.id.editTextContenedor).setEnabled(true);
         root.findViewById(R.id.editTextOrigen).setEnabled(true);
         root.findViewById(R.id.editTextEdad).setEnabled(true);
-        //root.findViewById(R.id.editTextFechaRegistro).setEnabled(true);
         root.findViewById(R.id.editTextPH).setEnabled(true);
         root.findViewById(R.id.switchAptoBonsai).setEnabled(true);
         root.findViewById(R.id.switchAptoVenta).setEnabled(true);

@@ -6,13 +6,13 @@ import androidx.lifecycle.ViewModel;
 
 import ar.edu.ort.bmon.rootsapp.model.Event;
 
-public class EventViewModel extends ViewModel {
-
-
+public class EventDetailViewModel extends ViewModel {
     private MutableLiveData<Event> selected;
+    private MutableLiveData<String> idSelected;
 
-    public EventViewModel() {
+    public EventDetailViewModel() {
         selected = new MutableLiveData<Event>();
+        idSelected = new MutableLiveData<String>();
     }
 
     public void select(Event item) {
@@ -21,5 +21,13 @@ public class EventViewModel extends ViewModel {
 
     public LiveData<Event> getSelected() {
         return selected;
+    }
+
+    public void selectId(String id) {
+        idSelected.setValue(id);
+    }
+
+    public LiveData<String> getIdSelected() {
+        return idSelected;
     }
 }

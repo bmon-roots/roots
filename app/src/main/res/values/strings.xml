@@ -15,7 +15,7 @@
     <!-- Opciones de menu -->
     <string name="menu_plant">Plantas</string>
     <string name="menu_material">Materiales</string>
-    <string name="menu_report">Reportes</string>
+    <string name="menu_report">Informes</string>
     <string name="menu_sign_out">Cerrar Sesión</string>
 
     <!-- Strings used for fragments for Create Plant -->
@@ -56,11 +56,29 @@
     <string name="plants_list_edad">Edad</string>
     <string name="alguntexto">AlgunTexto</string>
 
-<!--    Pantalla editar Planta-->
+    <!--    Pantalla editar Planta-->
     <string name="editPlantaTitulo">DETALLE DE PLANTA</string>
 
+    <!-- Menu Listado Eventos -->
+    <string name="createNewEvent">Crear Evento</string>
+    <string name="selectEventSpeciesType">Seleccione la especie</string>
+    <string name="eventQuantityLabel">Cantidad</string>
+    <string name="eventTemperatureRangeLabel">Rango de temperaturas</string>
+    <string name="eventHumidityRangeLabel">Rango humedad</string>
+    <string name="eventPHRangeLabel">Rango de PH</string>
+    <string name="eventEstimatedSproutDateLabel">Fecha estimada de nuevos brotes</string>
+    <string name="eventsCuttingHasHormones">Se uso hormonas?</string>
+    <string name="eventsGerminationStrataDate">Fecha de estratificacion</string>
+    <string name="eventQuantity">Ingrese cantidad</string>
+    <string name="eventTemperatureRange">Ingrese un rango</string>
+    <string name="eventPHRange">Ingrese un rango</string>
+    <string name="eventHumidityRange">Ingrese un rango</string>
+    <string name="eventEstimatedSproutDate">Ingrese fecha estimada</string>
 
-<!--    Mensajes genericos-->
+    <string name="eventSproutDateLabel">Brotes al 50%</string>
+    <string name="eventNewSproutDate">Primeros brotes</string>
+
+    <!--    Mensajes genericos-->
     <string name="dialog_delete">Seguro desea eliminar?</string>
     <string name="dialog_edit">Se guardarán los cambios</string>
     <string name="ok">OK</string>
@@ -80,4 +98,17 @@
     <string name="task_fertilize">Fertilizar</string>
     <string name="periodicity">Días de Periodicidad</string>
     <string name="menu_event">Eventos</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="eventEstimatedNewSproutDate">Ingrese Fecha estimada</string>
+    <string name="eventPH">Ingrese PH</string>
+    <string name="eventHumidity">Ingrese Humedad</string>
+    <string name="eventTemperature">Ingrese Temperatura</string>
+    <string name="eventHumidityLabel">Humedad</string>
+    <string name="eventPHLabel">PH</string>
+    <string name="eventTemperatureLabel">Temperatura</string>
+    <string name="eventActiveQuantityLabel">Cantidad Activa</string>
+    <string name="eventInitialQuantityLabel">Cantidad Inicial</string>
+    <string name="eventMiddleSproutDateLabel">Fecha primeros brotes</string>
+    <string name="eventMiddleSproutDate">Fecha mitad de Brotes</string>
 </resources>
