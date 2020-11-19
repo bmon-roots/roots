@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
@@ -168,7 +169,8 @@ public class EventDetailFragment extends DialogFragment {
     }
 
     private void addTaskDialog() {
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder alertDialog = new MaterialAlertDialogBuilder(getActivity());
+        alertDialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
         AlertDialog alert;
         alertDialog.setTitle(Constants.ADD_NEW_TASK_TITLE);
         alertDialog.setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
@@ -188,7 +190,8 @@ public class EventDetailFragment extends DialogFragment {
     }
 
     private void deleteEventDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
+        builder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
         builder.setMessage(R.string.dialog_delete)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -226,7 +229,8 @@ public class EventDetailFragment extends DialogFragment {
     }
 
     private void saveEventDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
+        builder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
         builder.setMessage(R.string.dialog_edit)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
