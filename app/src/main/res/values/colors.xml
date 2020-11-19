@@ -6,5 +6,6 @@
     <color name="colorGreenBar">#4CAF50</color>
     <color name="lightBlue">#B0E6ED</color>
     <color name="lightYellow">#FFC107</color>
+    <color name="lightBrown">#FFC66E</color>
     <color name="black">#000000</color>
 </resources>

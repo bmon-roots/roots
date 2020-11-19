@@ -38,7 +38,7 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
         document = getSnapshots().getSnapshot(holder.getAdapterPosition());
 
         holder.textViewNombre.setText(model.getSpecies());
-        holder.textViewMaceta.setText(model.getContainer());
+        holder.textViewMaceta.setText(model.getContainer() + "lt");
         holder.plantita = crearPlantaDesdeModel(model, document.getId());
         holder.imageViewAptoBonzai.setVisibility(View.INVISIBLE);
         holder.imageViewAptoVenta.setVisibility(View.INVISIBLE);

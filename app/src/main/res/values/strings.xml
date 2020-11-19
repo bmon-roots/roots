@@ -13,7 +13,7 @@
     <string name="menu_header_desc">Navigation header</string>
 
     <!-- Opciones de menu -->
-    <string name="menu_plant">Plantas</string>
+    <string name="menu_plant">Mis plantas</string>
     <string name="menu_material">Materiales</string>
     <string name="menu_report">Informes</string>
     <string name="menu_sign_out">Cerrar Sesión</string>
