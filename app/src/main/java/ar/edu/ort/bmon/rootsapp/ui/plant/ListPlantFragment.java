@@ -150,8 +150,6 @@ public class ListPlantFragment extends Fragment {
                 dialog.dismiss();
             }
         });
-        //newSpeciesDialog.setNegativeButtonIcon(getActivity().getDrawable(R.drawable.ic_baseline_close_24));
-        //newSpeciesDialog.setPositiveButtonIcon(getActivity().getDrawable(R.drawable.ic_baseline_check_24));
 
         newSpeciesDialog.create().show();
     }

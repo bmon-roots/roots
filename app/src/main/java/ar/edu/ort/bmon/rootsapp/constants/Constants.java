@@ -18,12 +18,14 @@ public class Constants {
     public static final String PLANT_IMAGE_URI = "imageUri";
     //Firebase Storage Collection Selectors
     public static final String PLANT_IMAGES_FOLDER = "/images/plants";
-    //Opciones del menu Crear una nueva entrada
+    //Opciones del menu plantas
     public static final String ADD_NEW_ENTRY_TITLE = "Crear Nueva Entrada";
     public static final String ADD_NEW_PLANT = "Nueva Planta";
     public static final String ADD_NEW_SPECIES = "Nueva Especie";
     public static final String ATTACH_IMAGE_TO_PLANT_ENTRY_TITLE = "Agregar Imagen";
     public static final String ATTACH_IMAGE_TO_PLANT_MESSAGE = "Desea agregar una imagen a esta planta?";
+    public static final String DELETE_PLANT_MESSAGE = "Esta seguro que desea eliminar esta planta?";
+    public static final String SAVE_PLANT_CHANGES = "Esta seguro que desea guardar los cambios?";
     //Constantes del ProgressDialog
     public static final String UPLOADING_PHOTO = "Subiendo foto";
     public static final String PERCENTAGE_COMPLETE = " % Completado";

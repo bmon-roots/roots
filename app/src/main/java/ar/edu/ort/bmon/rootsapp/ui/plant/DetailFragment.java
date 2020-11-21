@@ -31,6 +31,7 @@ import androidx.navigation.Navigation;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
@@ -162,9 +163,10 @@ public class DetailFragment extends DialogFragment {
     }
 
     private void agregarTareaDialog() {
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
         AlertDialog alert;
-        alertDialog.setTitle(Constants.ADD_NEW_TASK_TITLE);
+        MaterialAlertDialogBuilder addTaskDialog = new MaterialAlertDialogBuilder(getContext());
+        addTaskDialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+        addTaskDialog.setTitle(Constants.ADD_NEW_TASK_TITLE);
         if(null != planta.getTareas()) {
             for (int i = 0; i < planta.getTareas().size(); i++) {
                 if (planta.getTareas().get(i).getTipo().equals(Constants.ADD_TASK_FUMIGATE)) {
@@ -180,14 +182,14 @@ public class DetailFragment extends DialogFragment {
                 }
             }
         }
-        alertDialog.setView(viewAddTaskCustomDialog);
-        alertDialog.setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
+        addTaskDialog.setView(viewAddTaskCustomDialog);
+        addTaskDialog.setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 ((ViewGroup)viewAddTaskCustomDialog.getParent()).removeView(viewAddTaskCustomDialog);
             }
         });
-        alertDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
+        addTaskDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (((CheckBox) viewAddTaskCustomDialog.findViewById(R.id.check_task_fumigate)).isChecked()) {
@@ -218,7 +220,7 @@ public class DetailFragment extends DialogFragment {
                 saveTaskToPlant();
             }
         });
-        alert = alertDialog.create();
+        alert = addTaskDialog.create();
         alert.setCanceledOnTouchOutside(false);
         alert.show();
 
@@ -335,41 +337,41 @@ public class DetailFragment extends DialogFragment {
     }
 
     private void crearDialogoEliminar() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.dialog_delete)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        MaterialAlertDialogBuilder deleteDialogBuilder = new MaterialAlertDialogBuilder(getContext());
+        deleteDialogBuilder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+        deleteDialogBuilder.setMessage(Constants.DELETE_PLANT_MESSAGE)
+                .setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         eliminarPlanta(viewReference, planta);
                     }
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-//                                TAG.
                         System.out.println("Canceló eliminar");
+                        dialog.dismiss();
                     }
                 });
         // Create the AlertDialog object and return it
-        AlertDialog alertDialog = builder.create();
+        AlertDialog alertDialog = deleteDialogBuilder.create();
         alertDialog.show();
     }
 
     private void crearDialogoGuardar() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.dialog_edit)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        MaterialAlertDialogBuilder saveDialogBuilder = new MaterialAlertDialogBuilder(getContext());
+        saveDialogBuilder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+        saveDialogBuilder.setMessage(Constants.SAVE_PLANT_CHANGES)
+                .setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         savePlanta(viewReference);
                     }
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 //                                TAG.
                         // User cancelled the dialog
                     }
                 });
-        // Create the AlertDialog object and return it
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        saveDialogBuilder.create().show();
     }
 
     private void loadDetailValue(View root){

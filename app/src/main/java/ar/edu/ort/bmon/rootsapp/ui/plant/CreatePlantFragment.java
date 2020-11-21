@@ -173,7 +173,8 @@ public class CreatePlantFragment extends Fragment {
     }
 
     private void showSelectPhotoDialog() {
-        AlertDialog.Builder selectPhotoDialog = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder selectPhotoDialog = new MaterialAlertDialogBuilder(getContext());
+        selectPhotoDialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
         String[] selectPhotoDialogOptions = new String[] {Constants.SELECT_FROM_GALLERY, Constants.TAKE_PHOTO};
         selectPhotoDialog.setTitle(Constants.CHANGE_PHOTO_MENU_TITLE);
         selectPhotoDialog.setSingleChoiceItems(selectPhotoDialogOptions, -1, new DialogInterface.OnClickListener() {
