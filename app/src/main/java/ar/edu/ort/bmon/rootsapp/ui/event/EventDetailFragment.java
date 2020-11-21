@@ -5,8 +5,15 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.AlarmManager;
+import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,18 +36,25 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Event;
+import ar.edu.ort.bmon.rootsapp.model.Material;
 import ar.edu.ort.bmon.rootsapp.model.TipoTarea;
 import ar.edu.ort.bmon.rootsapp.ui.plant.DetailViewModel;
+import ar.edu.ort.bmon.rootsapp.ui.plant.ReminderBroadcast;
+
+import static android.content.Context.ALARM_SERVICE;
 
 public class EventDetailFragment extends DialogFragment {
 
@@ -68,7 +82,7 @@ public class EventDetailFragment extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
+        createNotificationChannel();
         viewReference = inflater.inflate(R.layout.event_detail_fragment, container, false);
         EventDetailViewModel model = new ViewModelProvider(requireActivity()).get(EventDetailViewModel.class);
         eventImage = viewReference.findViewById(R.id.eventDetailImageView);
@@ -159,7 +173,7 @@ public class EventDetailFragment extends DialogFragment {
             case R.id.menu_save_detail_event_button:
                 saveEventDialog();
                 break;
-            case R.id.menu_add_task_button:
+            case R.id.menu_edit_detail_add_task:
                 addTaskDialog();
                 break;
         }
@@ -168,41 +182,63 @@ public class EventDetailFragment extends DialogFragment {
     }
 
     private void addTaskDialog() {
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-        AlertDialog alert;
-        alertDialog.setTitle(Constants.ADD_NEW_TASK_TITLE);
-        alertDialog.setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
+        final String[] options = Constants.EVENT_OPTIONS;
+        final boolean[] selectedOptions = new boolean[] {false, false, false};
+        MaterialAlertDialogBuilder addTaskDialogBuilder = new MaterialAlertDialogBuilder(getContext());
+        addTaskDialogBuilder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+        addTaskDialogBuilder.setTitle(Constants.ADD_NEW_TASK_TITLE);
+        addTaskDialogBuilder.setMultiChoiceItems(options, selectedOptions, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                selectedOptions[which] = isChecked;
             }
         });
-        alertDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
+        addTaskDialogBuilder.setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
             }
         });
-        alert = alertDialog.create();
-        alert.setCanceledOnTouchOutside(false);
-        alert.show();
+        addTaskDialogBuilder.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                int index = 0;
+                int selectedPosition = -1;
+                while (index < selectedOptions.length && selectedPosition == -1) {
+                    if (selectedOptions[index]) {
+                        selectedPosition = index;
+                    }
+                    index ++;
+                };
+                
+                if (selectedPosition != -1) {
+                    createAlarmForTaskInEvent(Constants.DEFAULT_REMAINDER_DURATION, options[index]);
+                    Toast.makeText(getContext(), Constants.ADD_TASK_TO_EVENT_SUCCESS, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
+        Dialog addTaskDialog = addTaskDialogBuilder.create();
+        addTaskDialog.setCanceledOnTouchOutside(false);
+        addTaskDialog.show();
     }
 
     private void deleteEventDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.dialog_delete)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        MaterialAlertDialogBuilder deleteEventDialog = new MaterialAlertDialogBuilder(getContext());
+        deleteEventDialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+        deleteEventDialog.setMessage(R.string.dialog_delete)
+                .setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         deleteEvent(viewReference, event);
                     }
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 //                                TAG.
                         System.out.println("Canceló eliminar");
                     }
                 });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        deleteEventDialog.create().show();
     }
 
     private void deleteEvent(View viewReference, Event event) {
@@ -212,36 +248,35 @@ public class EventDetailFragment extends DialogFragment {
                     @Override
                     public void onSuccess(Void aVoid) {
                         System.out.println("Documento eliminado");
-                        Toast.makeText(getContext(), R.string.msj_eliminar_ok, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), Constants.DELETE_EVENT_SUCCESS, Toast.LENGTH_LONG).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         System.out.println("Error al intentar eliminar");
-                        Toast.makeText(getContext(), R.string.msj_eliminar_error, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), Constants.DELETE_EVENT_ERROR, Toast.LENGTH_LONG).show();
                     }
                 });
         Navigation.findNavController(viewReference).navigate(R.id.nav_event);
     }
 
     private void saveEventDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.dialog_edit)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        MaterialAlertDialogBuilder saveEventDialogBuilder = new MaterialAlertDialogBuilder(getContext());
+        saveEventDialogBuilder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+        saveEventDialogBuilder.setMessage(R.string.dialog_edit)
+                .setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         saveEvent(viewReference);
                     }
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 //                                TAG.
                         // User cancelled the dialog
                     }
                 });
-        // Create the AlertDialog object and return it
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        saveEventDialogBuilder.create().show();
     }
 
     private void saveEvent(View root) {
@@ -292,6 +327,34 @@ public class EventDetailFragment extends DialogFragment {
         root.findViewById(R.id.editTextRangoPH).setEnabled(true);
         root.findViewById(R.id.editTextFechaNuevosBrotes).setEnabled(true);
         root.findViewById(R.id.editTextFechaMitadBrotes).setEnabled(true);
+    }
+
+    private void createAlarmForTaskInEvent(int expiryDate, String task){
+        Intent intent = new Intent(getContext(), ReminderBroadcast.class);
+        intent.putExtra("tarea", task);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(),0,intent,0);
+        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(ALARM_SERVICE);
+
+        Instant now =  Instant.now();
+        Instant expiration = now.plus(expiryDate, ChronoUnit.DAYS);
+
+        long expirationTime = expiration.toEpochMilli();
+
+        alarmManager.set(AlarmManager.RTC_WAKEUP,expirationTime, pendingIntent);
+    }
+
+    private void createNotificationChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "ORTReminderChannel";
+            String description = "Channel para remiender de ORT";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("notifyORT", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+
+        }
     }
 
 }

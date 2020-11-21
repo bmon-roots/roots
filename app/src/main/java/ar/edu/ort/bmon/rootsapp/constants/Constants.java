@@ -1,5 +1,12 @@
 package ar.edu.ort.bmon.rootsapp.constants;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import ar.edu.ort.bmon.rootsapp.R;
+
 public class Constants {
     public static final String GOOGLE_ACCOUNT = "google_account";
     ///Firebase DB Collection Selectors
@@ -46,14 +53,22 @@ public class Constants {
     public static final String ADD_TASK_FUMIGATE = "Fumigar";
     public static final String ADD_TASK_PRUNE = "Podar";
     public static final String ADD_TASK_FERTILIZE = "Fertilizar";
+    public static final String ADD_TASK_RAISE_HUMIDITY = "Subir humedad";
+    public static final String ADD_TASK_LOWER_HUMIDITY = "Bajar humedad";
+    public static final String ADD_TASK_CHECK_PLAGES = "Revisar plagas";
     // Eventos
     public static final String CREATE_NEW_EVENT_TITLE = "Crear un evento";
     public static final String GERMINATION = "Germinaciones";
     public static final String CUTTING = "Esquejes";
     public static final String SELECTED_EVENT = "Selected Event";
+    public static final String[] EVENT_OPTIONS = new String[]{ "Subir humedad", "Bajar humedad", "Revisar plagas"};
+    public static final int DEFAULT_REMAINDER_DURATION = 1;
+    public static final String ADD_TASK_TO_EVENT_SUCCESS = "Tarea agregada satisfactoriamente";
     public static final String SPECIES_SELECTION_DIALOG = "Seleccione una especie";
     public static final String CREATE_EVENT_SUCCESS = "Evento creado satisfactoriamente";
     public static final String CREATE_EVENT_ERROR = "Hubo un problema al crear el evento, intente nuevamente";
+    public static final String DELETE_EVENT_SUCCESS = "Evento eliminado satisfactoriamente";
+    public static final String DELETE_EVENT_ERROR = "Hubo un problema al eliminar el evento, intente nuevamente";
     public static final String MISSING_DATA_INPUTS_EVENT = "Por favor complete todos los campos";
     public static final String GRUPOS = "Grupos";
 }
