@@ -1,6 +1,7 @@
 package ar.edu.ort.bmon.rootsapp.ui.event;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -89,6 +90,13 @@ public class EventDetailFragment extends DialogFragment {
         eventImage = viewReference.findViewById(R.id.eventDetailImageView);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
+        CardView finishCardView = viewReference.findViewById(R.id.cardViewFinish);
+        finishCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finishEventDialog();
+            }
+        });
         db = FirebaseFirestore.getInstance();
         event = model.getSelected().getValue();
         eventId = model.getIdSelected().getValue();
@@ -134,6 +142,11 @@ public class EventDetailFragment extends DialogFragment {
 
         EditText fechaNuevosBrotes = (EditText)root.findViewById(R.id.editTextFechaNuevosBrotes);
         fechaNuevosBrotes.setText(nuevosBrotesDate);
+
+        String mediosBrotesDate = dateFormat.format(event.getBrotoLaMitad());
+
+        EditText fechaMediosBrotes = (EditText)root.findViewById(R.id.editTextFechaMitadBrotes);
+        fechaMediosBrotes.setText(mediosBrotesDate);
 
     }
 
@@ -323,6 +336,24 @@ public class EventDetailFragment extends DialogFragment {
                     }
                 });
         Navigation.findNavController(viewReference).navigate(R.id.nav_event);
+    }
+
+    private void finishEventDialog() {
+        MaterialAlertDialogBuilder finishEventDialogBuilder = new MaterialAlertDialogBuilder(getContext());
+        finishEventDialogBuilder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+        finishEventDialogBuilder.setMessage(R.string.dialog_finish)
+                .setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Navigation.findNavController(viewReference).navigate(R.id.action_nav_event_detail_to_nav_event_finish);
+                    }
+                })
+                .setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+//                                TAG.
+                        System.out.println("Canceló finalizar evento");
+                    }
+                });
+        finishEventDialogBuilder.create().show();
     }
 
     private void editionEnabled(View root) {

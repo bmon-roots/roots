@@ -122,4 +122,5 @@
     <string name="eventInitialQuantityLabel">Cantidad \nInicial</string>
     <string name="eventMiddleSproutDateLabel">Fecha primeros brotes</string>
     <string name="eventMiddleSproutDate">Fecha mitad de Brotes</string>
+    <string name="dialog_finish">Finalizar Evento</string>
 </resources>
