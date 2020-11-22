@@ -6,149 +6,311 @@
     android:layout_height="match_parent"
     tools:context=".ui.plant.CreatePlantFragment">
 
-    <ImageView
-        android:id="@+id/imageViewPlantPhoto"
-        android:layout_width="124dp"
-        android:layout_height="124dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img_plant_placeholder"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageViewPlantDetailPhoto"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/ic_default_sprout"
+        app:civ_border_color="@color/colorAccent"
+        app:civ_border_width="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.056" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/editTextPlantName"
-        android:layout_width="225dp"
+        android:layout_width="195dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
         android:ems="10"
-        android:hint="@string/create_plant_name_placeholder"
+        android:fontFamily="@font/nexa_regular"
         android:inputType="textPersonName"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/editPlantAge"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerSpecies" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPlantDetailPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCreatePlantTitleName"
+        app:layout_constraintVertical_bias="0.025" />
 
     <EditText
-        android:id="@+id/editPlantAge"
-        android:layout_width="225dp"
+        android:id="@+id/editTextPlantDetailAge"
+        android:layout_width="175dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="@string/create_plant_age_placeholder"
+        android:layout_marginEnd="32dp"
+        android:fontFamily="@font/nexa_light"
         android:inputType="number"
+        android:textAlignment="textEnd"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/editPlantHeight"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewPlantAgeLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPlantName" />
+        tools:text="@tools:sample/us_zipcodes" />
 
     <EditText
-        android:id="@+id/editPlantDate"
-        android:layout_width="225dp"
+        android:id="@+id/editTextPlantDetailDate"
+        android:layout_width="175dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="32dp"
         android:clickable="true"
         android:ems="10"
         android:focusable="false"
+        android:fontFamily="@font/nexa_light"
         android:hint="@string/create_plant_date_placeholder"
         android:inputType="date"
         android:maxLines="1"
+        android:textAlignment="textEnd"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/editPlantContainerType"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editPlantHeight" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewCreatePlantAdquisitionDate"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
-        android:id="@+id/editPlantContainerType"
-        android:layout_width="225dp"
+        android:id="@+id/editTextPlantDetailContainerType"
+        android:layout_width="175dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
-        android:hint="@string/create_plant_container_type_placeholder"
+        android:fontFamily="@font/nexa_light"
         android:inputType="number"
+        android:textAlignment="viewEnd"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/editPlantOrigin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editPlantDate" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewContainerType"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
-        android:id="@+id/editPlantOrigin"
-        android:layout_width="225dp"
+        android:id="@+id/editTextPlantDetailOrigin"
+        android:layout_width="175dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
-        android:hint="@string/create_plant_origin_placeholder"
+        android:fontFamily="@font/nexa_light"
         android:inputType="text"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/editPlantPH"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editPlantContainerType" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewCreatePlantOrigin"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
-        android:id="@+id/editPlantPH"
-        android:layout_width="225dp"
+        android:id="@+id/editTextPlantDetailPh"
+        android:layout_width="175dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
-        android:hint="@string/create_plant_ph_placeholder"
+        android:fontFamily="@font/nexa_light"
         android:inputType="text"
+        android:textAlignment="viewEnd"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/switchSellable"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editPlantOrigin" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewCreatePlantPH"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Switch
+        android:id="@+id/switchBonsaiable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewBonsaible"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Switch
         android:id="@+id/switchSellable"
-        android:layout_width="225dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/create_plant_sellable_text"
-        app:layout_constraintBottom_toTopOf="@+id/switchBonsaiAble"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editPlantPH" />
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewSellable"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <Switch
-        android:id="@+id/switchBonsaiAble"
-        android:layout_width="225dp"
+    <TextView
+        android:id="@+id/textViewCreatePlantTitleName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/create_plant_bonsaiAble_text"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/nexa_heavy"
+        android:text="@string/create_plant_text_view"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPlantDetailPhoto"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.025" />
+
+    <TextView
+        android:id="@+id/textViewCreatePlantSelectedSpecies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/nexa_heavy"
+        android:text="@string/create_plant_selected_species_label"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switchSellable" />
+        app:layout_constraintTop_toTopOf="@+id/guideline13"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2599179" />
 
     <EditText
-        android:id="@+id/editPlantHeight"
-        android:layout_width="225dp"
+        android:id="@+id/editTextCreatePlantSpeciesName"
+        android:layout_width="175dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="32dp"
+        android:clickable="true"
         android:ems="10"
-        android:hint="@string/create_plant_height_placeholder"
-        android:inputType="number"
+        android:focusable="false"
+        android:fontFamily="@font/nexa_light"
+        android:hint="@string/create_plant_select_species_hint"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/editPlantDate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editPlantAge" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewCreatePlantSelectedSpecies"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <Spinner
-        android:id="@+id/spinnerSpecies"
-        android:layout_width="225dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="40dp"
-        android:prompt="@string/create_plant_species"
+    <TextView
+        android:id="@+id/textViewPlantAgeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/nexa_heavy"
+        android:text="@string/create_plant_age_label"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPlantPhoto" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewCreatePlantSelectedSpecies"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textViewCreatePlantHeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/nexa_heavy"
+        android:text="@string/create_plant_height_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPlantAgeLabel"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/editTextPlantDetailHeight"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:fontFamily="@font/nexa_light"
+        android:inputType="number"
+        android:textAlignment="viewEnd"
+        android:textSize="14sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textViewCreatePlantHeight"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="@tools:sample/us_zipcodes" />
+
+    <TextView
+        android:id="@+id/textViewCreatePlantAdquisitionDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/nexa_heavy"
+        android:text="@string/create_plant_adquisition_date_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCreatePlantHeight"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textViewContainerType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/nexa_heavy"
+        android:text="@string/create_plant_container_type_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCreatePlantAdquisitionDate"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textViewCreatePlantOrigin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/nexa_heavy"
+        android:text="@string/create_plant_origin_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewContainerType"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textViewCreatePlantPH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/nexa_heavy"
+        android:text="@string/create_plant_ph_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCreatePlantOrigin"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textViewBonsaible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/nexa_heavy"
+        android:text="@string/create_plant_bonsaiAble_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCreatePlantPH"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textViewSellable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/nexa_heavy"
+        android:text="@string/create_plant_sellable_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewBonsaible"
+        app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
