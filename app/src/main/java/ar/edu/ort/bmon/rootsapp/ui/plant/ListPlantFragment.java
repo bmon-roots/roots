@@ -69,7 +69,7 @@ public class ListPlantFragment extends Fragment {
             }
         });
         recyclerView.setAdapter(plantsAdapter);
-        //s
+
         return plantsListView;
     }
 
