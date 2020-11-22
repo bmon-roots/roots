@@ -13,18 +13,26 @@
     <string name="menu_header_desc">Navigation header</string>
 
     <!-- Opciones de menu -->
-    <string name="menu_plant">Mis plantas</string>
-    <string name="menu_material">Materiales</string>
+    <string name="menu_plant">Mis Plantas</string>
+    <string name="menu_material">Mis Materiales</string>
     <string name="menu_report">Informes</string>
     <string name="menu_sign_out">Cerrar Sesión</string>
 
     <!-- Strings used for fragments for Create Plant -->
+    <string name="create_plant_text_view">Ingresa el nombre de tu planta</string>
+    <string name="create_plant_selected_species_label">Especie</string>
+    <string name="create_plant_age_label">Edad</string>
+    <string name="create_plant_height_label">Altura</string>
+    <string name="create_plant_adquisition_date_label">Fecha adquisicion</string>
+    <string name="create_plant_container_type_label">Tipo contenedor</string>
+    <string name="create_plant_origin_label">Origen</string>
+    <string name="create_plant_ph_label">PH</string>
     <string name="createPlantFragmentTitle">Agregar una planta</string>
-    <string name="create_plant_species">Seleccione una especie</string>
+    <string name="create_plant_select_species_hint">Seleccione una especie</string>
     <string name="create_plant_name_placeholder">Ingrese nombre</string>
     <string name="create_plant_age_placeholder">Ingrese Edad</string>
-    <string name="create_plant_date_placeholder">Seleccione fecha adquisicion</string>
-    <string name="create_plant_bonsaiAble_text">Apta bonsai?</string>
+    <string name="create_plant_date_placeholder">Seleccione una fecha</string>
+    <string name="create_plant_bonsaiAble_text">Apta bonsai</string>
     <string name="create_plant_origin_placeholder">Ingrese Origen</string>
     <string name="create_plant_ph_placeholder">Ingrese PH</string>
     <string name="create_plant_height_placeholder">Ingrese Altura</string>
@@ -81,7 +89,7 @@
     <!--    Mensajes genericos-->
     <string name="dialog_delete">Seguro desea eliminar?</string>
     <string name="dialog_edit">Se guardarán los cambios</string>
-    <string name="ok">Aceptar</string>
+    <string name="ok">OK</string>
     <string name="cancel">Cancelar</string>
     <string name="msj_modificacion_ok">Modificación exitosa</string>
     <string name="msj_modificacion_error">Error al intentar modificar</string>

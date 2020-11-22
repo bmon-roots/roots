@@ -19,6 +19,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,9 +39,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalField;
 import java.util.Date;
 
 import ar.edu.ort.bmon.rootsapp.R;
@@ -93,6 +92,7 @@ public class DetailFragment extends DialogFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         detailViewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
+        // TODO: Use the ViewModel
     }
 
     @Override
@@ -162,11 +162,10 @@ public class DetailFragment extends DialogFragment {
     }
 
     private void agregarTareaDialog() {
-        MaterialAlertDialogBuilder alertDialog = new MaterialAlertDialogBuilder(getActivity());
-        alertDialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
-
         AlertDialog alert;
-        alertDialog.setTitle(Constants.ADD_NEW_TASK_TITLE);
+        MaterialAlertDialogBuilder addTaskDialog = new MaterialAlertDialogBuilder(getContext());
+        addTaskDialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+        addTaskDialog.setTitle(Constants.ADD_NEW_TASK_TITLE);
         if(null != planta.getTareas()) {
             for (int i = 0; i < planta.getTareas().size(); i++) {
                 if (planta.getTareas().get(i).getTipo().equals(Constants.ADD_TASK_FUMIGATE)) {
@@ -182,14 +181,14 @@ public class DetailFragment extends DialogFragment {
                 }
             }
         }
-        alertDialog.setView(viewAddTaskCustomDialog);
-        alertDialog.setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
+        addTaskDialog.setView(viewAddTaskCustomDialog);
+        addTaskDialog.setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 ((ViewGroup)viewAddTaskCustomDialog.getParent()).removeView(viewAddTaskCustomDialog);
             }
         });
-        alertDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
+        addTaskDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (((CheckBox) viewAddTaskCustomDialog.findViewById(R.id.check_task_fumigate)).isChecked()) {
@@ -220,7 +219,7 @@ public class DetailFragment extends DialogFragment {
                 saveTaskToPlant();
             }
         });
-        alert = alertDialog.create();
+        alert = addTaskDialog.create();
         alert.setCanceledOnTouchOutside(false);
         alert.show();
 
@@ -230,16 +229,14 @@ public class DetailFragment extends DialogFragment {
         DocumentReference docRef = db.collection(Constants.PLANT_COLLECTION).document(planta.getId());
 
         //Bind viewElements
-        EditText especie = root.findViewById(R.id.editTextEspecie);
-        EditText nombre = (EditText) root.findViewById(R.id.editTextNombre);
-        EditText altura = root.findViewById(R.id.editTextAltura);
-        EditText contenedor = (EditText)root.findViewById(R.id.editTextContenedor);
-        EditText origen = (EditText)root.findViewById(R.id.editTextOrigen);
-        EditText edad = (EditText)root.findViewById(R.id.editTextEdad);
-        EditText fechaRegistro = (EditText)root.findViewById(R.id.editTextFechaRegistro);
-        EditText ph = (EditText) root.findViewById(R.id.editTextPH);
-        Switch aptoBonsai = (Switch) root.findViewById(R.id.switchAptoBonsai);
-        Switch aptoVenta = (Switch) root.findViewById(R.id.switchAptoVenta);
+        EditText nombre = (EditText) root.findViewById(R.id.editTextPlantDetailName);
+        EditText altura = root.findViewById(R.id.editTextPlantDetailHeight);
+        EditText contenedor = (EditText)root.findViewById(R.id.editTextPlantDetailContainerType);
+        EditText origen = (EditText)root.findViewById(R.id.editTextPlantDetailOrigin);
+        EditText edad = (EditText)root.findViewById(R.id.editTextPlantDetailAge);
+        EditText ph = (EditText) root.findViewById(R.id.editTextPlantDetailPh);
+        Switch aptoBonsai = (Switch) root.findViewById(R.id.switchBonsaiable);
+        Switch aptoVenta = (Switch) root.findViewById(R.id.switchSellable);
 
         //Bind new values to store
         String newPlantName = nombre.getText().toString();
@@ -326,91 +323,89 @@ public class DetailFragment extends DialogFragment {
     private void habilitarEdicion(View root) {
         editMenuItem.setVisible(false);
         saveChangesMenuItem.setVisible(true);
-        root.findViewById(R.id.editTextNombre).setEnabled(true);
-        root.findViewById(R.id.editTextAltura).setEnabled(true);
-        root.findViewById(R.id.editTextContenedor).setEnabled(true);
-        root.findViewById(R.id.editTextOrigen).setEnabled(true);
-        root.findViewById(R.id.editTextEdad).setEnabled(true);
-        root.findViewById(R.id.editTextPH).setEnabled(true);
-        root.findViewById(R.id.switchAptoBonsai).setEnabled(true);
-        root.findViewById(R.id.switchAptoVenta).setEnabled(true);
+        root.findViewById(R.id.editTextPlantDetailName).setEnabled(true);
+        root.findViewById(R.id.editTextPlantDetailHeight).setEnabled(true);
+        root.findViewById(R.id.editTextPlantDetailContainerType).setEnabled(true);
+        root.findViewById(R.id.editTextPlantDetailOrigin).setEnabled(true);
+        root.findViewById(R.id.editTextPlantDetailAge).setEnabled(true);
+        root.findViewById(R.id.editTextPlantDetailPh).setEnabled(true);
+        root.findViewById(R.id.switchBonsaiable).setEnabled(true);
+        root.findViewById(R.id.switchSellable).setEnabled(true);
     }
 
     private void crearDialogoEliminar() {
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
-        builder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
-        builder.setMessage(R.string.dialog_delete)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        MaterialAlertDialogBuilder deleteDialogBuilder = new MaterialAlertDialogBuilder(getContext());
+        deleteDialogBuilder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+        deleteDialogBuilder.setMessage(Constants.DELETE_PLANT_MESSAGE)
+                .setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         eliminarPlanta(viewReference, planta);
                     }
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-//                                TAG.
                         System.out.println("Canceló eliminar");
+                        dialog.dismiss();
                     }
                 });
         // Create the AlertDialog object and return it
-        AlertDialog alertDialog = builder.create();
+        AlertDialog alertDialog = deleteDialogBuilder.create();
         alertDialog.show();
     }
 
     private void crearDialogoGuardar() {
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
-        builder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
-        builder.setMessage(R.string.dialog_edit)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        MaterialAlertDialogBuilder saveDialogBuilder = new MaterialAlertDialogBuilder(getContext());
+        saveDialogBuilder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+        saveDialogBuilder.setMessage(Constants.SAVE_PLANT_CHANGES)
+                .setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         savePlanta(viewReference);
                     }
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 //                                TAG.
                         // User cancelled the dialog
                     }
                 });
-        // Create the AlertDialog object and return it
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        saveDialogBuilder.create().show();
     }
 
     private void loadDetailValue(View root){
-        EditText nombre = (EditText) root.findViewById(R.id.editTextNombre);
+        EditText nombre = (EditText) root.findViewById(R.id.editTextPlantDetailName);
         nombre.setText(planta.getName());
 
-        EditText especie = (EditText)root.findViewById(R.id.editTextEspecie);
+        TextView especie = (TextView) root.findViewById(R.id.textViewDetailSpeciesName);
         especie.setText(planta.getSpecies());
 
-        EditText altura = (EditText)root.findViewById(R.id.editTextAltura);
+        EditText altura = (EditText)root.findViewById(R.id.editTextPlantDetailHeight);
         altura.setText(planta.getHeight());
 
-        EditText contenedor = (EditText)root.findViewById(R.id.editTextContenedor);
+        EditText contenedor = (EditText)root.findViewById(R.id.editTextPlantDetailContainerType);
         contenedor.setText(planta.getContainer());
 
-        EditText origen = (EditText)root.findViewById(R.id.editTextOrigen);
+        EditText origen = (EditText)root.findViewById(R.id.editTextPlantDetailOrigin);
         origen.setText(planta.getOrigin());
 
-        EditText edad = (EditText)root.findViewById(R.id.editTextEdad);
+        EditText edad = (EditText)root.findViewById(R.id.editTextPlantDetailAge);
         edad.setText(planta.getAge());
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String registrationDate = dateFormat.format(planta.getRegistrationDate());
 
-        EditText fechaRegistro = (EditText)root.findViewById(R.id.editTextFechaRegistro);
+        EditText fechaRegistro = (EditText)root.findViewById(R.id.editTextPlantDetailDate);
         fechaRegistro.setText(registrationDate);
 
-        EditText ph = (EditText) root.findViewById(R.id.editTextPH);
+        EditText ph = (EditText) root.findViewById(R.id.editTextPlantDetailPh);
         ph.setText(planta.getPh());
 
-        Switch aptoBonsai = (Switch) root.findViewById(R.id.switchAptoBonsai);
+        Switch aptoBonsai = (Switch) root.findViewById(R.id.switchBonsaiable);
         aptoBonsai.setChecked(planta.isBonsaiAble());
 
-        Switch aptoVenta = (Switch) root.findViewById(R.id.switchAptoVenta);
+        Switch aptoVenta = (Switch) root.findViewById(R.id.switchSellable);
         aptoVenta.setChecked(planta.isSaleable());
 
-        ImageView imageViewPlant = root.findViewById(R.id.imageViewPlant);
+        ImageView imageViewPlant = root.findViewById(R.id.imageViewPlantDetailPhoto);
 
         if (planta.getImageUri() != null && !planta.getImageUri().equals("")) {
             Picasso.get().load(planta.getImageUri()).into(imageViewPlant);

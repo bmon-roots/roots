@@ -2,20 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_edit_detail_event_button"
-        android:title="Edit"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_baseline_edit_24" />
-    <item
-        android:id="@+id/menu_save_detail_event_button"
-        android:title="Save Changes"
-        app:showAsAction="always"
-        android:visible="false"
-        android:icon="@drawable/ic_baseline_save_24"
+        android:id="@+id/menu_edit_detail_add_task"
+        android:title="Agregar Tarea"
         />
     <item
+        android:id="@+id/menu_edit_detail_event_button"
+        android:title="Editar"/>
+    <item
         android:id="@+id/menu_delete_detail_event_button"
-        android:title="Delete"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_baseline_delete_24" />
+        android:title="Eliminar" />
+    <item
+        android:id="@+id/menu_save_detail_event_button"
+        android:title="Guardar"
+        android:visible="false"/>
 </menu>

@@ -1,5 +1,12 @@
 package ar.edu.ort.bmon.rootsapp.constants;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import ar.edu.ort.bmon.rootsapp.R;
+
 public class Constants {
     public static final String GOOGLE_ACCOUNT = "google_account";
     ///Firebase DB Collection Selectors
@@ -11,12 +18,14 @@ public class Constants {
     public static final String PLANT_IMAGE_URI = "imageUri";
     //Firebase Storage Collection Selectors
     public static final String PLANT_IMAGES_FOLDER = "/images/plants";
-    //Opciones del menu Crear una nueva entrada
+    //Opciones del menu plantas
     public static final String ADD_NEW_ENTRY_TITLE = "Crear Nueva Entrada";
     public static final String ADD_NEW_PLANT = "Nueva Planta";
     public static final String ADD_NEW_SPECIES = "Nueva Especie";
     public static final String ATTACH_IMAGE_TO_PLANT_ENTRY_TITLE = "Agregar Imagen";
     public static final String ATTACH_IMAGE_TO_PLANT_MESSAGE = "Desea agregar una imagen a esta planta?";
+    public static final String DELETE_PLANT_MESSAGE = "Esta seguro que desea eliminar esta planta?";
+    public static final String SAVE_PLANT_CHANGES = "Esta seguro que desea guardar los cambios?";
     //Constantes del ProgressDialog
     public static final String UPLOADING_PHOTO = "Subiendo foto";
     public static final String PERCENTAGE_COMPLETE = " % Completado";
@@ -46,14 +55,22 @@ public class Constants {
     public static final String ADD_TASK_FUMIGATE = "Fumigar";
     public static final String ADD_TASK_PRUNE = "Podar";
     public static final String ADD_TASK_FERTILIZE = "Fertilizar";
+    public static final String ADD_TASK_RAISE_HUMIDITY = "Subir humedad";
+    public static final String ADD_TASK_LOWER_HUMIDITY = "Bajar humedad";
+    public static final String ADD_TASK_CHECK_PLAGES = "Revisar plagas";
     // Eventos
     public static final String CREATE_NEW_EVENT_TITLE = "Crear un evento";
     public static final String GERMINATION = "Germinaciones";
     public static final String CUTTING = "Esquejes";
     public static final String SELECTED_EVENT = "Selected Event";
+    public static final String[] EVENT_OPTIONS = new String[]{ "Subir humedad", "Bajar humedad", "Revisar plagas"};
+    public static final int DEFAULT_REMAINDER_DURATION = 1;
+    public static final String ADD_TASK_TO_EVENT_SUCCESS = "Tarea agregada satisfactoriamente";
     public static final String SPECIES_SELECTION_DIALOG = "Seleccione una especie";
     public static final String CREATE_EVENT_SUCCESS = "Evento creado satisfactoriamente";
     public static final String CREATE_EVENT_ERROR = "Hubo un problema al crear el evento, intente nuevamente";
+    public static final String DELETE_EVENT_SUCCESS = "Evento eliminado satisfactoriamente";
+    public static final String DELETE_EVENT_ERROR = "Hubo un problema al eliminar el evento, intente nuevamente";
     public static final String MISSING_DATA_INPUTS_EVENT = "Por favor complete todos los campos";
     public static final String GRUPOS = "Grupos";
 }

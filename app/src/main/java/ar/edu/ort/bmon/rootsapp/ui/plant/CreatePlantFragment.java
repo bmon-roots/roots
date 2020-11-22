@@ -30,14 +30,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -46,7 +42,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -86,7 +81,7 @@ public class CreatePlantFragment extends Fragment {
     private EditText plantPh;
     private Switch isSaleable;
     private List<Species> speciesList;
-    private int selectedSpeciesIndex;
+    private EditText speciesName;
     private String imageFileName;
     private String imageLocation;
     private Uri imageLocationUri;
@@ -132,14 +127,81 @@ public class CreatePlantFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getAllSpecies(view);
+        //getAllSpecies(view);
+        getAvailableSpecies();
         initializeFields(view);
-        view.findViewById(R.id.editPlantDate).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.editTextPlantDetailDate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog(getChildFragmentManager());
             }
         });
+        view.findViewById(R.id.editTextCreatePlantSpeciesName).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectSpeciesDialog();
+            }
+        });
+    }
+
+    private void getAvailableSpecies() {
+        speciesList = new ArrayList<>();
+        db.collection(Constants.SPECIES_COLLECTION)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for (QueryDocumentSnapshot document: task.getResult()) {
+                                speciesList.add(document.toObject(Species.class));
+                            }
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(Constants.FIREBASE_ERROR, e.toString());
+                    }
+                });
+    }
+
+    private void selectSpeciesDialog() {
+        String[] availableSpecies = convertSpeciesListToArray();
+        MaterialAlertDialogBuilder selectSpeciesDialog = new MaterialAlertDialogBuilder(getContext());
+        selectSpeciesDialog.setTitle(R.string.create_plant_select_species_hint);
+        selectSpeciesDialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+        selectSpeciesDialog.setSingleChoiceItems(availableSpecies, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ListView selectionList = ((AlertDialog) dialog).getListView();
+                selectionList.setTag(Integer.valueOf(which));
+            }
+        });
+        selectSpeciesDialog.setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        selectSpeciesDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ListView selectionList = ((AlertDialog) dialog).getListView();
+                Integer selectedItemId = (Integer)selectionList.getTag();
+                speciesName.setText(speciesList.get(selectedItemId).getName());
+                dialog.dismiss();
+            }
+        });
+        selectSpeciesDialog.create().show();
+    }
+
+    private String[] convertSpeciesListToArray() {
+        ArrayList<String> speciesNameList = new ArrayList<>();
+        for (Species species: speciesList) {
+            speciesNameList.add(species.getName());
+        }
+        return speciesNameList.toArray(new String[0]);
     }
 
     @Override
@@ -173,7 +235,8 @@ public class CreatePlantFragment extends Fragment {
     }
 
     private void showSelectPhotoDialog() {
-        AlertDialog.Builder selectPhotoDialog = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder selectPhotoDialog = new MaterialAlertDialogBuilder(getContext());
+        selectPhotoDialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
         String[] selectPhotoDialogOptions = new String[] {Constants.SELECT_FROM_GALLERY, Constants.TAKE_PHOTO};
         selectPhotoDialog.setTitle(Constants.CHANGE_PHOTO_MENU_TITLE);
         selectPhotoDialog.setSingleChoiceItems(selectPhotoDialogOptions, -1, new DialogInterface.OnClickListener() {
@@ -275,7 +338,7 @@ public class CreatePlantFragment extends Fragment {
 
     private void insertDataIntoFirebase() {
         plant = new Plant(
-                speciesList.get(selectedSpeciesIndex).toString(),
+                speciesName.getText().toString(),
                 plantName.getText().toString(),
                 plantAge.getText().toString(),
                 userSelectedDate,
@@ -380,11 +443,10 @@ public class CreatePlantFragment extends Fragment {
 
     }
 
+    /*
     private void getAllSpecies(View view) {
         final Spinner speciesSpinner = view.findViewById(R.id.spinnerSpecies);
-        speciesList = new ArrayList<>();
-        db.collection(Constants.SPECIES_COLLECTION)
-            .get()
+
             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -423,17 +485,20 @@ public class CreatePlantFragment extends Fragment {
             });
     }
 
+     */
+
     private void initializeFields(View view) {
-        plantPhoto = view.findViewById(R.id.imageViewPlantPhoto);
+        plantPhoto = view.findViewById(R.id.imageViewPlantDetailPhoto);
+        speciesName = view.findViewById(R.id.editTextCreatePlantSpeciesName);
         plantName = view.findViewById(R.id.editTextPlantName);
-        plantAge = view.findViewById(R.id.editPlantAge);
-        acquisitionDate = view.findViewById(R.id.editPlantDate);
-        plantPh = view.findViewById(R.id.editPlantPH);
-        origin = view.findViewById(R.id.editPlantOrigin);
-        height = view.findViewById(R.id.editPlantHeight);
-        container = view.findViewById(R.id.editPlantContainerType);
-        isBonsaiAble = view.findViewById(R.id.switchBonsaiAble);
-        isSaleable = view.findViewById(R.id.switchSellable);
+        plantAge = view.findViewById(R.id.editTextPlantDetailAge);
+        acquisitionDate = view.findViewById(R.id.editTextPlantDetailDate);
+        plantPh = view.findViewById(R.id.editTextPlantDetailPh);
+        origin = view.findViewById(R.id.editTextPlantDetailOrigin);
+        height = view.findViewById(R.id.editTextPlantDetailHeight);
+        container = view.findViewById(R.id.editTextPlantDetailContainerType);
+        isBonsaiAble = view.findViewById(R.id.switchSellable);
+        isSaleable = view.findViewById(R.id.switchBonsaiable);
     }
 
     private void showDatePickerDialog(FragmentManager fragmentManager) {

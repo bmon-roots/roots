@@ -8,4 +8,5 @@
     <color name="lightYellow">#FFC107</color>
     <color name="lightBrown">#FFC66E</color>
     <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
 </resources>
