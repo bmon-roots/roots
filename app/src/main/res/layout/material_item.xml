@@ -7,9 +7,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
-    app:cardCornerRadius="25dp"
+    app:cardCornerRadius="18dp"
     app:cardUseCompatPadding="true"
-    tools:context=".ui.material.MaterialAdapter">
+    tools:context=".ui.material.MaterialAdapter"
+    app:cardBackgroundColor="@color/veryLightGreen"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="411dp"
@@ -20,13 +22,14 @@
 
         <TextView
             android:id="@+id/text_view_material"
-            android:layout_width="103dp"
+            android:layout_width="106dp"
             android:layout_height="27dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="2dp"
             android:layout_weight="1"
-            android:gravity="left"
+            android:fontFamily="@font/nexa_bold"
+            android:gravity="center"
             android:text="Material"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -40,6 +43,7 @@
             android:layout_weight="1"
             android:gravity="left"
             android:text="1L"
+            android:fontFamily="@font/nexa_heavy"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/text_view_material"
             app:layout_constraintTop_toTopOf="parent" />
@@ -87,6 +91,7 @@
             android:gravity="left"
             android:text="20"
             android:textSize="18sp"
+            android:fontFamily="@font/nexa_heavy"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/substract_button"
             app:layout_constraintTop_toTopOf="parent"
