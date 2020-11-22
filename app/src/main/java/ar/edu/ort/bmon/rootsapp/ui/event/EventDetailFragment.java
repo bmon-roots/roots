@@ -27,6 +27,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -86,6 +87,7 @@ public class EventDetailFragment extends DialogFragment {
         viewReference = inflater.inflate(R.layout.event_detail_fragment, container, false);
         EventDetailViewModel model = new ViewModelProvider(requireActivity()).get(EventDetailViewModel.class);
         eventImage = viewReference.findViewById(R.id.eventDetailImageView);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         db = FirebaseFirestore.getInstance();
         event = model.getSelected().getValue();
@@ -107,8 +109,13 @@ public class EventDetailFragment extends DialogFragment {
         TextView tipoEventoTV = (TextView) root.findViewById(R.id.textViewSelectedEventDetailType);
         tipoEventoTV.setText(event.getTipo());
 
+
+
         TextView especieTV = (TextView) root.findViewById(R.id.textViewSelectedSpecies);
         especieTV.setText(event.getEspecie());
+
+        EditText cantidadInicial = (EditText) root.findViewById(R.id.editTextCantidadEventoDetail2);
+        cantidadInicial.setText(String.valueOf(event.getCantidadInicial()));
 
         EditText cantidadET = (EditText) root.findViewById(R.id.editTextCantidadEventoDetail);
         cantidadET.setText(String.valueOf(event.getCantidadActivas()));
