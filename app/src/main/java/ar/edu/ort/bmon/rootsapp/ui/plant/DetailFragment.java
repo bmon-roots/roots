@@ -19,6 +19,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,9 +39,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalField;
 import java.util.Date;
 
 import ar.edu.ort.bmon.rootsapp.R;
@@ -230,16 +229,14 @@ public class DetailFragment extends DialogFragment {
         DocumentReference docRef = db.collection(Constants.PLANT_COLLECTION).document(planta.getId());
 
         //Bind viewElements
-        EditText especie = root.findViewById(R.id.editTextEspecie);
-        EditText nombre = (EditText) root.findViewById(R.id.editTextNombre);
-        EditText altura = root.findViewById(R.id.editTextAltura);
-        EditText contenedor = (EditText)root.findViewById(R.id.editTextContenedor);
-        EditText origen = (EditText)root.findViewById(R.id.editTextOrigen);
-        EditText edad = (EditText)root.findViewById(R.id.editTextEdad);
-        EditText fechaRegistro = (EditText)root.findViewById(R.id.editTextFechaRegistro);
-        EditText ph = (EditText) root.findViewById(R.id.editTextPH);
-        Switch aptoBonsai = (Switch) root.findViewById(R.id.switchAptoBonsai);
-        Switch aptoVenta = (Switch) root.findViewById(R.id.switchAptoVenta);
+        EditText nombre = (EditText) root.findViewById(R.id.editTextPlantDetailName);
+        EditText altura = root.findViewById(R.id.editTextPlantDetailHeight);
+        EditText contenedor = (EditText)root.findViewById(R.id.editTextPlantDetailContainerType);
+        EditText origen = (EditText)root.findViewById(R.id.editTextPlantDetailOrigin);
+        EditText edad = (EditText)root.findViewById(R.id.editTextPlantDetailAge);
+        EditText ph = (EditText) root.findViewById(R.id.editTextPlantDetailPh);
+        Switch aptoBonsai = (Switch) root.findViewById(R.id.switchBonsaiable);
+        Switch aptoVenta = (Switch) root.findViewById(R.id.switchSellable);
 
         //Bind new values to store
         String newPlantName = nombre.getText().toString();
@@ -326,14 +323,14 @@ public class DetailFragment extends DialogFragment {
     private void habilitarEdicion(View root) {
         editMenuItem.setVisible(false);
         saveChangesMenuItem.setVisible(true);
-        root.findViewById(R.id.editTextNombre).setEnabled(true);
-        root.findViewById(R.id.editTextAltura).setEnabled(true);
-        root.findViewById(R.id.editTextContenedor).setEnabled(true);
-        root.findViewById(R.id.editTextOrigen).setEnabled(true);
-        root.findViewById(R.id.editTextEdad).setEnabled(true);
-        root.findViewById(R.id.editTextPH).setEnabled(true);
-        root.findViewById(R.id.switchAptoBonsai).setEnabled(true);
-        root.findViewById(R.id.switchAptoVenta).setEnabled(true);
+        root.findViewById(R.id.editTextPlantDetailName).setEnabled(true);
+        root.findViewById(R.id.editTextPlantDetailHeight).setEnabled(true);
+        root.findViewById(R.id.editTextPlantDetailContainerType).setEnabled(true);
+        root.findViewById(R.id.editTextPlantDetailOrigin).setEnabled(true);
+        root.findViewById(R.id.editTextPlantDetailAge).setEnabled(true);
+        root.findViewById(R.id.editTextPlantDetailPh).setEnabled(true);
+        root.findViewById(R.id.switchBonsaiable).setEnabled(true);
+        root.findViewById(R.id.switchSellable).setEnabled(true);
     }
 
     private void crearDialogoEliminar() {
@@ -375,40 +372,40 @@ public class DetailFragment extends DialogFragment {
     }
 
     private void loadDetailValue(View root){
-        EditText nombre = (EditText) root.findViewById(R.id.editTextNombre);
+        EditText nombre = (EditText) root.findViewById(R.id.editTextPlantDetailName);
         nombre.setText(planta.getName());
 
-        EditText especie = (EditText)root.findViewById(R.id.editTextEspecie);
+        TextView especie = (TextView) root.findViewById(R.id.textViewDetailSpeciesName);
         especie.setText(planta.getSpecies());
 
-        EditText altura = (EditText)root.findViewById(R.id.editTextAltura);
+        EditText altura = (EditText)root.findViewById(R.id.editTextPlantDetailHeight);
         altura.setText(planta.getHeight());
 
-        EditText contenedor = (EditText)root.findViewById(R.id.editTextContenedor);
+        EditText contenedor = (EditText)root.findViewById(R.id.editTextPlantDetailContainerType);
         contenedor.setText(planta.getContainer());
 
-        EditText origen = (EditText)root.findViewById(R.id.editTextOrigen);
+        EditText origen = (EditText)root.findViewById(R.id.editTextPlantDetailOrigin);
         origen.setText(planta.getOrigin());
 
-        EditText edad = (EditText)root.findViewById(R.id.editTextEdad);
+        EditText edad = (EditText)root.findViewById(R.id.editTextPlantDetailAge);
         edad.setText(planta.getAge());
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String registrationDate = dateFormat.format(planta.getRegistrationDate());
 
-        EditText fechaRegistro = (EditText)root.findViewById(R.id.editTextFechaRegistro);
+        EditText fechaRegistro = (EditText)root.findViewById(R.id.editTextPlantDetailDate);
         fechaRegistro.setText(registrationDate);
 
-        EditText ph = (EditText) root.findViewById(R.id.editTextPH);
+        EditText ph = (EditText) root.findViewById(R.id.editTextPlantDetailPh);
         ph.setText(planta.getPh());
 
-        Switch aptoBonsai = (Switch) root.findViewById(R.id.switchAptoBonsai);
+        Switch aptoBonsai = (Switch) root.findViewById(R.id.switchBonsaiable);
         aptoBonsai.setChecked(planta.isBonsaiAble());
 
-        Switch aptoVenta = (Switch) root.findViewById(R.id.switchAptoVenta);
+        Switch aptoVenta = (Switch) root.findViewById(R.id.switchSellable);
         aptoVenta.setChecked(planta.isSaleable());
 
-        ImageView imageViewPlant = root.findViewById(R.id.imageViewPlant);
+        ImageView imageViewPlant = root.findViewById(R.id.imageViewPlantDetailPhoto);
 
         if (planta.getImageUri() != null && !planta.getImageUri().equals("")) {
             Picasso.get().load(planta.getImageUri()).into(imageViewPlant);

@@ -7,7 +7,7 @@
     tools:context=".ui.plant.CreatePlantFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageViewPlantPhoto"
+        android:id="@+id/imageViewPlantDetailPhoto"
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_marginStart="24dp"
@@ -35,12 +35,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/imageViewPlantPhoto"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPlantDetailPhoto"
         app:layout_constraintTop_toBottomOf="@+id/textViewCreatePlantTitleName"
         app:layout_constraintVertical_bias="0.025" />
 
     <EditText
-        android:id="@+id/editPlantAge"
+        android:id="@+id/editTextPlantDetailAge"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -53,7 +53,7 @@
         tools:text="@tools:sample/us_zipcodes" />
 
     <EditText
-        android:id="@+id/editPlantDate"
+        android:id="@+id/editTextPlantDetailDate"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -70,7 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
-        android:id="@+id/editPlantContainerType"
+        android:id="@+id/editTextPlantDetailContainerType"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -83,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
-        android:id="@+id/editPlantOrigin"
+        android:id="@+id/editTextPlantDetailOrigin"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -95,7 +95,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
-        android:id="@+id/editPlantPH"
+        android:id="@+id/editTextPlantDetailPh"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -108,7 +108,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Switch
-        android:id="@+id/switchSellable"
+        android:id="@+id/switchBonsaiable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -116,7 +116,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Switch
-        android:id="@+id/switchBonsaiAble"
+        android:id="@+id/switchSellable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -136,7 +136,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/imageViewPlantPhoto"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPlantDetailPhoto"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.025" />
 
@@ -210,7 +210,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/editTextCreatePlantHeight"
+        android:id="@+id/editTextPlantDetailHeight"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
