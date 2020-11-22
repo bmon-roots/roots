@@ -86,7 +86,7 @@ public class CreatePlantFragment extends Fragment {
     private EditText plantPh;
     private Switch isSaleable;
     private List<Species> speciesList;
-    private int selectedSpeciesIndex;
+    private EditText speciesName;
     private String imageFileName;
     private String imageLocation;
     private Uri imageLocationUri;
@@ -132,7 +132,8 @@ public class CreatePlantFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getAllSpecies(view);
+        //getAllSpecies(view);
+        getAvailableSpecies();
         initializeFields(view);
         view.findViewById(R.id.editPlantDate).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +141,72 @@ public class CreatePlantFragment extends Fragment {
                 showDatePickerDialog(getChildFragmentManager());
             }
         });
+        view.findViewById(R.id.editTextCreatePlantSpeciesName).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectSpeciesDialog();
+            }
+        });
+    }
+
+    private void getAvailableSpecies() {
+        speciesList = new ArrayList<>();
+        db.collection(Constants.SPECIES_COLLECTION)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for (QueryDocumentSnapshot document: task.getResult()) {
+                                speciesList.add(document.toObject(Species.class));
+                            }
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(Constants.FIREBASE_ERROR, e.toString());
+                    }
+                });
+    }
+
+    private void selectSpeciesDialog() {
+        String[] availableSpecies = convertSpeciesListToArray();
+        MaterialAlertDialogBuilder selectSpeciesDialog = new MaterialAlertDialogBuilder(getContext());
+        selectSpeciesDialog.setTitle(R.string.create_plant_select_species_hint);
+        selectSpeciesDialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+        selectSpeciesDialog.setSingleChoiceItems(availableSpecies, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ListView selectionList = ((AlertDialog) dialog).getListView();
+                selectionList.setTag(Integer.valueOf(which));
+            }
+        });
+        selectSpeciesDialog.setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        selectSpeciesDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ListView selectionList = ((AlertDialog) dialog).getListView();
+                Integer selectedItemId = (Integer)selectionList.getTag();
+                speciesName.setText(speciesList.get(selectedItemId).getName());
+                dialog.dismiss();
+            }
+        });
+        selectSpeciesDialog.create().show();
+    }
+
+    private String[] convertSpeciesListToArray() {
+        ArrayList<String> speciesNameList = new ArrayList<>();
+        for (Species species: speciesList) {
+            speciesNameList.add(species.getName());
+        }
+        return speciesNameList.toArray(new String[0]);
     }
 
     @Override
@@ -276,7 +343,7 @@ public class CreatePlantFragment extends Fragment {
 
     private void insertDataIntoFirebase() {
         plant = new Plant(
-                speciesList.get(selectedSpeciesIndex).toString(),
+                speciesName.getText().toString(),
                 plantName.getText().toString(),
                 plantAge.getText().toString(),
                 userSelectedDate,
@@ -381,11 +448,10 @@ public class CreatePlantFragment extends Fragment {
 
     }
 
+    /*
     private void getAllSpecies(View view) {
         final Spinner speciesSpinner = view.findViewById(R.id.spinnerSpecies);
-        speciesList = new ArrayList<>();
-        db.collection(Constants.SPECIES_COLLECTION)
-            .get()
+
             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -424,14 +490,17 @@ public class CreatePlantFragment extends Fragment {
             });
     }
 
+     */
+
     private void initializeFields(View view) {
         plantPhoto = view.findViewById(R.id.imageViewPlantPhoto);
+        speciesName = view.findViewById(R.id.editTextCreatePlantSpeciesName);
         plantName = view.findViewById(R.id.editTextPlantName);
         plantAge = view.findViewById(R.id.editPlantAge);
         acquisitionDate = view.findViewById(R.id.editPlantDate);
         plantPh = view.findViewById(R.id.editPlantPH);
         origin = view.findViewById(R.id.editPlantOrigin);
-        height = view.findViewById(R.id.editPlantHeight);
+        height = view.findViewById(R.id.editTextCreatePlantHeight);
         container = view.findViewById(R.id.editPlantContainerType);
         isBonsaiAble = view.findViewById(R.id.switchBonsaiAble);
         isSaleable = view.findViewById(R.id.switchSellable);
