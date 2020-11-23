@@ -71,20 +71,22 @@
     <string name="createNewEvent">Crear Evento</string>
     <string name="selectEventSpeciesType">Seleccione la especie</string>
     <string name="eventQuantityLabel">Cantidad</string>
-    <string name="eventTemperatureRangeLabel">Rango de temperaturas</string>
-    <string name="eventHumidityRangeLabel">Rango humedad</string>
-    <string name="eventPHRangeLabel">Rango de PH</string>
+    <string name="eventTemperatureRangeLabel">Promedio de temperaturas</string>
+    <string name="eventHumidityRangeLabel">Promedio humedad</string>
+    <string name="eventPHRangeLabel">Promedio  \n de PH</string>
     <string name="eventEstimatedSproutDateLabel">Fecha estimada de nuevos brotes</string>
-    <string name="eventsCuttingHasHormones">Se uso hormonas?</string>
-    <string name="eventsGerminationStrataDate">Fecha de estratificacion</string>
+    <string name="eventsCuttingHasHormones">Uso \n de hormonas</string>
+    <string name="eventsGerminationStrataDate">Fecha de estratificación</string>
+    <string name="eventsGerminationStrataHint">Ingrese fecha estratificación</string>
     <string name="eventQuantity">Ingrese cantidad</string>
-    <string name="eventTemperatureRange">Ingrese un rango</string>
+    <string name="eventTemperatureRange">Ingrese un promedio</string>
+    <string name="eventWeatherAverage">Ingrese un promedio</string>
     <string name="eventPHRange">Ingrese un rango</string>
     <string name="eventHumidityRange">Ingrese un rango</string>
     <string name="eventEstimatedSproutDate">Ingrese fecha estimada</string>
 
-    <string name="eventSproutDateLabel">Brotes al 50%</string>
-    <string name="eventNewSproutDate">Primeros brotes</string>
+    <string name="eventSproutDateLabel">Brotes\n al 50%</string>
+    <string name="eventNewSproutDate">Primeros\n  brotes</string>
 
     <!--    Mensajes genericos-->
     <string name="dialog_delete">Seguro desea eliminar?</string>
@@ -115,8 +117,9 @@
     <string name="eventHumidityLabel">Humedad</string>
     <string name="eventPHLabel">PH</string>
     <string name="eventTemperatureLabel">Temperatura</string>
-    <string name="eventActiveQuantityLabel">Cantidad Activa</string>
-    <string name="eventInitialQuantityLabel">Cantidad Inicial</string>
+    <string name="eventActiveQuantityLabel">Cantidad \nActiva</string>
+    <string name="eventActiveQuantityLabelHint">Unidades activas</string>
+    <string name="eventInitialQuantityLabel">Cantidad \nInicial</string>
     <string name="eventMiddleSproutDateLabel">Fecha primeros brotes</string>
     <string name="eventMiddleSproutDate">Fecha mitad de Brotes</string>
 </resources>

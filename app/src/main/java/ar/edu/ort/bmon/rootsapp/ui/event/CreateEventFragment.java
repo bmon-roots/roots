@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -78,6 +79,7 @@ public class CreateEventFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         viewReference = inflater.inflate(R.layout.create_event_fragment, container, false);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         String[] eventOptions = new String[] { Constants.GERMINATION, Constants.CUTTING };
         selectedEventName = viewReference.findViewById(R.id.textViewSelectedEventType);
         eventImage = viewReference.findViewById(R.id.eventImageView);
@@ -103,8 +105,9 @@ public class CreateEventFragment extends Fragment {
     }
 
     private void createSpeciesListDialog() {
+        MaterialAlertDialogBuilder speciesDialog = new MaterialAlertDialogBuilder(getActivity());
+        speciesDialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
         String[] speciesOptions = speciesList.toArray(new String[0]);
-        AlertDialog.Builder speciesDialog = new AlertDialog.Builder(getContext());
         speciesDialog.setTitle(Constants.SPECIES_SELECTION_DIALOG);
         speciesDialog.setSingleChoiceItems(speciesOptions, -1, new DialogInterface.OnClickListener() {
             @Override

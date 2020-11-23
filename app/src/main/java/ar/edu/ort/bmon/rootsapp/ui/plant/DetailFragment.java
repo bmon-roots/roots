@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -81,6 +82,7 @@ public class DetailFragment extends DialogFragment {
         createNotificationChannel(); // Para las notificaciones de tareas
         viewReference = inflater.inflate(R.layout.fragment_detail, container, false);
         viewAddTaskCustomDialog = getLayoutInflater().inflate(R.layout.add_task_fragment, null);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         db = FirebaseFirestore.getInstance();
         DetailViewModel model = new ViewModelProvider(requireActivity()).get(DetailViewModel.class);
         planta = model.getSelected().getValue();
