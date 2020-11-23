@@ -4,49 +4,52 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Pie;
 
-import java.util.Date;
+import java.util.ArrayList;
 
 import ar.edu.ort.bmon.rootsapp.R;
-import ar.edu.ort.bmon.rootsapp.model.Event;
-import ar.edu.ort.bmon.rootsapp.ui.event.EventDetailViewModel;
 
 public class ReportFragment extends Fragment {
 
-    private ReportViewModel reportViewModel;
+    AnyChartView anyChartView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        reportViewModel =
-                ViewModelProviders.of(this).get(ReportViewModel.class);
+
         final View root = inflater.inflate(R.layout.fragment_report, container, false);
-        final TextView textView = root.findViewById(R.id.text_report);
-        reportViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        FloatingActionButton eventButton = root.findViewById(R.id.detailEventButton);
 
-        eventButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(root).navigate(R.id.nav_event_detail);
+        anyChartView = root.findViewById(R.id.anyChartEventReport);
 
-            }
-        });
+
+
+//        setupPieChart();
+
         return root;
     }
+
+    public void setupPieChart(){
+        String[] months = {"Enero", "Febrero", "Marzo"};
+        int[] ganancias = {100, 300, 600};
+        Pie pie = AnyChart.pie();
+
+        ArrayList<DataEntry> dataEntries = new ArrayList<>();
+
+        for (int i = 0 ; i < months.length; i++){
+            dataEntries.add(new ValueDataEntry(months[i], ganancias[i]));
+
+        }
+
+        pie.data(dataEntries);
+        anyChartView.setChart(pie);
+    }
+
 }
