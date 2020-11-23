@@ -44,6 +44,12 @@
         tools:layout="@layout/fragment_report" />
 
     <fragment
+        android:id="@+id/nav_cutting_report"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.report.ReportCuttingFragment"
+        android:label="@string/menu_report"
+        tools:layout="@layout/fragment_cutting_report" />
+
+    <fragment
         android:id="@+id/nav_sign_out"
         android:name="ar.edu.ort.bmon.rootsapp.ui.signout.SignoutFragment"
         android:label="@string/menu_sign_out"
