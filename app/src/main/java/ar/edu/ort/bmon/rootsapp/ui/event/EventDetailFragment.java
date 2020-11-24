@@ -1,5 +1,11 @@
 package ar.edu.ort.bmon.rootsapp.ui.event;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.NotificationChannel;
@@ -10,6 +16,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,18 +30,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -38,19 +45,27 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Event;
+import ar.edu.ort.bmon.rootsapp.model.Material;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
+import ar.edu.ort.bmon.rootsapp.model.Species;
 import ar.edu.ort.bmon.rootsapp.model.Tarea;
+import ar.edu.ort.bmon.rootsapp.model.TipoTarea;
+import ar.edu.ort.bmon.rootsapp.ui.plant.DetailViewModel;
 import ar.edu.ort.bmon.rootsapp.ui.plant.ReminderBroadcast;
+import kotlin.jvm.Throws;
 
 import static android.content.Context.ALARM_SERVICE;
 
@@ -394,21 +409,21 @@ public class EventDetailFragment extends DialogFragment {
 
     private void insertActivePlantsIntoFirebase(Plant planta) throws InsertPlantFromEventException {
         try{
-//            db.collection(Constants.PLANT_COLLECTION).add(planta)
-//                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                        @Override
-//                        public void onSuccess(DocumentReference documentReference) {
-//                            //Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
-//                            Log.d("Firebase", "Se han creado las plantas activas del evento");
-//                        }
-//                    })
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Log.w(Constants.FIREBASE_ERROR, e.toString());
-//                            Toast.makeText(getContext(), Constants.PLANT_CREATE_ERROR, Toast.LENGTH_LONG).show();
-//                        }
-//                    });
+            db.collection(Constants.PLANT_COLLECTION).add(planta)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            //Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
+                            Log.d("Firebase", "Se crean plantas activas desde evento");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(Constants.FIREBASE_ERROR, e.toString());
+                            Toast.makeText(getContext(), Constants.PLANT_CREATE_ERROR, Toast.LENGTH_LONG).show();
+                        }
+                    });
         }catch (Exception e){
             e.printStackTrace();
             throw new InsertPlantFromEventException("Error al intentar insertar plantas desde el evento");
