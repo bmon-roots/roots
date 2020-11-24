@@ -413,7 +413,6 @@ public class EventDetailFragment extends DialogFragment {
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
-                            //Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
                             Log.d("Firebase", "Se crean plantas activas desde evento");
                         }
                     })
