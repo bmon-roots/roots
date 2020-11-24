@@ -139,5 +139,10 @@
     <string name="eventPercentEfectivityLabelHint">Porcentaje de Efectividad</string>
     <string name="eventInitialDateLabelHint">Fecha de Inicio</string>
     <string name="eventFinishDateLabelHint">Fecha de Finalización</string>
+    <string name="eventFinishPotLabel">Macetas \n1L</string>
+    <string name="eventQuantityPots">Macetas necesarias</string>
+    <string name="eventFinishSubstratumHint">Sustratos necesarios</string>
+    <string name="eventFinishSubstratumLabel">Sustratos \n1L</string>
+
 
 </resources>

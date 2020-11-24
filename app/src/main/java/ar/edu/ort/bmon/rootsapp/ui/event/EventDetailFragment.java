@@ -1,11 +1,5 @@
 package ar.edu.ort.bmon.rootsapp.ui.event;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
-import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.NotificationChannel;
@@ -16,12 +10,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,12 +17,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,21 +38,18 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Event;
-import ar.edu.ort.bmon.rootsapp.model.Material;
-import ar.edu.ort.bmon.rootsapp.model.Species;
-import ar.edu.ort.bmon.rootsapp.model.TipoTarea;
-import ar.edu.ort.bmon.rootsapp.ui.plant.DetailViewModel;
+import ar.edu.ort.bmon.rootsapp.model.Plant;
+import ar.edu.ort.bmon.rootsapp.model.Tarea;
 import ar.edu.ort.bmon.rootsapp.ui.plant.ReminderBroadcast;
 
 import static android.content.Context.ALARM_SERVICE;
@@ -356,7 +347,7 @@ public class EventDetailFragment extends DialogFragment {
         finishEventDialogBuilder.setMessage(R.string.dialog_finish)
                 .setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        finishDialog();
+                        finishEvent();
                     }
                 })
                 .setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
@@ -368,30 +359,60 @@ public class EventDetailFragment extends DialogFragment {
         finishEventDialogBuilder.create().show();
     }
 
-    private void finishDialog() {
-        //TODO gauardar en firestore
-        DocumentReference docRef = db.collection(Constants.EVENTS_COLLECTION).document(eventId);
-
-        docRef.update(
-                "fechaFinalizacion", new Date()
-        )
+    private void finishEvent() {
+        try {
+            //TODO mejorar esta implementación
+            for (int i = 0; i < event.getCantidadActivas(); i++) {
+                Plant planta= new Plant(event.getEspecie(), event.getTipo(), "0", null, false, event.getTipo(), "0",
+                        "1", false,"0", "", new ArrayList<Tarea>());
+                insertActivePlantsIntoFirebase(planta);
+            }
+           DocumentReference docRef = db.collection(Constants.EVENTS_COLLECTION).document(eventId);
+            docRef.update(
+                    "fechaFinalizacion", new Date()
+                )
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
+                        @Override
+                        public void onSuccess(Void aVoid) {
                         System.out.println("Evento Finalizado");
                         Toast.makeText(getContext(), R.string.msj_finalizar_evento_ok, Toast.LENGTH_LONG).show();
                         Navigation.findNavController(viewReference).navigate(R.id.action_nav_event_detail_to_nav_event_finish);
-
                     }
-                })
+                    })
                 .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
                         System.out.println("Error al finalizar Evento" + " " + e.getCause());
                         Toast.makeText(getContext(), R.string.msj_finalizar_evento_error, Toast.LENGTH_LONG);
+                        }
+                    });
+        } catch (InsertPlantFromEventException e) {
+            e.getMessage();
+            Toast.makeText(getContext(), e.mensaje, Toast.LENGTH_LONG).show();
+        }
+    }
 
-                    }
-                });
+    private void insertActivePlantsIntoFirebase(Plant planta) throws InsertPlantFromEventException {
+        try{
+//            db.collection(Constants.PLANT_COLLECTION).add(planta)
+//                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                        @Override
+//                        public void onSuccess(DocumentReference documentReference) {
+//                            //Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
+//                            Log.d("Firebase", "Se han creado las plantas activas del evento");
+//                        }
+//                    })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Log.w(Constants.FIREBASE_ERROR, e.toString());
+//                            Toast.makeText(getContext(), Constants.PLANT_CREATE_ERROR, Toast.LENGTH_LONG).show();
+//                        }
+//                    });
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new InsertPlantFromEventException("Error al intentar insertar plantas desde el evento");
+        }
     }
 
     private void editionEnabled(View root) {
