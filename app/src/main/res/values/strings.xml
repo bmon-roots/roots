@@ -88,6 +88,11 @@
     <string name="eventSproutDateLabel">Brotes\n al 50%</string>
     <string name="eventNewSproutDate">Primeros\n  brotes</string>
 
+    <!--  Informes  -->
+
+    <string name="germinationTitle">Germinaciones</string>
+    <string name="cuttingTitle">Esquejes</string>
+
     <!--    Mensajes genericos-->
     <string name="dialog_delete">Seguro desea eliminar?</string>
     <string name="dialog_edit">Se guardarán los cambios</string>

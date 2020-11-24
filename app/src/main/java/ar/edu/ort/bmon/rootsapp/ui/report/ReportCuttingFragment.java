@@ -34,29 +34,29 @@ import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Event;
 
-public class ReportFragment extends Fragment {
+public class ReportCuttingFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<DocumentSnapshot> documents;
     private ArrayList<Event> eventos = new ArrayList<>();
     private AnyChartView anyChartView;
-    private TextView textoCutting;
+    private TextView textGermination;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        final View root = inflater.inflate(R.layout.fragment_report, container, false);
-        textoCutting = root.findViewById(R.id.text_view_header_cutting);
-        textoCutting.setOnClickListener(
+        final View root = inflater.inflate(R.layout.fragment_cutting_report, container, false);
+        textGermination = root.findViewById(R.id.text_view_header_germination2);
+        textGermination.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Navigation.findNavController(view).navigate(R.id.nav_cutting_report);
+                        Navigation.findNavController(view).navigate(R.id.nav_report);
                     }
                 }
         );
 
-        anyChartView = root.findViewById(R.id.anyChartEventReport);
+        anyChartView = root.findViewById(R.id.anyChartEventReport2);
         Task<QuerySnapshot> future = db.collection(Constants.EVENTS_COLLECTION).get();
 
         future.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -157,7 +157,7 @@ public class ReportFragment extends Fragment {
     }
 
     private void addToList(Event evento) {
-        if (evento.getTipo().equals("Germinaciones")) {
+        if (evento.getTipo().equals("Esquejes")) {
             this.eventos.add(evento);
         }
     }

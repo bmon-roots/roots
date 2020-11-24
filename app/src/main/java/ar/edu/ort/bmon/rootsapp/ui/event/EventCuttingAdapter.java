@@ -36,23 +36,23 @@ public class EventCuttingAdapter extends FirestoreRecyclerAdapter<Event, EventCu
 
     @Override
     protected void onBindViewHolder(@NonNull EventHolder holder, int position, @NonNull Event model) {
+        final Event eventoSeleccionado = crearEventoDesdeModel(model);
         this.eventHolder = holder;
         final DocumentSnapshot document = getSnapshots().getSnapshot(holder.getAdapterPosition());
         holder.eventCard.setVisibility(View.GONE);
         holder.eventCard.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
         if (model.getTipo().equals(Constants.CUTTING)) {
-            eventHolder.evento = crearEventoDesdeModel(model);
             holder.eventCard.setVisibility(View.VISIBLE);
             holder.eventCard.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             holder.eventGroup.setText(model.getEspecie());
             holder.eventTypeImage.setBackgroundResource(R.drawable.ic_sprouts);
         }
 
-        eventHolder.eventCard.setOnClickListener(new View.OnClickListener() {
+        this.eventHolder.eventCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EventDetailViewModel model = eventOnTextClickListener.onTextClick();
-                model.select(eventHolder.evento);
+                model.select(eventoSeleccionado);
                 model.selectId(document.getId());
                 Navigation.findNavController(view).navigate(R.id.nav_event_detail);
             }
