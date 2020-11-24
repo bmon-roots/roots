@@ -82,7 +82,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline12">
 
         <TextView
-            android:id="@+id/textViewCantidad2"
+            android:id="@+id/textViewPorcentajeEfectividad"
             android:layout_width="110dp"
             android:layout_height="30dp"
             android:fontFamily="@font/nexa_bold"
