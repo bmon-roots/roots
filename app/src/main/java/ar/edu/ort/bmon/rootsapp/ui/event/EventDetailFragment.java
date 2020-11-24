@@ -36,11 +36,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -52,6 +56,7 @@ import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Event;
 import ar.edu.ort.bmon.rootsapp.model.Material;
+import ar.edu.ort.bmon.rootsapp.model.Species;
 import ar.edu.ort.bmon.rootsapp.model.TipoTarea;
 import ar.edu.ort.bmon.rootsapp.ui.plant.DetailViewModel;
 import ar.edu.ort.bmon.rootsapp.ui.plant.ReminderBroadcast;
@@ -86,10 +91,8 @@ public class EventDetailFragment extends DialogFragment {
                              @Nullable Bundle savedInstanceState) {
         createNotificationChannel();
         viewReference = inflater.inflate(R.layout.event_detail_fragment, container, false);
-        EventDetailViewModel model = new ViewModelProvider(requireActivity()).get(EventDetailViewModel.class);
         eventImage = viewReference.findViewById(R.id.eventDetailImageView);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
         CardView finishCardView = viewReference.findViewById(R.id.cardViewFinish);
         finishCardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,12 +100,22 @@ public class EventDetailFragment extends DialogFragment {
                 finishEventDialog();
             }
         });
-        db = FirebaseFirestore.getInstance();
-        event = model.getSelected().getValue();
+        EventDetailViewModel model = new ViewModelProvider(requireActivity()).get(EventDetailViewModel.class);
+//        event = model.getSelected().getValue();
         eventId = model.getIdSelected().getValue();
-//        event = new Event(Constants.CUTTING, "especie prueba", 0, 40, new Date(), new Date(), new Date(), new Date(), 33, 85, 7, TipoTarea.Bajar_Humedad, new Date());
-        loadDetailValue(viewReference);
-        setEventImage(event.getTipo());
+        db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection(Constants.EVENTS_COLLECTION).document(eventId);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    event = (task.getResult().toObject(Event.class));
+                    loadDetailValue(viewReference);
+                    setEventImage(event.getTipo());
+                }
+            }
+        });
+
         return viewReference;
     }
 
@@ -138,13 +151,12 @@ public class EventDetailFragment extends DialogFragment {
         rangoPH.setText(String.valueOf(event.getPh()));
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String nuevosBrotesDate = dateFormat.format(event.getPrimerosBrotes());
 
+        String nuevosBrotesDate = (null != event.getPrimerosBrotes()) ? dateFormat.format(event.getPrimerosBrotes()) : "";
         EditText fechaNuevosBrotes = (EditText)root.findViewById(R.id.editTextFechaNuevosBrotes);
         fechaNuevosBrotes.setText(nuevosBrotesDate);
 
-        String mediosBrotesDate = dateFormat.format(event.getBrotoLaMitad());
-
+        String mediosBrotesDate = (null != event.getBrotoLaMitad()) ? dateFormat.format(event.getBrotoLaMitad()) : "";
         EditText fechaMediosBrotes = (EditText)root.findViewById(R.id.editTextFechaMitadBrotes);
         fechaMediosBrotes.setText(mediosBrotesDate);
 
@@ -344,7 +356,7 @@ public class EventDetailFragment extends DialogFragment {
         finishEventDialogBuilder.setMessage(R.string.dialog_finish)
                 .setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Navigation.findNavController(viewReference).navigate(R.id.action_nav_event_detail_to_nav_event_finish);
+                        finishDialog();
                     }
                 })
                 .setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
@@ -354,6 +366,32 @@ public class EventDetailFragment extends DialogFragment {
                     }
                 });
         finishEventDialogBuilder.create().show();
+    }
+
+    private void finishDialog() {
+        //TODO gauardar en firestore
+        DocumentReference docRef = db.collection(Constants.EVENTS_COLLECTION).document(eventId);
+
+        docRef.update(
+                "fechaFinalizacion", new Date()
+        )
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        System.out.println("Evento Finalizado");
+                        Toast.makeText(getContext(), R.string.msj_finalizar_evento_ok, Toast.LENGTH_LONG).show();
+                        Navigation.findNavController(viewReference).navigate(R.id.action_nav_event_detail_to_nav_event_finish);
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        System.out.println("Error al finalizar Evento" + " " + e.getCause());
+                        Toast.makeText(getContext(), R.string.msj_finalizar_evento_error, Toast.LENGTH_LONG);
+
+                    }
+                });
     }
 
     private void editionEnabled(View root) {

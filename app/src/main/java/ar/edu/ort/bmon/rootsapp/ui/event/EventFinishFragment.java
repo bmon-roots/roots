@@ -1,5 +1,6 @@
 package ar.edu.ort.bmon.rootsapp.ui.event;
 
+import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -9,7 +10,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +21,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
@@ -31,6 +41,7 @@ public class EventFinishFragment extends Fragment {
     private ImageView eventImage;
     private View viewReference;
     private Event event;
+    private FirebaseFirestore db;
     private String eventId;
 
     public static EventFinishFragment newInstance() {
@@ -44,9 +55,30 @@ public class EventFinishFragment extends Fragment {
         EventDetailViewModel model = new ViewModelProvider(requireActivity()).get(EventDetailViewModel.class);
         eventImage = viewReference.findViewById(R.id.eventFinishImageView);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        loadFinishValue(viewReference);
-        setEventImage(event.getTipo());
+//        event = model.getSelected().getValue();
+        eventId = model.getIdSelected().getValue();
+        db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection(Constants.EVENTS_COLLECTION).document(eventId);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    event = (task.getResult().toObject(Event.class));
+                    loadFinishValue(viewReference);
+                    setEventImage(event.getTipo());
+                }
+            }
+        });
 
+
+        CardView cardViewReturn = viewReference.findViewById(R.id.cardViewReturn);
+        cardViewReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(viewReference).navigate(R.id.nav_event);
+
+            }
+        });
         return viewReference;
     }
 
@@ -60,31 +92,48 @@ public class EventFinishFragment extends Fragment {
         TextView especieTV = (TextView) root.findViewById(R.id.textViewSelectedSpecies);
         especieTV.setText(event.getEspecie());
 
-        EditText cantidadInicial = (EditText) root.findViewById(R.id.editTextCantidadEventoFinish2);
-        cantidadInicial.setText(String.valueOf(event.getCantidadInicial()));
+        Double porcentaje = (new Double(event.getCantidadActivas()) * 100) / event.getCantidadInicial();
 
-        EditText cantidadET = (EditText) root.findViewById(R.id.editTextCantidadEventoFinish);
-        cantidadET.setText(String.valueOf(event.getCantidadActivas()));
+        EditText porcentajeEfectividad = (EditText) root.findViewById(R.id.editTextPorcentajeEfectividad);
+        porcentajeEfectividad.setText(String.valueOf(porcentaje).concat(" %"));
 
-        EditText rangoTemperatura = (EditText)root.findViewById(R.id.editTextRangoTemperaturas);
-        rangoTemperatura.setText(String.valueOf(event.getTemperatura()));
+//        EditText cantidadET = (EditText) root.findViewById(R.id.editTextCantidadEventoFinish);
+//        cantidadET.setText(String.valueOf(event.getCantidadActivas()));
+//
 
-        EditText rangoHumedad = (EditText)root.findViewById(R.id.editTextRangoHumedad);
-        rangoHumedad.setText(String.valueOf(event.getHumedad()));
-
-        EditText rangoPH = (EditText)root.findViewById(R.id.editTextRangoPH);
-        rangoPH.setText(String.valueOf(event.getPh()));
+//        EditText rangoHumedad = (EditText)root.findViewById(R.id.editTextRangoHumedad);
+//        rangoHumedad.setText(String.valueOf(event.getHumedad()));
+//
+//        EditText rangoPH = (EditText)root.findViewById(R.id.editTextRangoPH);
+//        rangoPH.setText(String.valueOf(event.getPh()));
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String nuevosBrotesDate = dateFormat.format(event.getPrimerosBrotes());
 
-        EditText fechaNuevosBrotes = (EditText)root.findViewById(R.id.editTextFechaNuevosBrotes);
-        fechaNuevosBrotes.setText(nuevosBrotesDate);
+        String fechaInicio = (null != event.getFechaInicio()) ? dateFormat.format(event.getFechaInicio()) : "";
+        EditText fechaInicialEvento = (EditText)root.findViewById(R.id.editTextInitialDateFinish);
+        fechaInicialEvento.setText(fechaInicio);
 
-        String mediosBrotesDate = dateFormat.format(event.getBrotoLaMitad());
+        String fechaFin = (null != event.getFechaFinalizacion()) ? dateFormat.format(event.getFechaFinalizacion()) : "";
+        EditText fechaFinalEvento = (EditText)root.findViewById(R.id.editTextFechaFin);
+        fechaFinalEvento.setText(fechaFin);
 
-        EditText fechaMediosBrotes = (EditText)root.findViewById(R.id.editTextFechaMitadBrotes);
-        fechaMediosBrotes.setText(mediosBrotesDate);
+        int milisecondsByDay = 86400000;
+        int diferencia = (!fechaInicio.equals("") && !fechaFin.equals("")) ? (int)  (event.getFechaFinalizacion().getTime() - event.getFechaInicio().getTime()) / milisecondsByDay : -1;
+
+        EditText diasDuracion = (EditText)root.findViewById(R.id.editTextCantidadDias);
+        if ((diferencia >= 0)) {
+            diasDuracion.setText(Integer.toString(diferencia));
+        }
+
+//        String nuevosBrotesDate = dateFormat.format(event.getPrimerosBrotes());
+//
+//        EditText fechaNuevosBrotes = (EditText)root.findViewById(R.id.editTextFechaNuevosBrotes);
+//        fechaNuevosBrotes.setText(nuevosBrotesDate);
+//
+//        String mediosBrotesDate = dateFormat.format(event.getBrotoLaMitad());
+//
+//        EditText fechaMediosBrotes = (EditText)root.findViewById(R.id.editTextFechaMitadBrotes);
+//        fechaMediosBrotes.setText(mediosBrotesDate);
 
     }
 
