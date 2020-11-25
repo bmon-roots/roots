@@ -8,91 +8,102 @@
     tools:context=".ui.plant.CreatePlantFragment">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView32"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/veryLightGreen"
+        android:layout_height="150dp"
+        app:cardBackgroundColor="@color/colorAccent"
         app:cardCornerRadius="20dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageViewPlantDetailPhoto"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/ic_default_sprout"
-            app:civ_border_color="@color/colorAccent"
-            app:civ_border_width="2dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline14" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/editTextPlantName"
-            android:layout_width="195dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="170dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginEnd="28dp"
-            android:ems="10"
-            android:fontFamily="@font/nexa_regular"
-            android:inputType="textPersonName"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline20" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageViewPlantDetailPhoto"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_sprout_white_background"
+                app:civ_border_color="@color/colorPrimaryDark"
+                app:civ_border_width="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
 
-    </androidx.cardview.widget.CardView>
+            <EditText
+                android:id="@+id/editTextPlantName"
+                android:layout_width="215dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:fontFamily="@font/nexa_heavy"
+                android:inputType="textPersonName"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageViewPlantDetailPhoto"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCreatePlantTitleName"
+                tools:text="@tools:sample/full_names" />
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center"
-        app:cardBackgroundColor="@color/veryLightBlue"
-        app:cardCornerRadius="5dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toTopOf="@+id/guideline20"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline14">
+            <TextView
+                android:id="@+id/textViewCreatePlantTitleName"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/nexa_regular"
+                android:text="@string/create_plant_text_view"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageViewPlantDetailPhoto"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.25" />
 
-        <TextView
-            android:id="@+id/textViewCreatePlantTitleName"
-            android:layout_width="225dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nexa_heavy"
-            android:text="@string/create_plant_text_view"
-            android:textAlignment="center"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="183dp"
-            tools:layout_editor_absoluteY="56dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.cardview.widget.CardView>
 
 
     <EditText
         android:id="@+id/editTextPlantDetailAge"
-        android:layout_width="175dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="31dp"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:fontFamily="@font/nexa_light"
         android:inputType="number"
         android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cardView7"
         app:layout_constraintTop_toBottomOf="@+id/editTextCreatePlantSpeciesName"
         tools:text="@tools:sample/us_zipcodes" />
 
     <EditText
         android:id="@+id/editTextPlantDetailDate"
-        android:layout_width="175dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="31dp"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:clickable="true"
         android:ems="10"
         android:focusable="false"
@@ -101,134 +112,150 @@
         android:inputType="date"
         android:maxLines="1"
         android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@android:color/darker_gray"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cardView11"
         app:layout_constraintTop_toBottomOf="@+id/editTextPlantDetailHeight" />
 
     <EditText
         android:id="@+id/editTextPlantDetailContainerType"
-        android:layout_width="175dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="31dp"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:fontFamily="@font/nexa_light"
         android:inputType="number"
         android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cardView12"
         app:layout_constraintTop_toBottomOf="@+id/editTextPlantDetailDate" />
 
     <EditText
         android:id="@+id/editTextPlantDetailOrigin"
-        android:layout_width="175dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="31dp"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:fontFamily="@font/nexa_light"
         android:inputType="text"
         android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cardView14"
         app:layout_constraintTop_toBottomOf="@+id/editTextPlantDetailContainerType" />
 
     <EditText
         android:id="@+id/editTextPlantDetailPh"
-        android:layout_width="175dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="31dp"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:fontFamily="@font/nexa_light"
         android:inputType="number"
         android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cardView16"
         app:layout_constraintTop_toBottomOf="@+id/editTextPlantDetailOrigin" />
 
     <Switch
         android:id="@+id/switchBonsaiable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="31dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
         android:scaleX="1.5"
         android:scaleY="1.5"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cardView17"
         app:layout_constraintTop_toBottomOf="@+id/editTextPlantDetailPh" />
 
     <Switch
         android:id="@+id/switchSellable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="31dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
         android:scaleX="1.5"
         android:scaleY="1.5"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cardView30"
         app:layout_constraintTop_toBottomOf="@+id/switchBonsaiable" />
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView5"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        app:cardBackgroundColor="@color/veryLightBlue"
+        app:cardBackgroundColor="@color/colorCardBackground"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline13">
+        app:layout_constraintTop_toBottomOf="@+id/cardView32">
 
         <TextView
             android:id="@+id/textViewCreatePlantSelectedSpecies"
             android:layout_width="110dp"
-            android:layout_height="30dp"
-            android:fontFamily="@font/nexa_heavy"
+            android:layout_height="35dp"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp"
+            android:fontFamily="@font/nexa_regular"
             android:gravity="center"
             android:text="@string/create_plant_selected_species_label"
             android:textAlignment="center"
-            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
             tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="214dp" />
     </androidx.cardview.widget.CardView>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2599179" />
-
 
     <EditText
         android:id="@+id/editTextCreatePlantSpeciesName"
-        android:layout_width="175dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="31dp"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:clickable="true"
         android:ems="10"
         android:focusable="false"
-        android:fontFamily="@font/nexa_light"
+        android:fontFamily="@font/nexa_light_italic"
         android:hint="@string/create_plant_select_species_hint"
         android:inputType="textPersonName"
         android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@android:color/darker_gray"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline13" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cardView5"
+        app:layout_constraintTop_toBottomOf="@+id/cardView32" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView7"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        app:cardBackgroundColor="@color/veryLightBlue"
+        app:cardBackgroundColor="@color/colorCardBackground"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -237,10 +264,13 @@
         <TextView
             android:id="@+id/textViewPlantAgeLabel"
             android:layout_width="110dp"
-            android:layout_height="30dp"
-            android:fontFamily="@font/nexa_heavy"
+            android:layout_height="35dp"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp"
+            android:fontFamily="@font/nexa_regular"
             android:gravity="center"
             android:text="@string/create_plant_age_label"
+            android:textColor="@color/colorPrimary"
             tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="265dp" />
 
@@ -249,11 +279,11 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView9"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        app:cardBackgroundColor="@color/veryLightBlue"
+        app:cardBackgroundColor="@color/colorCardBackground"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -262,10 +292,13 @@
         <TextView
             android:id="@+id/textViewCreatePlantHeight"
             android:layout_width="110dp"
-            android:layout_height="30dp"
-            android:fontFamily="@font/nexa_heavy"
+            android:layout_height="35dp"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp"
+            android:fontFamily="@font/nexa_regular"
             android:gravity="center"
             android:text="@string/create_plant_height_label"
+            android:textColor="@color/colorPrimary"
             tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="315dp" />
     </androidx.cardview.widget.CardView>
@@ -273,27 +306,30 @@
 
     <EditText
         android:id="@+id/editTextPlantDetailHeight"
-        android:layout_width="175dp"
-        android:layout_height="wrap_content"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="31dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:fontFamily="@font/nexa_light"
         android:inputType="number"
         android:textAlignment="inherit"
+        android:textColor="@color/colorPrimary"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cardView9"
         app:layout_constraintTop_toBottomOf="@+id/editTextPlantDetailAge"
         tools:text="@tools:sample/us_zipcodes" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView11"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        app:cardBackgroundColor="@color/veryLightBlue"
+        app:cardBackgroundColor="@color/colorCardBackground"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -302,10 +338,13 @@
         <TextView
             android:id="@+id/textViewCreatePlantAdquisitionDate"
             android:layout_width="110dp"
-            android:layout_height="32dp"
-            android:fontFamily="@font/nexa_heavy"
+            android:layout_height="35dp"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp"
+            android:fontFamily="@font/nexa_regular"
             android:gravity="center"
             android:text="@string/create_plant_adquisition_date_label"
+            android:textColor="@color/colorPrimary"
             tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="366dp" />
     </androidx.cardview.widget.CardView>
@@ -313,11 +352,11 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView12"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        app:cardBackgroundColor="@color/veryLightBlue"
+        app:cardBackgroundColor="@color/colorCardBackground"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -326,10 +365,13 @@
         <TextView
             android:id="@+id/textViewContainerType"
             android:layout_width="110dp"
-            android:layout_height="32dp"
-            android:fontFamily="@font/nexa_heavy"
+            android:layout_height="35dp"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp"
+            android:fontFamily="@font/nexa_regular"
             android:gravity="center"
             android:text="@string/create_plant_container_type_label"
+            android:textColor="@color/colorPrimary"
             tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="417dp" />
     </androidx.cardview.widget.CardView>
@@ -337,11 +379,11 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView14"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        app:cardBackgroundColor="@color/veryLightBlue"
+        app:cardBackgroundColor="@color/colorCardBackground"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -350,10 +392,13 @@
         <TextView
             android:id="@+id/textViewCreatePlantOrigin"
             android:layout_width="110dp"
-            android:layout_height="30dp"
-            android:fontFamily="@font/nexa_heavy"
+            android:layout_height="35dp"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp"
+            android:fontFamily="@font/nexa_regular"
             android:gravity="center"
             android:text="@string/create_plant_origin_label"
+            android:textColor="@color/colorPrimary"
             tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="467dp" />
     </androidx.cardview.widget.CardView>
@@ -361,11 +406,11 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView16"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        app:cardBackgroundColor="@color/veryLightBlue"
+        app:cardBackgroundColor="@color/colorCardBackground"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -374,10 +419,13 @@
         <TextView
             android:id="@+id/textViewCreatePlantPH"
             android:layout_width="110dp"
-            android:layout_height="30dp"
-            android:fontFamily="@font/nexa_heavy"
+            android:layout_height="35dp"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp"
+            android:fontFamily="@font/nexa_regular"
             android:gravity="center"
             android:text="@string/create_plant_ph_label"
+            android:textColor="@color/colorPrimary"
             tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="518dp" />
     </androidx.cardview.widget.CardView>
@@ -385,11 +433,11 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView17"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        app:cardBackgroundColor="@color/veryLightBlue"
+        app:cardBackgroundColor="@color/colorCardBackground"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -398,21 +446,25 @@
         <TextView
             android:id="@+id/textViewBonsaible"
             android:layout_width="110dp"
-            android:layout_height="30dp"
-            android:fontFamily="@font/nexa_heavy"
+            android:layout_height="35dp"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp"
+            android:fontFamily="@font/nexa_regular"
             android:gravity="center"
             android:text="@string/create_plant_bonsaiAble_text"
+            android:textColor="@color/colorPrimary"
             tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="569dp" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView30"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
-        app:cardBackgroundColor="@color/veryLightBlue"
+        app:cardBackgroundColor="@color/colorCardBackground"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -421,41 +473,16 @@
         <TextView
             android:id="@+id/textViewSellable"
             android:layout_width="110dp"
-            android:layout_height="30dp"
-            android:fontFamily="@font/nexa_heavy"
+            android:layout_height="35dp"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp"
+            android:fontFamily="@font/nexa_regular"
             android:gravity="center"
             android:text="@string/create_plant_sellable_text"
+            android:textColor="@color/colorPrimary"
             tools:layout_editor_absoluteX="32dp"
             tools:layout_editor_absoluteY="619dp" />
 
     </androidx.cardview.widget.CardView>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="16dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="162dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="59dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="134dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

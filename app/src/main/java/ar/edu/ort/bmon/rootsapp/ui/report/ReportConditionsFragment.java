@@ -18,15 +18,11 @@ import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
-import com.anychart.core.cartesian.series.Bar;
+import com.anychart.charts.Pie;
 import com.anychart.core.cartesian.series.Column;
-import com.anychart.core.cartesian.series.JumpLine;
-import com.anychart.data.Mapping;
-import com.anychart.data.Set;
 import com.anychart.enums.Anchor;
 import com.anychart.enums.HoverMode;
 import com.anychart.enums.Position;
-import com.anychart.enums.TooltipDisplayMode;
 import com.anychart.enums.TooltipPositionMode;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -45,32 +41,45 @@ import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Event;
 
-public class ReportCuttingFragment extends Fragment {
+public class ReportConditionsFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<DocumentSnapshot> documents;
     private ArrayList<Event> eventos = new ArrayList<>();
     private AnyChartView anyChartView;
-    private TextView textGermination;
+    private TextView textoCutting;
     private TextView textWeather;
+    private TextView title;
     private final ArrayList<String> speciesList = new ArrayList<>();
     private int selectedSpeciesId;
     private TextView selectedSpeciesName;
     private String selectedEventSpecie;
     private View root;
-
+    private TextView textPerformance;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        this.root = inflater.inflate(R.layout.fragment_cutting_report, container, false);
-        textGermination = root.findViewById(R.id.text_view_header_germination2);
-        anyChartView = root.findViewById(R.id.anyChartEventReport2);
-        textWeather = root.findViewById(R.id.text_view_germination_weather);
-        selectedSpeciesName = root.findViewById(R.id.text_view_germination_weather);
+        this.root = inflater.inflate(R.layout.fragment_conditions_report, container, false);
+        textoCutting = root.findViewById(R.id.text_view_header_cutting);
+        anyChartView = root.findViewById(R.id.anyChartEventReport);
+        this.selectedEventSpecie = getArguments().getString("especie");
 
+
+        textWeather = root.findViewById(R.id.text_view_germination_weather);
+        textPerformance = root.findViewById(R.id.text_view_germination_performance);
+        selectedSpeciesName = root.findViewById(R.id.text_view_germination_weather);
         getSpeciesList();
 
-        textGermination.setOnClickListener(
+        textoCutting.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Navigation.findNavController(view).navigate(R.id.nav_cutting_report);
+                    }
+                }
+        );
+
+        textPerformance.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -88,6 +97,8 @@ public class ReportCuttingFragment extends Fragment {
                 }
         );
 
+        anyChartView.setZoomEnabled(true);
+
         Task<QuerySnapshot> future = db.collection(Constants.EVENTS_COLLECTION).get();
 
         future.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -99,12 +110,24 @@ public class ReportCuttingFragment extends Fragment {
                         Event evento = document.toObject(Event.class);
                         addToList(evento);
                     }
-                    setupVerticalChart();
+                    setupColumnChart();
                 }
             }
         });
 
         return root;
+    }
+
+    private void getSpeciesList() {
+        db.collection(Constants.SPECIES_COLLECTION).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            speciesList.add(document.getString("name"));
+                        }
+                    }
+                });
     }
 
     private void createSpeciesListDialog() {
@@ -134,8 +157,7 @@ public class ReportCuttingFragment extends Fragment {
                 if (thereAreEventsOfThis(selectedEventSpecie) != null) {
                     Bundle bundle = new Bundle();
                     bundle.putString("especie", selectedEventSpecie);
-                    Navigation.findNavController(root).navigate(R.id.nav_cutting_conditions_report, bundle);
-//                    setupWeatherPieChart(selectedEvent);
+                    Navigation.findNavController(root).navigate(R.id.nav_germination_conditions_report, bundle);
                 } else {
                     MaterialAlertDialogBuilder errorDialog = new MaterialAlertDialogBuilder(getActivity());
                     errorDialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
@@ -155,65 +177,17 @@ public class ReportCuttingFragment extends Fragment {
         speciesDialog.create().show();
     }
 
-    public void setupVerticalChart() {
-        String[] especies = speciesOnEvents();
-        Integer[] cantidades = quantitiesOnEvents();
+    public void setupPieChart() {
+        Event evento = thereAreEventsOfThis(this.selectedEventSpecie);
+        Pie pie = AnyChart.pie();
+        ArrayList<DataEntry> dataEntries = new ArrayList<>();
 
-        Cartesian vertical = AnyChart.vertical();
+        dataEntries.add(new ValueDataEntry("Temperatura", evento.getTemperatura()));
+        dataEntries.add(new ValueDataEntry("Humedad", evento.getHumedad()));
+        dataEntries.add(new ValueDataEntry("PH", evento.getPh()));
 
-        vertical.animation(true)
-                .title("Rendimiento por especies");
-
-        List<DataEntry> dataEntries = new ArrayList<>();
-
-        for (int i = 0; i < especies.length; i++) {
-            dataEntries.add(new ValueDataEntry(especies[i], cantidades[i]));
-        }
-
-
-        Set set = Set.instantiate();
-        set.data(dataEntries);
-        Mapping barData = set.mapAs("{ x: 'x', value: 'value' }");
-        Mapping jumpLineData = set.mapAs("{ x: 'x', value: 'jumpLine' }");
-
-        Bar bar = vertical.bar(barData);
-        bar.labels().format("{%Value} %");
-
-        JumpLine jumpLine = vertical.jumpLine(jumpLineData);
-        jumpLine.stroke("2 #60727B");
-        jumpLine.labels().enabled(false);
-
-        vertical.yScale().minimum(0d);
-
-        vertical.labels(true);
-
-        vertical.tooltip()
-                .displayMode(TooltipDisplayMode.UNION)
-                .positionMode(TooltipPositionMode.POINT)
-                .unionFormat(
-                        "function() {\n" +
-                                "      return 'Rendimiento:' + this.points[1].value + '%'" +
-                                "    }");
-
-        vertical.interactivity().hoverMode(HoverMode.BY_X);
-
-        vertical.xAxis(true);
-        vertical.yAxis(true);
-        vertical.yAxis(0).labels().format("{%Value} %");
-
-        anyChartView.setChart(vertical);
-    }
-
-    private void getSpeciesList() {
-        db.collection(Constants.SPECIES_COLLECTION).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            speciesList.add(document.getString("name"));
-                        }
-                    }
-                });
+        pie.data(dataEntries);
+        anyChartView.setChart(pie);
     }
 
     private Event thereAreEventsOfThis(final String especie) {
@@ -227,6 +201,44 @@ public class ReportCuttingFragment extends Fragment {
                 .orElse(null);
     }
 
+
+    public void setupColumnChart() {
+        Event evento = thereAreEventsOfThis(this.selectedEventSpecie);
+
+        Cartesian cartesian = AnyChart.column();
+        ArrayList<DataEntry> dataEntries = new ArrayList<>();
+
+        dataEntries.add(new ValueDataEntry("Temperatura", evento.getTemperatura()));
+        dataEntries.add(new ValueDataEntry("Humedad", evento.getHumedad()));
+        dataEntries.add(new ValueDataEntry("PH", evento.getPh()));
+
+        Column column = cartesian.column(dataEntries);
+        column.color("#BDE5EA");
+        cartesian.credits().enabled(false);
+
+        column.tooltip()
+                .titleFormat("Promedio")
+                .position(Position.CENTER_BOTTOM)
+                .anchor(Anchor.CENTER_BOTTOM)
+                .offsetX(0d)
+                .offsetY(5d)
+                .format("{%Value}{groupsSeparator: }");
+
+        cartesian.animation(true);
+        cartesian.title("Condiciones climáticas de " + evento.getEspecie());
+
+        cartesian.yScale().minimum(0d);
+
+        cartesian.yAxis(0).labels().format("{%Value}{groupsSeparator: }");
+
+        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
+        cartesian.interactivity().hoverMode(HoverMode.BY_X);
+
+        cartesian.xAxis(0).title("Condiciones");
+        cartesian.yAxis(0).title("Promedios");
+
+        anyChartView.setChart(cartesian);
+    }
 
     private String[] speciesOnEvents() {
         final ArrayList<String> especies = new ArrayList<String>();
@@ -250,8 +262,7 @@ public class ReportCuttingFragment extends Fragment {
         this.eventos.stream().distinct().forEach(new Consumer<Event>() {
             @Override
             public void accept(Event evento) {
-                float promedio = ((float) evento.getCantidadActivas() / (float) evento.getCantidadInicial()) * 100;
-                cantidades.add((int) promedio);
+                cantidades.add(evento.getCantidadActivas());
             }
         });
 
@@ -261,9 +272,10 @@ public class ReportCuttingFragment extends Fragment {
     }
 
     private void addToList(Event evento) {
-        if (evento.getTipo().equals("Esquejes")) {
+        if (evento.getTipo().equals("Germinaciones")) {
             this.eventos.add(evento);
         }
     }
+
 
 }

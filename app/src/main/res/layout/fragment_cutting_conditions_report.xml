@@ -7,7 +7,7 @@
     tools:context=".ui.report.ReportFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar4"
+        android:id="@+id/toolbar3"
         android:layout_width="412dp"
         android:layout_height="wrap_content"
         android:background="@color/colorGreenBar"
@@ -26,9 +26,8 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar4" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
 
     <TextView
         android:id="@+id/text_view_germination_performance"
@@ -52,7 +51,7 @@
         android:text="@string/germinationWeather"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar4" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
 
     <TextView
         android:id="@+id/text_view_germination_title"
@@ -63,15 +62,15 @@
         android:text="@string/cuttingTitle"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
-        android:id="@+id/text_view_header_germination2"
+        android:id="@+id/text_view_header_germination"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/nexa_black"
         android:text="@string/germinationTitle"
@@ -79,32 +78,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:layout_width="0.1dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="225dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar4"
-        app:layout_constraintStart_toStartOf="@+id/toolbar4"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
     <TextView
-        android:id="@+id/text_view_header_cutting2"
+        android:id="@+id/text_view_header_cutting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="32dp"
         android:fontFamily="@font/nexa_black"
         android:text="@string/cuttingTitle"
         android:textSize="22dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <com.anychart.AnyChartView
-        android:id="@+id/anyChartEventReport2"
+        android:id="@+id/anyChartEventReport"
         android:layout_width="0dp"
         android:layout_height="400dp"
         android:layout_marginTop="5dp"
@@ -113,6 +100,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.95" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

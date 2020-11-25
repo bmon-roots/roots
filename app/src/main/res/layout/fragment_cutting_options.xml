@@ -6,11 +6,12 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView29"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        app:cardBackgroundColor="@color/veryLightBlue"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="@color/colorCardBackground"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,29 +19,31 @@
 
         <TextView
             android:id="@+id/textViewEsquejes"
-            android:layout_width="115dp"
-            android:layout_height="40dp"
-            android:fontFamily="@font/nexa_bold"
+            android:layout_width="110dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp"
+            android:fontFamily="@font/nexa_regular"
             android:gravity="center"
             android:text="@string/eventsCuttingHasHormones"
             android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.059"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            android:textColor="@color/colorPrimary" />
+
     </androidx.cardview.widget.CardView>
 
     <Switch
         android:id="@+id/switchHormones"
-        android:scaleX="1.5"
-        android:scaleY="1.5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="170dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.729" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cardView29"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,5 @@
 package ar.edu.ort.bmon.rootsapp.ui.event;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -19,7 +18,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -30,10 +28,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -98,7 +94,7 @@ public class EventDetailFragment extends DialogFragment {
                              @Nullable Bundle savedInstanceState) {
         createNotificationChannel();
         viewReference = inflater.inflate(R.layout.event_detail_fragment, container, false);
-        eventImage = viewReference.findViewById(R.id.eventDetailImageView);
+        eventImage = viewReference.findViewById(R.id.eventImageView);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 //        CardView finishCardView = viewReference.findViewById(R.id.cardViewFinish);
         EventDetailViewModel model = new ViewModelProvider(requireActivity()).get(EventDetailViewModel.class);
@@ -159,7 +155,7 @@ public class EventDetailFragment extends DialogFragment {
         eventImage.setImageURI(eventImageUri);
     }
     private Uri getImageForEventType(String eventName) {
-        String imageForEvent = eventName.equals(Constants.CUTTING)  ? "ic_sprouts" : "ic_germination";
+        String imageForEvent = eventName.equals(Constants.CUTTING)  ? "ic_sprouts_circle" : "ic_germinate_circle";
         return Uri.parse("android.resource://ar.edu.ort.bmon.rootsapp/drawable/" + imageForEvent);
     }
     @Override

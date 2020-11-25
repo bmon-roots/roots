@@ -18,13 +18,21 @@
     <string name="menu_report">Informes</string>
     <string name="menu_sign_out">Cerrar Sesión</string>
 
+    <!-- Headers del listado de plantas -->
+    <string name="speciesHeader">Especie</string>
+    <string name="containerHeader">Maceta</string>
+    <string name="latestTasksHeader">Últimas\ntareas</string>
+    <string name="bonsaiableHeader">AB</string>
+    <string name="sellableHeader">AV</string>
+
+
     <!-- Strings used for fragments for Create Plant -->
-    <string name="create_plant_text_view">Ingresa el nombre de tu planta</string>
+    <string name="create_plant_text_view">Nombra tu planta</string>
     <string name="create_plant_selected_species_label">Especie</string>
     <string name="create_plant_age_label">Edad</string>
-    <string name="create_plant_height_label">Altura</string>
-    <string name="create_plant_adquisition_date_label">Fecha adquisicion</string>
-    <string name="create_plant_container_type_label">Tipo contenedor</string>
+    <string name="create_plant_height_label">Altura (cm)</string>
+    <string name="create_plant_adquisition_date_label">Adquisición</string>
+    <string name="create_plant_container_type_label">Maceta (L)</string>
     <string name="create_plant_origin_label">Origen</string>
     <string name="create_plant_ph_label">PH</string>
     <string name="createPlantFragmentTitle">Agregar una planta</string>
@@ -68,14 +76,17 @@
     <string name="editPlantaTitulo">DETALLE DE PLANTA</string>
 
     <!-- Menu Listado Eventos -->
+    <string name="germinationParentCardLabel">Germinaciones</string>
+    <string name="cuttingParentCardLabel">Esquejes</string>
     <string name="createNewEvent">Crear Evento</string>
     <string name="selectEventSpeciesType">Selecciona la especie</string>
     <string name="eventQuantityLabel">Cantidad</string>
-    <string name="eventTemperatureRangeLabel">Promedio de temperaturas</string>
-    <string name="eventHumidityRangeLabel">Promedio humedad</string>
-    <string name="eventPHRangeLabel">Promedio  \n de PH</string>
-    <string name="eventEstimatedSproutDateLabel">Fecha estimada de nuevos brotes</string>
+    <string name="eventTemperatureRangeLabel">Temperatura\npromedio</string>
+    <string name="eventHumidityRangeLabel">Humedad\npromedio</string>
+    <string name="eventPHRangeLabel">PH\npromedio</string>
+    <string name="eventEstimatedSproutDateLabel">Nuevos\nbrotes</string>
     <string name="eventsCuttingHasHormones">Uso \n de hormonas</string>
+
     <string name="eventsGerminationStrataDate">Fecha de estratificación</string>
     <string name="eventsGerminationStrataHint">Ingresa fecha estratificación</string>
     <string name="eventQuantity">Ingresa cantidad</string>
@@ -84,9 +95,11 @@
     <string name="eventPHRange">Ingresa un rango</string>
     <string name="eventHumidityRange">Ingresa un rango</string>
     <string name="eventEstimatedSproutDate">Ingresa fecha estimada</string>
+    
 
-    <string name="eventSproutDateLabel">Brotes\n al 50%</string>
-    <string name="eventNewSproutDate">Primeros\n  brotes</string>
+
+    <string name="eventSproutDateLabel">Brotes\nal 50%</string>
+    <string name="eventNewSproutDate">Brotes\niniciales</string>
 
     <!--  Informes  -->
 
@@ -124,11 +137,8 @@
     <string name="eventHumidityLabel">Humedad</string>
     <string name="eventPHLabel">PH</string>
     <string name="eventTemperatureLabel">Temperatura</string>
-    <string name="eventActiveQuantityLabel">Cantidad \nActiva</string>
+    <string name="eventActiveQuantityLabel">Cantidad\nactiva</string>
     <string name="eventActiveQuantityLabelHint">Unidades activas</string>
-    <string name="eventInitialQuantityLabel">Cantidad \nInicial</string>
-    <string name="eventMiddleSproutDateLabel">Fecha primeros brotes</string>
-    <string name="eventMiddleSproutDate">Fecha mitad de Brotes</string>
     <string name="dialog_finish">Querés finalizar este evento?</string>
     <string name="eventEfectivityLabel">Efectividad</string>
     <string name="eventInitialDateLabel">Inició el...</string>
@@ -148,4 +158,7 @@
     <string name="createNewPlant">Crear Planta</string>
 
 
+    <string name="eventInitialQuantityLabel">Cantidad\ninicial</string>
+    <string name="eventMiddleSproutDateLabel">Seleccione una fecha</string>
+    <string name="eventMiddleSproutDate">Seleccione una fecha</string>
 </resources>

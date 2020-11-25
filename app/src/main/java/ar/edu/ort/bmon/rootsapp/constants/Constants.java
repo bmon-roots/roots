@@ -73,4 +73,5 @@ public class Constants {
     public static final String DELETE_EVENT_ERROR = "Hubo un problema al eliminar el evento, intente nuevamente";
     public static final String MISSING_DATA_INPUTS_EVENT = "Por favor complete todos los campos";
     public static final String GRUPOS = "Grupos";
+    public static final String GRUPO = "Grupo";
 }
