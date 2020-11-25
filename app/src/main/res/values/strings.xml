@@ -28,14 +28,14 @@
     <string name="create_plant_origin_label">Origen</string>
     <string name="create_plant_ph_label">PH</string>
     <string name="createPlantFragmentTitle">Agregar una planta</string>
-    <string name="create_plant_select_species_hint">Seleccione una especie</string>
-    <string name="create_plant_name_placeholder">Ingrese nombre</string>
-    <string name="create_plant_age_placeholder">Ingrese Edad</string>
-    <string name="create_plant_date_placeholder">Seleccione una fecha</string>
+    <string name="create_plant_select_species_hint">Selecciona una especie</string>
+    <string name="create_plant_name_placeholder">Ingresa nombre</string>
+    <string name="create_plant_age_placeholder">Ingresa Edad</string>
+    <string name="create_plant_date_placeholder">Selecciona una fecha</string>
     <string name="create_plant_bonsaiAble_text">Apta bonsai</string>
-    <string name="create_plant_origin_placeholder">Ingrese Origen</string>
-    <string name="create_plant_ph_placeholder">Ingrese PH</string>
-    <string name="create_plant_height_placeholder">Ingrese Altura</string>
+    <string name="create_plant_origin_placeholder">Ingresa Origen</string>
+    <string name="create_plant_ph_placeholder">Ingresa PH</string>
+    <string name="create_plant_height_placeholder">Ingresa Altura</string>
     <string name="create_plant_container_type_placeholder">Tipo contenedor</string>
     <string name="create_plant_sellable_text">Apta venta</string>
     <string name="create_plant_save_button">Guardar</string>
@@ -45,17 +45,17 @@
     <string name="createSpeciesFragmentTitle">Agregar una especie</string>
     <string name="createSpeciesTextName">Nombre de la especie</string>
     <string name="createSpeciesSuccessful">Especie agregada exitosamente</string>
-    <string name="createSpeciesError">Error al agregar especie, intente nuevamente</string>
+    <string name="createSpeciesError">Error al agregar especie, intenta nuevamente</string>
 
     <!-- Strings para el alta de materiales -->
-    <string name="createNewMaterialEntry">Seleccione un material a agregar</string>
-    <string name="createNewMaterialEntryQuantity">Seleccione la cantidad a ingresar</string>
-    <string name="materialQuantity">Ingrese la cantidad</string>
-    <string name="materialContents">Ingrese el contenido</string>
+    <string name="createNewMaterialEntry">Selecciona un material a agregar</string>
+    <string name="createNewMaterialEntryQuantity">Selecciona la cantidad a ingresar</string>
+    <string name="materialQuantity">Ingresa la cantidad</string>
+    <string name="materialContents">Ingresa el contenido</string>
 
     <!--    Layout signout-->
     <string name="btnSignOut">Salir</string>
-    <string name="txtSignout">Desea salir de la aplicación?</string>
+    <string name="txtSignout">Querés salir de la aplicación?</string>
     <!--    others keys-->
     <string name="API_ESPECIE">https://jsonplaceholder.typicode.com</string>
     <string name="USER_KEY">user-key: 9900a9720d31dfd5fdb4352700c</string>
@@ -69,7 +69,7 @@
 
     <!-- Menu Listado Eventos -->
     <string name="createNewEvent">Crear Evento</string>
-    <string name="selectEventSpeciesType">Seleccione la especie</string>
+    <string name="selectEventSpeciesType">Selecciona la especie</string>
     <string name="eventQuantityLabel">Cantidad</string>
     <string name="eventTemperatureRangeLabel">Promedio de temperaturas</string>
     <string name="eventHumidityRangeLabel">Promedio humedad</string>
@@ -77,13 +77,13 @@
     <string name="eventEstimatedSproutDateLabel">Fecha estimada de nuevos brotes</string>
     <string name="eventsCuttingHasHormones">Uso \n de hormonas</string>
     <string name="eventsGerminationStrataDate">Fecha de estratificación</string>
-    <string name="eventsGerminationStrataHint">Ingrese fecha estratificación</string>
-    <string name="eventQuantity">Ingrese cantidad</string>
-    <string name="eventTemperatureRange">Ingrese un promedio</string>
-    <string name="eventWeatherAverage">Ingrese un promedio</string>
-    <string name="eventPHRange">Ingrese un rango</string>
-    <string name="eventHumidityRange">Ingrese un rango</string>
-    <string name="eventEstimatedSproutDate">Ingrese fecha estimada</string>
+    <string name="eventsGerminationStrataHint">Ingresa fecha estratificación</string>
+    <string name="eventQuantity">Ingresa cantidad</string>
+    <string name="eventTemperatureRange">Ingresa un promedio</string>
+    <string name="eventWeatherAverage">Ingresa un promedio</string>
+    <string name="eventPHRange">Ingresa un rango</string>
+    <string name="eventHumidityRange">Ingresa un rango</string>
+    <string name="eventEstimatedSproutDate">Ingresa fecha estimada</string>
 
     <string name="eventSproutDateLabel">Brotes\n al 50%</string>
     <string name="eventNewSproutDate">Primeros\n  brotes</string>
@@ -92,9 +92,11 @@
 
     <string name="germinationTitle">Germinaciones</string>
     <string name="cuttingTitle">Esquejes</string>
+    <string name="germinationPerformance">Rendimiento</string>
+    <string name="germinationWeather">Condiciones</string>
 
     <!--    Mensajes genericos-->
-    <string name="dialog_delete">Seguro desea eliminar?</string>
+    <string name="dialog_delete">Querés eliminar la planta?</string>
     <string name="dialog_edit">Se guardarán los cambios</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancelar</string>
@@ -116,9 +118,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="eventEstimatedNewSproutDate">Ingrese Fecha estimada</string>
-    <string name="eventPH">Ingrese PH</string>
-    <string name="eventHumidity">Ingrese Humedad</string>
-    <string name="eventTemperature">Ingrese Temperatura</string>
+    <string name="eventPH">Ingresa PH</string>
+    <string name="eventHumidity">Ingresa Humedad</string>
+    <string name="eventTemperature">Ingresa Temperatura</string>
     <string name="eventHumidityLabel">Humedad</string>
     <string name="eventPHLabel">PH</string>
     <string name="eventTemperatureLabel">Temperatura</string>
@@ -143,6 +145,7 @@
     <string name="eventQuantityPots">Macetas necesarias</string>
     <string name="eventFinishSubstratumHint">Sustratos necesarios</string>
     <string name="eventFinishSubstratumLabel">Sustratos \n1L</string>
+    <string name="createNewPlant">Crear Planta</string>
 
 
 </resources>
