@@ -1,7 +1,5 @@
 package ar.edu.ort.bmon.rootsapp.ui.report;
 
-import androidx.appcompat.app.AlertDialog;
-
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -20,10 +19,13 @@ import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
 import com.anychart.core.cartesian.series.Bar;
+import com.anychart.core.cartesian.series.Column;
 import com.anychart.core.cartesian.series.JumpLine;
 import com.anychart.data.Mapping;
 import com.anychart.data.Set;
+import com.anychart.enums.Anchor;
 import com.anychart.enums.HoverMode;
+import com.anychart.enums.Position;
 import com.anychart.enums.TooltipDisplayMode;
 import com.anychart.enums.TooltipPositionMode;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,12 +45,12 @@ import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Event;
 
-public class ReportFragment extends Fragment {
+public class ReportCuttingFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<DocumentSnapshot> documents;
     private ArrayList<Event> eventos = new ArrayList<>();
     private AnyChartView anyChartView;
-    private TextView textoCutting;
+    private TextView textGermination;
     private TextView textWeather;
     private final ArrayList<String> speciesList = new ArrayList<>();
     private int selectedSpeciesId;
@@ -60,20 +62,19 @@ public class ReportFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        this.root = inflater.inflate(R.layout.fragment_report, container, false);
-        textoCutting = root.findViewById(R.id.text_view_header_cutting);
-        anyChartView = root.findViewById(R.id.anyChartEventReport);
-
+        this.root = inflater.inflate(R.layout.fragment_cutting_report, container, false);
+        textGermination = root.findViewById(R.id.text_view_header_germination2);
+        anyChartView = root.findViewById(R.id.anyChartEventReport2);
         textWeather = root.findViewById(R.id.text_view_germination_weather);
-
         selectedSpeciesName = root.findViewById(R.id.text_view_germination_weather);
+
         getSpeciesList();
 
-        textoCutting.setOnClickListener(
+        textGermination.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Navigation.findNavController(view).navigate(R.id.nav_cutting_report);
+                        Navigation.findNavController(view).navigate(R.id.nav_report);
                     }
                 }
         );
@@ -87,7 +88,6 @@ public class ReportFragment extends Fragment {
                 }
         );
 
-        anyChartView.setZoomEnabled(true);
         Task<QuerySnapshot> future = db.collection(Constants.EVENTS_COLLECTION).get();
 
         future.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -105,18 +105,6 @@ public class ReportFragment extends Fragment {
         });
 
         return root;
-    }
-
-    private void getSpeciesList() {
-        db.collection(Constants.SPECIES_COLLECTION).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            speciesList.add(document.getString("name"));
-                        }
-                    }
-                });
     }
 
     private void createSpeciesListDialog() {
@@ -146,8 +134,7 @@ public class ReportFragment extends Fragment {
                 if (thereAreEventsOfThis(selectedEventSpecie) != null) {
                     Bundle bundle = new Bundle();
                     bundle.putString("especie", selectedEventSpecie);
-
-                    Navigation.findNavController(root).navigate(R.id.nav_germination_conditions_report, bundle);
+                    Navigation.findNavController(root).navigate(R.id.nav_cutting_conditions_report, bundle);
 //                    setupWeatherPieChart(selectedEvent);
                 } else {
                     MaterialAlertDialogBuilder errorDialog = new MaterialAlertDialogBuilder(getActivity());
@@ -217,6 +204,17 @@ public class ReportFragment extends Fragment {
         anyChartView.setChart(vertical);
     }
 
+    private void getSpeciesList() {
+        db.collection(Constants.SPECIES_COLLECTION).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            speciesList.add(document.getString("name"));
+                        }
+                    }
+                });
+    }
 
     private Event thereAreEventsOfThis(final String especie) {
         return this.eventos.stream().filter(new Predicate<Event>() {
@@ -228,6 +226,7 @@ public class ReportFragment extends Fragment {
                 .findAny()
                 .orElse(null);
     }
+
 
     private String[] speciesOnEvents() {
         final ArrayList<String> especies = new ArrayList<String>();
@@ -262,10 +261,9 @@ public class ReportFragment extends Fragment {
     }
 
     private void addToList(Event evento) {
-        if (evento.getTipo().equals("Germinaciones")) {
+        if (evento.getTipo().equals("Esquejes")) {
             this.eventos.add(evento);
         }
     }
-
 
 }

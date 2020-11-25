@@ -88,7 +88,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline12">
 
         <TextView
-            android:id="@+id/textViewCantidad2"
+            android:id="@+id/textViewPorcentajeEfectividad"
             android:layout_width="110dp"
             android:layout_height="35dp"
             android:layout_marginTop="5sp"
@@ -412,5 +412,31 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"></FrameLayout>
 
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/cardViewFinish"-->
+<!--        android:layout_width="158dp"-->
+<!--        android:layout_height="47dp"-->
+<!--        app:cardBackgroundColor="@android:color/holo_green_light"-->
+<!--        app:cardCornerRadius="25dp"-->
+<!--        app:cardUseCompatPadding="true"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/frameOptionsLayout"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.577"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textViewSelectedEventType">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/textViewFinishEvent"-->
+<!--            android:layout_width="141dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_marginBottom="152dp"-->
+<!--            android:fontFamily="@font/nexa_bold"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Finalizar Evento"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
+<!--    </androidx.cardview.widget.CardView>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -93,6 +93,8 @@ public class EventFragment extends Fragment {
             }
         });
 
+        System.out.println("HOLA HOLA HOLA");
+
         Query queryGermination = query.whereEqualTo("tipo", Constants.GERMINATION);
         Task<QuerySnapshot> germination = queryGermination.get();
         germination.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

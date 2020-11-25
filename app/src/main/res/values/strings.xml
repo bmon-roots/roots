@@ -98,6 +98,13 @@
     <string name="eventSproutDateLabel">Brotes\nal 50%</string>
     <string name="eventNewSproutDate">Brotes\niniciales</string>
 
+    <!--  Informes  -->
+
+    <string name="germinationTitle">Germinaciones</string>
+    <string name="cuttingTitle">Esquejes</string>
+    <string name="germinationPerformance">Rendimiento</string>
+    <string name="germinationWeather">Condiciones</string>
+
     <!--    Mensajes genericos-->
     <string name="dialog_delete">Seguro desea eliminar?</string>
     <string name="dialog_edit">Se guardarán los cambios</string>
@@ -129,6 +136,27 @@
     <string name="eventTemperatureLabel">Temperatura</string>
     <string name="eventActiveQuantityLabel">Cantidad\nactiva</string>
     <string name="eventActiveQuantityLabelHint">Unidades activas</string>
+    <string name="eventInitialQuantityLabel">Cantidad \nInicial</string>
+    <string name="eventMiddleSproutDateLabel">Fecha primeros brotes</string>
+    <string name="eventMiddleSproutDate">Fecha mitad de Brotes</string>
+    <string name="dialog_finish">Querés finalizar este evento?</string>
+    <string name="eventEfectivityLabel">Efectividad</string>
+    <string name="eventInitialDateLabel">Inició el...</string>
+    <string name="eventFinishDateLabel">y Finalizó el...</string>
+    <string name="with_out_value">Sin valor registrado</string>
+    <string name="msj_finalizar_evento_ok">El evento finalizó OK</string>
+    <string name="msj_finalizar_evento_error">Error al finalizar el evento</string>
+    <string name="eventQuantityDays">Cantidad de días</string>
+    <string name="eventQuantityDaysLabel">Días que pasaron...</string>
+    <string name="eventPercentEfectivityLabelHint">Porcentaje de Efectividad</string>
+    <string name="eventInitialDateLabelHint">Fecha de Inicio</string>
+    <string name="eventFinishDateLabelHint">Fecha de Finalización</string>
+    <string name="eventFinishPotLabel">Macetas \n1L</string>
+    <string name="eventQuantityPots">Macetas necesarias</string>
+    <string name="eventFinishSubstratumHint">Sustratos necesarios</string>
+    <string name="eventFinishSubstratumLabel">Sustratos \n1L</string>
+
+
     <string name="eventInitialQuantityLabel">Cantidad\ninicial</string>
     <string name="eventMiddleSproutDateLabel">Seleccione una fecha</string>
     <string name="eventMiddleSproutDate">Seleccione una fecha</string>

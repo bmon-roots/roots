@@ -16,6 +16,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.sql.SQLOutput;
+
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Event;
@@ -33,24 +35,26 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull EventHolder holder, int position, @NonNull Event model) {
+    protected void onBindViewHolder(@NonNull final EventHolder holder, int position, @NonNull Event model) {
         this.eventHolder = holder;
+        final Event eventoSeleccionado = crearEventoDesdeModel(model);
         final DocumentSnapshot document = getSnapshots().getSnapshot(holder.getAdapterPosition());
         holder.eventCard.setVisibility(View.GONE);
         holder.eventCard.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
         if(model.getTipo().equals(Constants.GERMINATION)){
             holder.eventCard.setVisibility(View.VISIBLE);
             holder.eventCard.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            eventHolder.evento = crearEventoDesdeModel(model);
             holder.eventGroup.setText(model.getEspecie());
             holder.eventTypeImage.setBackgroundResource(R.drawable.ic_germination);
         }
 
-        eventHolder.eventCard.setOnClickListener(new View.OnClickListener() {
+        this.eventHolder.eventCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EventDetailViewModel model = eventOnTextClickListener.onTextClick();
-                model.select(eventHolder.evento);
+                getSnapshots().getSnapshot(holder.getAdapterPosition());
+                model.select(eventoSeleccionado);
+
                 model.selectId(document.getId());
                 Navigation.findNavController(view).navigate(R.id.nav_event_detail);
             }
@@ -81,8 +85,16 @@ public class EventAdapter extends FirestoreRecyclerAdapter<Event, EventAdapter.E
     @Override
     public EventHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         this.view = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_item, parent, false);
-
-        return new EventAdapter.EventHolder(view);
+        final EventAdapter.EventHolder eventHolder = new EventAdapter.EventHolder(view);
+        eventHolder.eventCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EventDetailViewModel model = eventOnTextClickListener.onTextClick();
+                model.select(eventHolder.evento);
+                Navigation.findNavController(view).navigate(R.id.nav_event_detail);
+            }
+        });
+        return eventHolder;
     }
 
     public class EventHolder extends RecyclerView.ViewHolder {
