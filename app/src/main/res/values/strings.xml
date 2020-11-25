@@ -136,9 +136,6 @@
     <string name="eventTemperatureLabel">Temperatura</string>
     <string name="eventActiveQuantityLabel">Cantidad\nactiva</string>
     <string name="eventActiveQuantityLabelHint">Unidades activas</string>
-    <string name="eventInitialQuantityLabel">Cantidad \nInicial</string>
-    <string name="eventMiddleSproutDateLabel">Fecha primeros brotes</string>
-    <string name="eventMiddleSproutDate">Fecha mitad de Brotes</string>
     <string name="dialog_finish">Querés finalizar este evento?</string>
     <string name="eventEfectivityLabel">Efectividad</string>
     <string name="eventInitialDateLabel">Inició el...</string>
