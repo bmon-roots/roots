@@ -378,7 +378,7 @@ public class EventDetailFragment extends DialogFragment {
         try {
             //TODO mejorar esta implementación
             for (int i = 0; i < event.getCantidadActivas(); i++) {
-                Plant planta= new Plant(event.getEspecie(), event.getTipo(), "0", null, false, event.getTipo(), "0",
+                Plant planta= new Plant(event.getEspecie(), event.getTipo(), "0", new Date(), false, event.getTipo(), "0",
                         "1", false,"0", "", new ArrayList<Tarea>());
                 insertActivePlantsIntoFirebase(planta);
             }
