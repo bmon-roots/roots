@@ -28,6 +28,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
@@ -44,7 +45,7 @@ public class EventFinishFragment extends Fragment {
     private Event event;
     private FirebaseFirestore db;
     private String eventId;
-    int cantidadMacetas = 0, cantidadSustrato = 0;
+    private int cantidaMacetasNecesaria = 0, cantidaActivas = 0, cantidaSustratoNecesaria = 0, cantidadMacetasAcumuladas = 0, cantidadSustratoAcumulado = 0;
 
 
     public static EventFinishFragment newInstance() {
@@ -58,7 +59,6 @@ public class EventFinishFragment extends Fragment {
         EventDetailViewModel model = new ViewModelProvider(requireActivity()).get(EventDetailViewModel.class);
         eventImage = viewReference.findViewById(R.id.eventFinishImageView);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-//        event = model.getSelected().getValue();
         eventId = model.getIdSelected().getValue();
         db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection(Constants.EVENTS_COLLECTION).document(eventId);
@@ -67,6 +67,9 @@ public class EventFinishFragment extends Fragment {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
                     event = (task.getResult().toObject(Event.class));
+                    cantidaActivas = event.getCantidadActivas();
+                    cantidaSustratoNecesaria = event.getCantidadActivas();
+                    cantidaMacetasNecesaria = event.getCantidadActivas();
                     loadFinishValue(viewReference);
                     setEventImage(event.getTipo());
                 }
@@ -128,7 +131,13 @@ public class EventFinishFragment extends Fragment {
                 if(task.isSuccessful()){
                     for (QueryDocumentSnapshot document: task.getResult()) {
                         Material material = document.toObject(Material.class);
-                        cantidadMacetas += material.getCantidad();
+                        int cantidad = material.getCantidad();
+                        while (cantidad > 0 && cantidaMacetasNecesaria > cantidadMacetasAcumuladas){
+                            cantidadMacetasAcumuladas++;
+                            cantidad--;
+                        }
+                        DocumentReference dr = db.collection(Constants.MATERIAL_COLLECTION).document(document.getId());
+                        dr.update("cantidad", cantidad);
                     }
                     loadInfoMacetas();
                 }
@@ -141,7 +150,13 @@ public class EventFinishFragment extends Fragment {
                 if (task.isSuccessful()){
                     for (QueryDocumentSnapshot document: task.getResult()){
                         Material material = document.toObject(Material.class);
-                        cantidadSustrato +=  material.getCantidad();
+                        int cantidad = material.getCantidad();
+                        while(cantidad > 0 && cantidaSustratoNecesaria > cantidadSustratoAcumulado) {
+                            cantidadSustratoAcumulado++;
+                            cantidad--;
+                        }
+                        DocumentReference dr = db.collection(Constants.MATERIAL_COLLECTION).document(document.getId());
+                        dr.update("cantidad", cantidad);
                     }
                 }
                 loadInfoSustrato();
@@ -152,7 +167,7 @@ public class EventFinishFragment extends Fragment {
 
     private void loadInfoMacetas(){
         EditText macetasET = viewReference.findViewById(R.id.editTextMacetas);
-        int diferenciaMateriales = cantidadMacetas - event.getCantidadActivas();
+        int diferenciaMateriales = cantidadMacetasAcumuladas - cantidaMacetasNecesaria;
         if(diferenciaMateriales < 0){
             macetasET.setText("Necesitas " + Math.abs(diferenciaMateriales));
         }else{
@@ -163,7 +178,7 @@ public class EventFinishFragment extends Fragment {
 
     private void loadInfoSustrato(){
         EditText macetasET = viewReference.findViewById(R.id.editTextSustrato);
-        int diferenciaMateriales = cantidadSustrato - event.getCantidadActivas();
+        int diferenciaMateriales = cantidadSustratoAcumulado - cantidaSustratoNecesaria;
         if(diferenciaMateriales < 0){
             macetasET.setText("Necesitas " + Math.abs(diferenciaMateriales));
         }else{
