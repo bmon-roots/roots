@@ -4,6 +4,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -40,16 +43,28 @@ public class ListPlantFragment extends Fragment {
     RecyclerView recyclerView;
     PlantsAdapter plantsAdapter;
     private DetailViewModel model;
-    private FloatingActionButton btnAddAction;
     private MaterialAlertDialogBuilder dialog;
     private View newSpeciesCustomDialog;
+    private MenuItem btnAddAction;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_plant_list, menu);
+        btnAddAction = menu.findItem(R.id.open_plant_list_dialog);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         plantsListView = inflater.inflate(R.layout.fragment_list_plant, container, false);
         newSpeciesCustomDialog = getLayoutInflater().inflate(R.layout.create_species_fragment, null);
-        btnAddAction = plantsListView.findViewById(R.id.floatingActionButton);
         recyclerView = plantsListView.findViewById(R.id.recyclerPlantas);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -76,6 +91,18 @@ public class ListPlantFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int selectionId = item.getItemId();
+        if (selectionId == R.id.open_plant_list_dialog) {
+            createAddNewElementDialog();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void createAddNewElementDialog() {
         dialog = new MaterialAlertDialogBuilder(getActivity());
         dialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
         String[] alertDialogOptions = new String[] {Constants.ADD_NEW_PLANT, Constants.ADD_NEW_SPECIES};
@@ -105,12 +132,7 @@ public class ListPlantFragment extends Fragment {
                 }
             }
         });
-        btnAddAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.create().show();
-            }
-        });
+        dialog.create().show();
     }
 
     @Override
