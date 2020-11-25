@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -15,6 +17,7 @@ import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
+import com.anychart.charts.Pie;
 import com.anychart.core.cartesian.series.Column;
 import com.anychart.enums.Anchor;
 import com.anychart.enums.HoverMode;
@@ -40,6 +43,7 @@ public class ReportFragment extends Fragment {
     private ArrayList<Event> eventos = new ArrayList<>();
     private AnyChartView anyChartView;
     private TextView textoCutting;
+    private TextView title;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -47,6 +51,9 @@ public class ReportFragment extends Fragment {
 
         final View root = inflater.inflate(R.layout.fragment_report, container, false);
         textoCutting = root.findViewById(R.id.text_view_header_cutting);
+        anyChartView = root.findViewById(R.id.anyChartEventReport);
+        title = root.findViewById(R.id.text_view_germination_title);
+
         textoCutting.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -56,7 +63,16 @@ public class ReportFragment extends Fragment {
                 }
         );
 
-        anyChartView = root.findViewById(R.id.anyChartEventReport);
+        title.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        setupPieChart();
+                    }
+                }
+        );
+
+        anyChartView.setZoomEnabled(true);
         Task<QuerySnapshot> future = db.collection(Constants.EVENTS_COLLECTION).get();
 
         future.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -68,7 +84,7 @@ public class ReportFragment extends Fragment {
                         Event evento = document.toObject(Event.class);
                         addToList(evento);
                     }
-                    setupPieChart();
+                    setupColumnChart();
                 }
             }
         });
@@ -76,8 +92,23 @@ public class ReportFragment extends Fragment {
         return root;
     }
 
+    public void setupPieChart(){
+        String[] especies = speciesOnEvents();
+        Integer[] cantidades = quantitiesOnEvents();
 
-    public void setupPieChart() {
+        Pie pie = AnyChart.pie();
+        ArrayList<DataEntry> dataEntries = new ArrayList<>();
+
+        for (int i = 0; i < especies.length; i++) {
+            dataEntries.add(new ValueDataEntry(especies[i], cantidades[i]));
+        }
+
+        pie.data(dataEntries);
+        anyChartView.setChart(pie);
+    }
+
+
+    public void setupColumnChart() {
         String[] especies = speciesOnEvents();
         Integer[] cantidades = quantitiesOnEvents();
 
@@ -89,6 +120,7 @@ public class ReportFragment extends Fragment {
         }
 
         Column column = cartesian.column(dataEntries);
+        cartesian.credits().enabled(false);
 
         column.tooltip()
                 .titleFormat("{%X}")
