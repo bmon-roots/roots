@@ -393,7 +393,8 @@ public class DetailFragment extends DialogFragment {
         edad.setText(planta.getAge());
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String registrationDate = dateFormat.format(planta.getRegistrationDate());
+
+        String registrationDate = (null != planta.getRegistrationDate()) ? dateFormat.format(planta.getRegistrationDate()) : "";
 
         EditText fechaRegistro = (EditText)root.findViewById(R.id.editTextPlantDetailDate);
         fechaRegistro.setText(registrationDate);
