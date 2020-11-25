@@ -76,6 +76,7 @@ public class EventDetailFragment extends DialogFragment {
     private ImageView eventImage;
     private MenuItem editMenuItem;
     private MenuItem deleteMenuItem;
+    private MenuItem finishMenuItem;
     private MenuItem saveChangesMenuItem;
     private FirebaseFirestore db;
     private Event event;
@@ -99,15 +100,8 @@ public class EventDetailFragment extends DialogFragment {
         viewReference = inflater.inflate(R.layout.event_detail_fragment, container, false);
         eventImage = viewReference.findViewById(R.id.eventDetailImageView);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        CardView finishCardView = viewReference.findViewById(R.id.cardViewFinish);
-        finishCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finishEventDialog();
-            }
-        });
+//        CardView finishCardView = viewReference.findViewById(R.id.cardViewFinish);
         EventDetailViewModel model = new ViewModelProvider(requireActivity()).get(EventDetailViewModel.class);
-//        event = model.getSelected().getValue();
         eventId = model.getIdSelected().getValue();
         db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection(Constants.EVENTS_COLLECTION).document(eventId);
@@ -127,16 +121,8 @@ public class EventDetailFragment extends DialogFragment {
 
     private void loadDetailValue(View root) {
 
-        ImageView imageViewPlant = root.findViewById(R.id.eventDetailImageView);
-
-//        if (event.getImageUri() != null && !event.getImageUri().equals("")) {
-//            Picasso.get().load(event.getImageUri()).into(imageViewPlant);
-//        }
-
         TextView tipoEventoTV = (TextView) root.findViewById(R.id.textViewSelectedEventDetailType);
         tipoEventoTV.setText(event.getTipo());
-
-
 
         TextView especieTV = (TextView) root.findViewById(R.id.textViewSelectedSpecies);
         especieTV.setText(event.getEspecie());
@@ -194,6 +180,7 @@ public class EventDetailFragment extends DialogFragment {
         editMenuItem = menu.findItem(R.id.menu_edit_detail_event_button);
         saveChangesMenuItem = menu.findItem(R.id.menu_save_detail_event_button);
         deleteMenuItem = menu.findItem(R.id.menu_delete_detail_event_button);
+        finishMenuItem = menu.findItem(R.id.menu_detail_event_finish_button);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -213,6 +200,9 @@ public class EventDetailFragment extends DialogFragment {
                 break;
             case R.id.menu_edit_detail_add_task:
                 addTaskDialog();
+                break;
+            case R.id.menu_detail_event_finish_button:
+                finishEventDialog();
                 break;
         }
 
@@ -368,7 +358,8 @@ public class EventDetailFragment extends DialogFragment {
                 .setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 //                                TAG.
-                        System.out.println("Canceló finalizar evento");
+                        Log.d(this.getClass().getCanonicalName(), "Canceló finalizar evento");
+
                     }
                 });
         finishEventDialogBuilder.create().show();
@@ -376,7 +367,6 @@ public class EventDetailFragment extends DialogFragment {
 
     private void finishEvent() {
         try {
-            //TODO mejorar esta implementación
             for (int i = 0; i < event.getCantidadActivas(); i++) {
                 Plant planta= new Plant(event.getEspecie(), event.getTipo(), "0", new Date(), false, event.getTipo(), "0",
                         "1", false,"0", "", new ArrayList<Tarea>());
@@ -389,8 +379,9 @@ public class EventDetailFragment extends DialogFragment {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                        System.out.println("Evento Finalizado");
-                        Toast.makeText(getContext(), R.string.msj_finalizar_evento_ok, Toast.LENGTH_LONG).show();
+                            Log.d(this.getClass().getCanonicalName(), "Evento Finalizado");
+
+                            Toast.makeText(getContext(), R.string.msj_finalizar_evento_ok, Toast.LENGTH_LONG).show();
                         Navigation.findNavController(viewReference).navigate(R.id.action_nav_event_detail_to_nav_event_finish);
                     }
                     })

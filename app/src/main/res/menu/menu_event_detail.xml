@@ -15,4 +15,7 @@
         android:id="@+id/menu_save_detail_event_button"
         android:title="Guardar"
         android:visible="false"/>
+    <item
+        android:id="@+id/menu_detail_event_finish_button"
+        android:title="Finalizar Evento" />
 </menu>
