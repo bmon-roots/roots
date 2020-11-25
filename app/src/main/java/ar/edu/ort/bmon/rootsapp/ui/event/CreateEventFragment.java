@@ -1,10 +1,10 @@
 package ar.edu.ort.bmon.rootsapp.ui.event;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.net.Uri;
@@ -125,7 +125,7 @@ public class CreateEventFragment extends Fragment {
         speciesDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ListView selectionList = ((AlertDialog) dialog).getListView();
+                ListView selectionList = ((androidx.appcompat.app.AlertDialog) dialog).getListView();
                 selectedSpeciesId = (Integer)selectionList.getTag();
                 selectedSpeciesName.setText(speciesList.get(selectedSpeciesId));
                 dialog.dismiss();
@@ -241,7 +241,7 @@ public class CreateEventFragment extends Fragment {
     }
 
     private Uri getImageForEventType(int selectedOption) {
-        String imageForEvent = selectedOption == 0 ? "ic_germination" : "ic_sprouts";
+        String imageForEvent = selectedOption == 0 ? "ic_germinate_circle" : "ic_sprouts_circle";
         return Uri.parse("android.resource://ar.edu.ort.bmon.rootsapp/drawable/" + imageForEvent);
     }
 

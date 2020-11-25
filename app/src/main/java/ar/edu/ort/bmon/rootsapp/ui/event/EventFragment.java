@@ -85,7 +85,11 @@ public class EventFragment extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 int cuttingQuantity = task.getResult().size();
                 TextView cuttingTV = viewReference.findViewById(R.id.text_view_grupos_cutting);
-                cuttingTV.setText(String.valueOf(cuttingQuantity)  +" " +  Constants.GRUPOS);
+                if (cuttingQuantity > 1) {
+                    cuttingTV.setText(String.valueOf(cuttingQuantity)  +" " +  Constants.GRUPOS);
+                } else {
+                    cuttingTV.setText(String.valueOf(cuttingQuantity)  +" " +  Constants.GRUPO);
+                }
             }
         });
 
@@ -98,7 +102,11 @@ public class EventFragment extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 int germinationQuantity = task.getResult().size();
                 TextView germinationTV = viewReference.findViewById(R.id.text_view_grupos_germination);
-                germinationTV.setText(String.valueOf(germinationQuantity) + " " + Constants.GRUPOS);
+                if (germinationQuantity > 1) {
+                    germinationTV.setText(String.valueOf(germinationQuantity) + " " + Constants.GRUPOS);
+                } else {
+                    germinationTV.setText(String.valueOf(germinationQuantity) + " " + Constants.GRUPO);
+                }
             }
         });
 

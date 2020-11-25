@@ -70,6 +70,7 @@
     <fragment
         android:id="@+id/nav_event_detail"
         android:name="ar.edu.ort.bmon.rootsapp.ui.event.EventDetailFragment"
+        android:label="Mi evento"
         tools:layout="@layout/event_detail_fragment">
         <action
             android:id="@+id/action_nav_event_detail_to_nav_event_finish"
@@ -78,11 +79,13 @@
     <fragment
         android:id="@+id/nav_event_finish"
         android:name="ar.edu.ort.bmon.rootsapp.ui.event.EventFinishFragment"
+        android:label="Finalizar evento"
         tools:layout="@layout/event_finish_fragment" />
 
     <fragment
         android:id="@+id/nav_plant_detail"
         android:name="ar.edu.ort.bmon.rootsapp.ui.plant.DetailFragment"
+        android:label="Mi Planta"
         tools:layout="@layout/fragment_detail" />
 
     <fragment

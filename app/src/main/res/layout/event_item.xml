@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
+    app:cardBackgroundColor="#E0E9E4"
     app:cardCornerRadius="25dp"
     app:cardUseCompatPadding="true"
-    tools:context=".ui.material.MaterialAdapter"
-    app:cardBackgroundColor="@android:color/secondary_text_light_nodisable">
+    tools:context=".ui.material.MaterialAdapter">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="400dp"
@@ -22,28 +22,32 @@
             android:id="@+id/image_view_grupo"
             android:layout_width="56dp"
             android:layout_height="45dp"
-            android:layout_marginStart="16dp"
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.13"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.511" />
+            app:layout_constraintVertical_bias="0.5" />
 
         <TextView
             android:id="@+id/text_view_grupo_especie"
             android:layout_width="225dp"
             android:layout_height="28dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="36dp"
             android:layout_weight="1"
+            android:fontFamily="@font/nexa_book_italic"
             android:gravity="left"
             android:text="Grupo Pinus Densiflora"
-            android:textSize="20sp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

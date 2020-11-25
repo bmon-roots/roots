@@ -53,7 +53,7 @@ public class ListPlantFragment extends Fragment {
         recyclerView = plantsListView.findViewById(R.id.recyclerPlantas);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Query query = db.collection(Constants.PLANT_COLLECTION);
+        Query query = db.collection(Constants.PLANT_COLLECTION).orderBy("species");
 
         FirestoreRecyclerOptions<Plant> firestoreRecyclerOptions =
                 new FirestoreRecyclerOptions.Builder<Plant>()

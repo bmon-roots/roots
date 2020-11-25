@@ -8,9 +8,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        app:cardBackgroundColor="@color/veryLightBlue"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="@color/colorCardBackground"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,12 +20,13 @@
             android:id="@+id/textViewFechaEstratificacion"
             android:layout_width="115dp"
             android:layout_height="38dp"
-            android:fontFamily="@font/nexa_bold"
+            android:fontFamily="@font/nexa_regular"
             android:text="@string/eventsGerminationStrataDate"
             android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.057"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
@@ -33,20 +34,23 @@
 
     <EditText
         android:id="@+id/editTextFechaEstratificacion"
-        android:layout_width="225dp"
-        android:layout_height="41dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:clickable="true"
         android:focusable="false"
         android:fontFamily="@font/nexa_light"
         android:hint="@string/eventsGerminationStrataHint"
         android:inputType="date"
         android:textAlignment="center"
-        android:textSize="16dp"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@android:color/darker_gray"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
