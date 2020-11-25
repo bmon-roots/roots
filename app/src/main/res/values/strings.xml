@@ -92,6 +92,8 @@
 
     <string name="germinationTitle">Germinaciones</string>
     <string name="cuttingTitle">Esquejes</string>
+    <string name="germinationPerformance">Rendimiento</string>
+    <string name="germinationWeather">Condiciones</string>
 
     <!--    Mensajes genericos-->
     <string name="dialog_delete">Seguro desea eliminar?</string>
