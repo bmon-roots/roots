@@ -18,7 +18,6 @@ import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
-import com.anychart.charts.Pie;
 import com.anychart.core.cartesian.series.Column;
 import com.anychart.enums.Anchor;
 import com.anychart.enums.HoverMode;
@@ -61,7 +60,6 @@ public class ReportCuttingConditionsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         this.root = inflater.inflate(R.layout.fragment_cutting_conditions_report, container, false);
-//        textoCutting = root.findViewById(R.id.text_view_header_cutting);
         anyChartView = root.findViewById(R.id.anyChartEventReport);
         textGermination = root.findViewById(R.id.text_view_header_germination);
         textWeather = root.findViewById(R.id.text_view_germination_weather);
@@ -84,7 +82,7 @@ public class ReportCuttingConditionsFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Navigation.findNavController(view).navigate(R.id.nav_report);
+                        Navigation.findNavController(view).navigate(R.id.nav_cutting_report);
                     }
                 }
         );
@@ -176,19 +174,6 @@ public class ReportCuttingConditionsFragment extends Fragment {
             }
         });
         speciesDialog.create().show();
-    }
-
-    public void setupPieChart() {
-        Event evento = thereAreEventsOfThis(this.selectedEventSpecie);
-        Pie pie = AnyChart.pie();
-        ArrayList<DataEntry> dataEntries = new ArrayList<>();
-
-        dataEntries.add(new ValueDataEntry("Temperatura", evento.getTemperatura()));
-        dataEntries.add(new ValueDataEntry("Humedad", evento.getHumedad()));
-        dataEntries.add(new ValueDataEntry("PH", evento.getPh()));
-
-        pie.data(dataEntries);
-        anyChartView.setChart(pie);
     }
 
     private Event thereAreEventsOfThis(final String especie) {
