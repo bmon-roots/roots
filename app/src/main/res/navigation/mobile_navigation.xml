@@ -70,7 +70,15 @@
     <fragment
         android:id="@+id/nav_event_detail"
         android:name="ar.edu.ort.bmon.rootsapp.ui.event.EventDetailFragment"
-        tools:layout="@layout/event_detail_fragment" />
+        tools:layout="@layout/event_detail_fragment">
+        <action
+            android:id="@+id/action_nav_event_detail_to_nav_event_finish"
+            app:destination="@id/nav_event_finish"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_event_finish"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.event.EventFinishFragment"
+        tools:layout="@layout/event_finish_fragment" />
 
     <fragment
         android:id="@+id/nav_plant_detail"

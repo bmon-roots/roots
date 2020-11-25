@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.event.EventDetailFragment">
+    tools:context=".ui.event.EventFinishFragment">
 
     <ImageView
-        android:id="@+id/eventDetailImageView"
+        android:id="@+id/eventFinishImageView"
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:scaleType="centerCrop"
@@ -20,7 +20,7 @@
         tools:src="@drawable/ic_sprouts" />
 
     <TextView
-        android:id="@+id/textViewSelectedEventDetailType"
+        android:id="@+id/textViewSelectedEventFinishType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -31,7 +31,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.388"
-        app:layout_constraintStart_toEndOf="@+id/eventDetailImageView"
+        app:layout_constraintStart_toEndOf="@+id/eventFinishImageView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
 
@@ -64,8 +64,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.724"
-            app:layout_constraintStart_toEndOf="@+id/eventDetailImageView"
-            app:layout_constraintTop_toBottomOf="@+id/textViewSelectedEventDetailType"
+            app:layout_constraintStart_toEndOf="@+id/eventFinishImageView"
+            app:layout_constraintTop_toBottomOf="@+id/textViewSelectedEventFinishType"
             app:layout_constraintVertical_bias="0.036" />
     </androidx.cardview.widget.CardView>
 
@@ -86,14 +86,14 @@
             android:layout_width="110dp"
             android:layout_height="30dp"
             android:fontFamily="@font/nexa_bold"
-            android:text="@string/eventInitialQuantityLabel"
+            android:text="@string/eventEfectivityLabel"
             android:textAlignment="center"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="169dp" />
     </androidx.cardview.widget.CardView>
 
     <EditText
-        android:id="@+id/editTextCantidadEventoDetail2"
+        android:id="@+id/editTextPorcentajeEfectividad"
         android:layout_width="188dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -101,7 +101,7 @@
         android:ems="10"
         android:enabled="false"
         android:fontFamily="@font/nexa_black"
-        android:hint="@string/eventActiveQuantityLabelHint"
+        android:hint="@string/eventPercentEfectivityLabelHint"
         android:inputType="number"
         android:textAlignment="center"
         android:textSize="16dp"
@@ -121,18 +121,18 @@
         app:layout_constraintTop_toTopOf="@+id/guideline12">
 
         <TextView
-            android:id="@+id/textViewCantidad"
+            android:id="@+id/textViewFechaInicial"
             android:layout_width="110dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:fontFamily="@font/nexa_bold"
-            android:text="@string/eventActiveQuantityLabel"
+            android:text="@string/eventInitialDateLabel"
             android:textAlignment="center"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="217dp" />
     </androidx.cardview.widget.CardView>
 
     <EditText
-        android:id="@+id/editTextCantidadEventoDetail"
+        android:id="@+id/editTextInitialDateFinish"
         android:layout_width="188dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
@@ -140,7 +140,7 @@
         android:ems="10"
         android:enabled="false"
         android:fontFamily="@font/nexa_black"
-        android:hint="@string/eventActiveQuantityLabelHint"
+        android:hint="@string/eventInitialDateLabelHint"
         android:inputType="number"
         android:textAlignment="center"
         android:textSize="16dp"
@@ -156,7 +156,6 @@
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -168,15 +167,30 @@
         app:layout_constraintTop_toTopOf="@+id/guideline12">
 
         <TextView
-            android:id="@+id/textViewRangoTemperaturas"
+            android:id="@+id/textViewFechaFin"
             android:layout_width="110dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:fontFamily="@font/nexa_bold"
-            android:text="@string/eventTemperatureRangeLabel"
+            android:text="@string/eventFinishDateLabel"
             android:textAlignment="center"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="253dp" />
     </androidx.cardview.widget.CardView>
+    <EditText
+        android:id="@+id/editTextFechaFin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="48dp"
+        android:ems="10"
+        android:enabled="false"
+        android:fontFamily="@font/nexa_black"
+        android:hint="@string/eventFinishDateLabelHint"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline12" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView4"
@@ -191,57 +205,17 @@
         app:layout_constraintTop_toTopOf="@+id/guideline12">
 
         <TextView
-            android:id="@+id/textViewRangoHumedad"
+            android:id="@+id/textViewCantidadDias"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/nexa_bold"
-            android:text="@string/eventHumidityRangeLabel"
+            android:text="@string/eventQuantityDaysLabel"
             android:textAlignment="center"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="289dp" />
     </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="212dp"
-        app:cardBackgroundColor="@color/veryLightBlue"
-        app:cardCornerRadius="5dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline12">
-
-        <TextView
-            android:id="@+id/textViewRangoPH"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nexa_bold"
-            android:text="@string/eventPHRangeLabel"
-            android:textAlignment="center"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="325dp" />
-    </androidx.cardview.widget.CardView>
-
     <EditText
-        android:id="@+id/editTextRangoTemperaturas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
-        android:layout_marginEnd="48dp"
-        android:ems="10"
-        android:enabled="false"
-        android:fontFamily="@font/nexa_black"
-        android:hint="@string/eventTemperature"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline12" />
-
-    <EditText
-        android:id="@+id/editTextRangoHumedad"
+        android:id="@+id/editTextCantidadDias"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:layout_marginTop="164dp"
@@ -249,15 +223,37 @@
         android:ems="10"
         android:enabled="false"
         android:fontFamily="@font/nexa_black"
-        android:hint="@string/eventHumidity"
-        android:inputType="textPersonName"
+        android:hint="@string/eventQuantityDays"
+        android:inputType="number"
         android:textAlignment="center"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline12" />
 
+
+        <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="212dp"
+        app:cardBackgroundColor="@color/veryLightBlue"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline12">
+
+        <TextView
+            android:id="@+id/textViewMaceta"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:fontFamily="@font/nexa_bold"
+            android:text="@string/eventFinishPotLabel"
+            android:textAlignment="center"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="325dp" />
+    </androidx.cardview.widget.CardView>
     <EditText
-        android:id="@+id/editTextRangoPH"
+        android:id="@+id/editTextMacetas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="212dp"
@@ -265,7 +261,7 @@
         android:ems="10"
         android:enabled="false"
         android:fontFamily="@font/nexa_black"
-        android:hint="@string/eventPH"
+        android:hint="@string/eventQuantityPots"
         android:inputType="textPersonName"
         android:textAlignment="center"
         android:textSize="16dp"
@@ -273,7 +269,6 @@
         app:layout_constraintTop_toTopOf="@+id/guideline12" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -285,11 +280,11 @@
         app:layout_constraintTop_toTopOf="@+id/guideline12">
 
         <TextView
-            android:id="@+id/textViewFechaNuevosBrotes"
+            android:id="@+id/textViewSustrato"
             android:layout_width="110dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:fontFamily="@font/nexa_bold"
-            android:text="@string/eventNewSproutDate"
+            android:text="@string/eventFinishSubstratumLabel"
             android:textAlignment="center"
             tools:layout_editor_absoluteX="20dp"
             tools:layout_editor_absoluteY="372dp" />
@@ -297,7 +292,7 @@
     </androidx.cardview.widget.CardView>
 
     <EditText
-        android:id="@+id/editTextFechaNuevosBrotes"
+        android:id="@+id/editTextSustrato"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="264dp"
@@ -305,51 +300,76 @@
         android:ems="10"
         android:enabled="false"
         android:fontFamily="@font/nexa_black"
-        android:hint="@string/eventMiddleSproutDateLabel"
+        android:hint="@string/eventFinishSubstratumHint"
         android:inputType="textPersonName"
         android:textAlignment="center"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline12" />
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="12dp"-->
+<!--        android:layout_marginTop="316dp"-->
+<!--        app:cardBackgroundColor="@color/veryLightBlue"-->
+<!--        app:cardCornerRadius="5dp"-->
+<!--        app:cardUseCompatPadding="true"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/guideline12">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/textViewFechaMitadBrotes"-->
+<!--            android:layout_width="110dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/nexa_bold"-->
+<!--            android:text="@string/eventSproutDateLabel"-->
+<!--            android:textAlignment="center"-->
+<!--            tools:layout_editor_absoluteX="16dp"-->
+<!--            tools:layout_editor_absoluteY="405dp" />-->
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/editTextFechaMitadBrotes"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="316dp"-->
+<!--        android:layout_marginEnd="48dp"-->
+<!--        android:ems="10"-->
+<!--        android:enabled="false"-->
+<!--        android:fontFamily="@font/nexa_black"-->
+<!--        android:hint="@string/eventMiddleSproutDate"-->
+<!--        android:inputType="textPersonName"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textSize="16dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/guideline12" />-->
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="316dp"
-        app:cardBackgroundColor="@color/veryLightBlue"
-        app:cardCornerRadius="5dp"
+        android:id="@+id/cardViewReturn"
+        android:layout_width="158dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="24dp"
+        app:cardBackgroundColor="@android:color/holo_green_light"
+        app:cardCornerRadius="25dp"
         app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.557"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline12">
+        app:layout_constraintTop_toBottomOf="@+id/editTextSustrato">
 
         <TextView
-            android:id="@+id/textViewFechaMitadBrotes"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/textViewReturnEvent"
+            android:layout_width="141dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="152dp"
             android:fontFamily="@font/nexa_bold"
-            android:text="@string/eventSproutDateLabel"
-            android:textAlignment="center"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="405dp" />
+            android:gravity="center"
+            android:text="Volver al Listado"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.cardview.widget.CardView>
-
-    <EditText
-        android:id="@+id/editTextFechaMitadBrotes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="316dp"
-        android:layout_marginEnd="48dp"
-        android:ems="10"
-        android:enabled="false"
-        android:fontFamily="@font/nexa_black"
-        android:hint="@string/eventMiddleSproutDate"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline12" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
@@ -366,9 +386,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline6">
-
-    </FrameLayout>
+        app:layout_constraintTop_toTopOf="@+id/guideline6"></FrameLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
@@ -376,31 +394,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="561dp" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewFinish"
-        android:layout_width="158dp"
-        android:layout_height="47dp"
-        app:cardBackgroundColor="@android:color/holo_green_light"
-        app:cardCornerRadius="25dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toTopOf="@+id/frameOptionsLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.577"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSelectedEventType">
-
-        <TextView
-            android:id="@+id/textViewFinishEvent"
-            android:layout_width="141dp"
-            android:layout_height="30dp"
-            android:layout_marginBottom="152dp"
-            android:fontFamily="@font/nexa_bold"
-            android:gravity="center"
-            android:text="Finalizar Evento"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

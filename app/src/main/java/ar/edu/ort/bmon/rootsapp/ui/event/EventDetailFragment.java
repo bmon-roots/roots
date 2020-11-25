@@ -1,6 +1,7 @@
 package ar.edu.ort.bmon.rootsapp.ui.event;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -21,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,25 +37,35 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Event;
 import ar.edu.ort.bmon.rootsapp.model.Material;
+import ar.edu.ort.bmon.rootsapp.model.Plant;
+import ar.edu.ort.bmon.rootsapp.model.Species;
+import ar.edu.ort.bmon.rootsapp.model.Tarea;
 import ar.edu.ort.bmon.rootsapp.model.TipoTarea;
 import ar.edu.ort.bmon.rootsapp.ui.plant.DetailViewModel;
 import ar.edu.ort.bmon.rootsapp.ui.plant.ReminderBroadcast;
+import kotlin.jvm.Throws;
 
 import static android.content.Context.ALARM_SERVICE;
 
@@ -85,16 +97,31 @@ public class EventDetailFragment extends DialogFragment {
                              @Nullable Bundle savedInstanceState) {
         createNotificationChannel();
         viewReference = inflater.inflate(R.layout.event_detail_fragment, container, false);
-        EventDetailViewModel model = new ViewModelProvider(requireActivity()).get(EventDetailViewModel.class);
         eventImage = viewReference.findViewById(R.id.eventDetailImageView);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
-        db = FirebaseFirestore.getInstance();
-        event = model.getSelected().getValue();
+        CardView finishCardView = viewReference.findViewById(R.id.cardViewFinish);
+        finishCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finishEventDialog();
+            }
+        });
+        EventDetailViewModel model = new ViewModelProvider(requireActivity()).get(EventDetailViewModel.class);
+//        event = model.getSelected().getValue();
         eventId = model.getIdSelected().getValue();
-//        event = new Event(Constants.CUTTING, "especie prueba", 0, 40, new Date(), new Date(), new Date(), new Date(), 33, 85, 7, TipoTarea.Bajar_Humedad, new Date());
-        loadDetailValue(viewReference);
-        setEventImage(event.getTipo());
+        db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection(Constants.EVENTS_COLLECTION).document(eventId);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    event = (task.getResult().toObject(Event.class));
+                    loadDetailValue(viewReference);
+                    setEventImage(event.getTipo());
+                }
+            }
+        });
+
         return viewReference;
     }
 
@@ -130,10 +157,14 @@ public class EventDetailFragment extends DialogFragment {
         rangoPH.setText(String.valueOf(event.getPh()));
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String nuevosBrotesDate = dateFormat.format(event.getPrimerosBrotes());
 
+        String nuevosBrotesDate = (null != event.getPrimerosBrotes()) ? dateFormat.format(event.getPrimerosBrotes()) : "";
         EditText fechaNuevosBrotes = (EditText)root.findViewById(R.id.editTextFechaNuevosBrotes);
         fechaNuevosBrotes.setText(nuevosBrotesDate);
+
+        String mediosBrotesDate = (null != event.getBrotoLaMitad()) ? dateFormat.format(event.getBrotoLaMitad()) : "";
+        EditText fechaMediosBrotes = (EditText)root.findViewById(R.id.editTextFechaMitadBrotes);
+        fechaMediosBrotes.setText(mediosBrotesDate);
 
     }
 
@@ -323,6 +354,79 @@ public class EventDetailFragment extends DialogFragment {
                     }
                 });
         Navigation.findNavController(viewReference).navigate(R.id.nav_event);
+    }
+
+    private void finishEventDialog() {
+        MaterialAlertDialogBuilder finishEventDialogBuilder = new MaterialAlertDialogBuilder(getContext());
+        finishEventDialogBuilder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+        finishEventDialogBuilder.setMessage(R.string.dialog_finish)
+                .setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finishEvent();
+                    }
+                })
+                .setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+//                                TAG.
+                        System.out.println("Canceló finalizar evento");
+                    }
+                });
+        finishEventDialogBuilder.create().show();
+    }
+
+    private void finishEvent() {
+        try {
+            //TODO mejorar esta implementación
+            for (int i = 0; i < event.getCantidadActivas(); i++) {
+                Plant planta= new Plant(event.getEspecie(), event.getTipo(), "0", new Date(), false, event.getTipo(), "0",
+                        "1", false,"0", "", new ArrayList<Tarea>());
+                insertActivePlantsIntoFirebase(planta);
+            }
+           DocumentReference docRef = db.collection(Constants.EVENTS_COLLECTION).document(eventId);
+            docRef.update(
+                    "fechaFinalizacion", new Date()
+                )
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                        System.out.println("Evento Finalizado");
+                        Toast.makeText(getContext(), R.string.msj_finalizar_evento_ok, Toast.LENGTH_LONG).show();
+                        Navigation.findNavController(viewReference).navigate(R.id.action_nav_event_detail_to_nav_event_finish);
+                    }
+                    })
+                .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                        System.out.println("Error al finalizar Evento" + " " + e.getCause());
+                        Toast.makeText(getContext(), R.string.msj_finalizar_evento_error, Toast.LENGTH_LONG);
+                        }
+                    });
+        } catch (InsertPlantFromEventException e) {
+            e.getMessage();
+            Toast.makeText(getContext(), e.mensaje, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void insertActivePlantsIntoFirebase(Plant planta) throws InsertPlantFromEventException {
+        try{
+            db.collection(Constants.PLANT_COLLECTION).add(planta)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d("Firebase", "Se crean plantas activas desde evento");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(Constants.FIREBASE_ERROR, e.toString());
+                            Toast.makeText(getContext(), Constants.PLANT_CREATE_ERROR, Toast.LENGTH_LONG).show();
+                        }
+                    });
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new InsertPlantFromEventException("Error al intentar insertar plantas desde el evento");
+        }
     }
 
     private void editionEnabled(View root) {
