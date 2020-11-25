@@ -57,6 +57,7 @@
     <fragment
         android:id="@+id/nav_plant_detail"
         android:name="ar.edu.ort.bmon.rootsapp.ui.plant.DetailFragment"
+        android:label="Mi Planta"
         tools:layout="@layout/fragment_detail" />
 
     <fragment

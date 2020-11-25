@@ -1,6 +1,5 @@
 package ar.edu.ort.bmon.rootsapp.ui.event;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -18,7 +17,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -28,10 +26,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +36,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -50,9 +45,6 @@ import java.util.Date;
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.model.Event;
-import ar.edu.ort.bmon.rootsapp.model.Material;
-import ar.edu.ort.bmon.rootsapp.model.TipoTarea;
-import ar.edu.ort.bmon.rootsapp.ui.plant.DetailViewModel;
 import ar.edu.ort.bmon.rootsapp.ui.plant.ReminderBroadcast;
 
 import static android.content.Context.ALARM_SERVICE;
@@ -86,7 +78,7 @@ public class EventDetailFragment extends DialogFragment {
         createNotificationChannel();
         viewReference = inflater.inflate(R.layout.event_detail_fragment, container, false);
         EventDetailViewModel model = new ViewModelProvider(requireActivity()).get(EventDetailViewModel.class);
-        eventImage = viewReference.findViewById(R.id.eventDetailImageView);
+        eventImage = viewReference.findViewById(R.id.eventImageView);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         db = FirebaseFirestore.getInstance();
@@ -100,7 +92,7 @@ public class EventDetailFragment extends DialogFragment {
 
     private void loadDetailValue(View root) {
 
-        ImageView imageViewPlant = root.findViewById(R.id.eventDetailImageView);
+        ImageView imageViewPlant = root.findViewById(R.id.eventImageView);
 
 //        if (event.getImageUri() != null && !event.getImageUri().equals("")) {
 //            Picasso.get().load(event.getImageUri()).into(imageViewPlant);
@@ -142,7 +134,7 @@ public class EventDetailFragment extends DialogFragment {
         eventImage.setImageURI(eventImageUri);
     }
     private Uri getImageForEventType(String eventName) {
-        String imageForEvent = eventName.equals(Constants.CUTTING)  ? "ic_sprouts" : "ic_germination";
+        String imageForEvent = eventName.equals(Constants.CUTTING)  ? "ic_sprouts_circle" : "ic_germinate_circle";
         return Uri.parse("android.resource://ar.edu.ort.bmon.rootsapp/drawable/" + imageForEvent);
     }
     @Override
