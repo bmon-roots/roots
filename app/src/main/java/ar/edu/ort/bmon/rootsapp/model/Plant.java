@@ -3,6 +3,10 @@ package ar.edu.ort.bmon.rootsapp.model;
 import java.util.ArrayList;
 import java.util.Date;
 
+import ar.edu.ort.bmon.rootsapp.exception.CreatePlantValidationException;
+import ar.edu.ort.bmon.rootsapp.exception.CreateTaskValidationException;
+import ar.edu.ort.bmon.rootsapp.util.Utils;
+
 public class Plant {
     private String id;
     private String species;
@@ -24,7 +28,8 @@ public class Plant {
     public Plant() {
     }
 
-    public Plant(String species, String name, String age, Date registrationDate, boolean isBonsaiAble, String origin, String height, String container, boolean isSaleable, String ph) {
+    public Plant(String species, String name, String age, Date registrationDate, boolean isBonsaiAble, String origin, String height, String container, boolean isSaleable, String ph) throws CreatePlantValidationException {
+        areFieldsValid(species,name,age,registrationDate,isBonsaiAble,origin,height,container,isSaleable,ph);
         setSpecies(species);
         setName(name);
         setAge(age);
@@ -37,7 +42,8 @@ public class Plant {
         setPh(ph);
     }
 
-    public Plant(String species, String name, String age, Date registrationDate, boolean isBonsaiAble, String origin, String height, String container, boolean isSaleable, String ph, String imageUri) {
+    public Plant(String species, String name, String age, Date registrationDate, boolean isBonsaiAble, String origin, String height, String container, boolean isSaleable, String ph, String imageUri) throws CreatePlantValidationException {
+        areFieldsValid(species,name,age,registrationDate,isBonsaiAble,origin,height,container,isSaleable,ph);
         setSpecies(species);
         setName(name);
         setAge(age);
@@ -51,7 +57,8 @@ public class Plant {
         setImageUri(imageUri);
     }
 
-    public Plant(String species, String name, String age, Date registrationDate, boolean isBonsaiAble, String origin, String height, String container, boolean isSaleable, String ph, String imageUri, ArrayList<Tarea> tareas) {
+    public Plant(String species, String name, String age, Date registrationDate, boolean isBonsaiAble, String origin, String height, String container, boolean isSaleable, String ph, String imageUri, ArrayList<Tarea> tareas) throws CreatePlantValidationException {
+        areFieldsValid(species,name,age,registrationDate,isBonsaiAble,origin,height,container,isSaleable,ph);
         setSpecies(species);
         setName(name);
         setAge(age);
@@ -66,6 +73,50 @@ public class Plant {
         setTareas(tareas);
     }
 
+    private void areFieldsValid(String species, String name, String age, Date registrationDate, boolean isBonsaiAble, String origin, String height, String container,
+                                   boolean isSaleable, String ph) throws CreatePlantValidationException {
+        String menssage="Falta dato obligatorio: ";
+        if (Utils.validateIsNullOrEmpty(species)) {
+            menssage.concat("Especie");
+            throw new CreatePlantValidationException(menssage);
+        }
+        if (Utils.validateIsNullOrEmpty(name)) {
+            menssage.concat("Nombre");
+            throw new CreatePlantValidationException(menssage);
+        }
+        if (Utils.validateIsNullOrEmpty(age)) {
+            menssage.concat("Edad");
+            throw new CreatePlantValidationException(menssage);
+        }
+        if (Utils.validateIsNullOrEmpty(registrationDate)) {
+            menssage.concat("Fecha de registro");
+            throw new CreatePlantValidationException(menssage);
+        }
+        if (Utils.validateIsNullOrEmpty(isBonsaiAble)) {
+            menssage.concat("Apto Bonzai");
+            throw new CreatePlantValidationException(menssage);
+        }
+        if (Utils.validateIsNullOrEmpty(origin)) {
+            menssage.concat("Origen");
+            throw new CreatePlantValidationException(menssage);
+        }
+        if (Utils.validateIsNullOrEmpty(height)) {
+            menssage.concat("Altura");
+            throw new CreatePlantValidationException(menssage);
+        }
+        if (Utils.validateIsNullOrEmpty(container)) {
+            menssage.concat("Contenedor");
+            throw new CreatePlantValidationException(menssage);
+        }
+        if (Utils.validateIsNullOrEmpty(isSaleable)) {
+            menssage.concat("Apto venta");
+            throw new CreatePlantValidationException(menssage);
+        }
+        if (Utils.validateIsNullOrEmpty(ph)) {
+            menssage.concat("PH");
+            throw new CreatePlantValidationException(menssage);
+        }
+    }
 
     /*
     Getters
@@ -179,7 +230,7 @@ public class Plant {
         this.tareas = tareas;
     }
 
-    public void addTask(Date registrationDate, String taskName, int periodicidadDias){
+    public void addTask(Date registrationDate, String taskName, int periodicidadDias) throws CreateTaskValidationException {
         Tarea tarea = new Tarea(taskName, registrationDate, periodicidadDias);
         if (!tareas.contains(tarea)){
             tareas.add(tarea);
@@ -191,7 +242,7 @@ public class Plant {
             }
         }
     }
-    public Tarea getTarea(String taskName){
+    public Tarea getTarea(String taskName) throws CreateTaskValidationException {
         Tarea tareaExist = null;
         Tarea tarea = new Tarea(taskName);
         if (tareas.contains(tarea)){
@@ -200,7 +251,7 @@ public class Plant {
         }
         return tareaExist;
     }
-    public void removeTask(String taskName){
+    public void removeTask(String taskName) throws CreateTaskValidationException {
         Tarea tarea = new Tarea(taskName);
         tareas.remove(tarea);
     }

@@ -1,5 +1,8 @@
 package ar.edu.ort.bmon.rootsapp.model;
 
+import ar.edu.ort.bmon.rootsapp.exception.CreateMaterialValidationException;
+import ar.edu.ort.bmon.rootsapp.util.Utils;
+
 public class Material {
     private TipoMaterial tipoMaterial;
     private int cantidad;
@@ -8,10 +11,26 @@ public class Material {
     private Material() {
     }
 
-    public Material(TipoMaterial tipoMaterial, int cantidad, int contenido) {
+    public Material(TipoMaterial tipoMaterial, int cantidad, int contenido) throws CreateMaterialValidationException {
+        areFieldsValid(tipoMaterial, cantidad, contenido);
         setTipoMaterial(tipoMaterial);
         setCantidad(cantidad);
         setContenido(contenido);
+    }
+    private void areFieldsValid(TipoMaterial tipoMaterial, int cantidad, int contenido) throws CreateMaterialValidationException {
+        String message="Falta dato obligatorio: ";
+        if (Utils.validateIsNullOrEmpty(tipoMaterial)) {
+            message.concat("Tipo material");
+            throw new CreateMaterialValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(cantidad)) {
+            message.concat("Cantidad");
+            throw new CreateMaterialValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(contenido)) {
+            message.concat("Contenido");
+            throw new CreateMaterialValidationException(message);
+        }
     }
 
     public TipoMaterial getTipoMaterial() {

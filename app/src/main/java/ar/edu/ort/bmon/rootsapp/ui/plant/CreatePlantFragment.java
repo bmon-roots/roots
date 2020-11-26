@@ -63,6 +63,8 @@ import java.util.List;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
+import ar.edu.ort.bmon.rootsapp.exception.CreateEventValidationException;
+import ar.edu.ort.bmon.rootsapp.exception.CreatePlantValidationException;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
 import ar.edu.ort.bmon.rootsapp.model.Tarea;
 import ar.edu.ort.bmon.rootsapp.model.Species;
@@ -339,7 +341,8 @@ public class CreatePlantFragment extends Fragment {
     }
 
     private void insertDataIntoFirebase() {
-        plant = new Plant(
+        try {
+            plant = new Plant(
                 speciesName.getText().toString(),
                 plantName.getText().toString(),
                 plantAge.getText().toString(),
@@ -376,7 +379,10 @@ public class CreatePlantFragment extends Fragment {
                         Toast.makeText(getContext(), Constants.PLANT_CREATE_ERROR, Toast.LENGTH_LONG).show();
                     }
                 });
-
+        } catch (CreatePlantValidationException e) {
+            Log.e(this.getClass().getCanonicalName(), e.getMessage());
+            Toast.makeText(getContext(), "Error al generar el evento", Toast.LENGTH_LONG).show();
+        }
 
     }
 

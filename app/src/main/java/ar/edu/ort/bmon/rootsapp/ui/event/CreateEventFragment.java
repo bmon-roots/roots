@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,6 +46,7 @@ import java.util.Date;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
+import ar.edu.ort.bmon.rootsapp.exception.CreateEventValidationException;
 import ar.edu.ort.bmon.rootsapp.model.Event;
 import ar.edu.ort.bmon.rootsapp.ui.plant.DatePickerFragment;
 
@@ -190,36 +192,37 @@ public class CreateEventFragment extends Fragment {
 
     private void saveEventToFirebase(int selectedOption) {
         Event eventToSave;
-        if (selectedOption == 0) {
-            Switch usoHormonas = viewReference.findViewById(R.id.switchHormones);
-            GerminationOptions options = (GerminationOptions) fragmentOptions;
-            eventToSave = new Event(
-                    "Germinacion",
-                    speciesList.get(selectedSpeciesId),
-                    Integer.parseInt(quantity.getText().toString()),
-                    new Date(),
-                    userSelectedSproutDate,
-                    Double.parseDouble(tempRange.getText().toString()),
-                    Integer.parseInt(humidityRange.getText().toString()),
-                    Double.parseDouble(phRange.getText().toString()),
-                    options.getData().getBoolean("UsedHormones")
-            );
-        } else {
-            CuttingOptions options = (CuttingOptions) fragmentOptions;
-            eventToSave = new Event(
-                    "Estratificacion",
-                    speciesList.get(selectedSpeciesId),
-                    Integer.parseInt(quantity.getText().toString()),
-                    new Date(),
-                    userSelectedSproutDate,
-                    Double.parseDouble(tempRange.getText().toString()),
-                    Integer.parseInt(humidityRange.getText().toString()),
-                    Double.parseDouble(phRange.getText().toString()),
-                    new Date(options.getData().getString("EstimatedStrata"))
-            );
-        }
+        try{
+            if (selectedOption == 0) {
+                Switch usoHormonas = viewReference.findViewById(R.id.switchHormones);
+                GerminationOptions options = (GerminationOptions) fragmentOptions;
+                    eventToSave = new Event(
+                            "Germinacion",
+                            speciesList.get(selectedSpeciesId),
+                            Integer.parseInt(quantity.getText().toString()),
+                            new Date(),
+                            userSelectedSproutDate,
+                            Double.parseDouble(tempRange.getText().toString()),
+                            Integer.parseInt(humidityRange.getText().toString()),
+                            Double.parseDouble(phRange.getText().toString()),
+                            options.getData().getBoolean("UsedHormones")
+                    );
+            } else {
+                CuttingOptions options = (CuttingOptions) fragmentOptions;
+                    eventToSave = new Event(
+                            "Estratificacion",
+                            speciesList.get(selectedSpeciesId),
+                            Integer.parseInt(quantity.getText().toString()),
+                            new Date(),
+                            userSelectedSproutDate,
+                            Double.parseDouble(tempRange.getText().toString()),
+                            Integer.parseInt(humidityRange.getText().toString()),
+                            Double.parseDouble(phRange.getText().toString()),
+                            new Date(options.getData().getString("EstimatedStrata"))
+                    );
+            }
 
-        db.collection(Constants.EVENTS_COLLECTION).add(eventToSave)
+            db.collection(Constants.EVENTS_COLLECTION).add(eventToSave)
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
@@ -233,6 +236,10 @@ public class CreateEventFragment extends Fragment {
                         Toast.makeText(getContext(), Constants.CREATE_EVENT_ERROR, Toast.LENGTH_LONG).show();
                     }
                 });
+        } catch (CreateEventValidationException e) {
+            Log.e(this.getClass().getCanonicalName(), e.getMessage());
+            Toast.makeText(getContext(), "Error al generar el evento", Toast.LENGTH_LONG).show();
+        }
     }
 
     private Fragment initFragmentOptions(int selectedOption) {

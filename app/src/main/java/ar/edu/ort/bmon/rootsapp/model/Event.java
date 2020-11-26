@@ -2,6 +2,10 @@ package ar.edu.ort.bmon.rootsapp.model;
 
 import java.util.Date;
 
+import ar.edu.ort.bmon.rootsapp.exception.CreateEventValidationException;
+import ar.edu.ort.bmon.rootsapp.exception.CreateTaskValidationException;
+import ar.edu.ort.bmon.rootsapp.util.Utils;
+
 public class Event {
 
     private String tipo;
@@ -22,7 +26,8 @@ public class Event {
     public Event() {
     }
 
-    public Event(String tipo, String especie, int cantidadInicial, Date fechaInicio, Date primerosBrotes, double temperatura, int humedad, double ph, Date fechaEstratificacion) {
+    public Event(String tipo, String especie, int cantidadInicial, Date fechaInicio, Date primerosBrotes, double temperatura, int humedad, double ph, Date fechaEstratificacion) throws CreateEventValidationException {
+        areFieldsValid(tipo,especie,cantidadInicial,fechaInicio,temperatura,humedad,ph,fechaEstratificacion);
         this.tipo = tipo;
         this.especie = especie;
         this.cantidadInicial = cantidadInicial;
@@ -34,7 +39,8 @@ public class Event {
         this.fechaEstratificacion = fechaEstratificacion;
     }
 
-    public Event(String tipo, String especie, int cantidadInicial, Date fechaInicio, Date primerosBrotes, double temperatura, int humedad, double ph, boolean usoHormonas) {
+    public Event(String tipo, String especie, int cantidadInicial, Date fechaInicio, Date primerosBrotes, double temperatura, int humedad, double ph, boolean usoHormonas) throws CreateEventValidationException {
+        areFieldsValid(tipo,especie,cantidadInicial,fechaInicio,temperatura,humedad,ph,usoHormonas);
         this.tipo = tipo;
         this.especie = especie;
         this.cantidadInicial = cantidadInicial;
@@ -77,8 +83,56 @@ public class Event {
         setTarea(tarea);
         setUsoHormonas(usoHormonas);
     }
+    private void areFieldsValid(String tipo, String especie, int cantidadInicial, Date fechaInicio, double temperatura, int humedad, double ph) throws CreateEventValidationException {
+        String message="Falta dato obligatorio: ";
+        if (Utils.validateIsNullOrEmpty(tipo)) {
+            message.concat("Tipo");
+            throw new CreateEventValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(especie)) {
+            message.concat("Especie");
+            throw new CreateEventValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(cantidadInicial)) {
+            message.concat("Cantidad Inicial");
+            throw new CreateEventValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(fechaInicio)) {
+            message.concat("Fecha Inicio");
+            throw new CreateEventValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(temperatura)) {
+            message.concat("temperatura");
+            throw new CreateEventValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(humedad)) {
+            message.concat("Humedad");
+            throw new CreateEventValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(ph)) {
+            message.concat("PH");
+            throw new CreateEventValidationException(message);
+        }
+    }
+    private void areFieldsValid(String tipo, String especie, int cantidadInicial, Date fechaInicio, double temperatura, int humedad, double ph, Date fechaEstratificacion) throws CreateEventValidationException {
+        areFieldsValid(tipo,especie,cantidadInicial,fechaInicio,temperatura,humedad,ph);
+        String message="Falta dato obligatorio: ";
+        if (Utils.validateIsNullOrEmpty(fechaEstratificacion)) {
+            message.concat("Fecha estratificación");
+            throw new CreateEventValidationException(message);
+        }
+    }
 
-    public String getTipo() {
+    private void areFieldsValid(String tipo, String especie, int cantidadInicial, Date fechaInicio, double temperatura, int humedad, double ph, boolean usoHormonas) throws CreateEventValidationException {
+        areFieldsValid(tipo,especie,cantidadInicial,fechaInicio,temperatura,humedad,ph);
+        String message="Falta dato obligatorio: ";
+        if (Utils.validateIsNullOrEmpty(usoHormonas)) {
+            message.concat("Uso de Hormonas");
+            throw new CreateEventValidationException(message);
+        }
+    }
+
+        public String getTipo() {
         return tipo;
     }
 
