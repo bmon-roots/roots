@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,8 @@ import com.google.firebase.firestore.Query;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
+import ar.edu.ort.bmon.rootsapp.exception.CreateEventValidationException;
+import ar.edu.ort.bmon.rootsapp.exception.CreateMaterialValidationException;
 import ar.edu.ort.bmon.rootsapp.model.Material;
 import ar.edu.ort.bmon.rootsapp.model.TipoMaterial;
 
@@ -152,23 +155,26 @@ public class ListMaterialFragment extends Fragment {
 
     private void createNewMaterialEntry(Integer selectedItemId, int quantity, int content) {
         TipoMaterial tipoMaterial = TipoMaterial.valueOf(items[selectedItemId].toString());
-        Material material = new Material(tipoMaterial, quantity, content);
-
-        db.collection(Constants.MATERIAL_COLLECTION)
-                .add(material)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(getContext(), Constants.MATERIAL_CREATE_SUCCESS, Toast.LENGTH_LONG).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), Constants.MATERIAL_CREATE_ERROR, Toast.LENGTH_LONG).show();
-                    }
-                });
-        System.out.println(material);
+        try {
+            Material material = new Material(tipoMaterial, quantity, content);
+            db.collection(Constants.MATERIAL_COLLECTION)
+                    .add(material)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Toast.makeText(getContext(), Constants.MATERIAL_CREATE_SUCCESS, Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getContext(), Constants.MATERIAL_CREATE_ERROR, Toast.LENGTH_LONG).show();
+                        }
+                    });
+        } catch (CreateMaterialValidationException e) {
+            Log.e(this.getClass().getCanonicalName(), e.getMessage());
+            Toast.makeText(getContext(), "Error al generar el material", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

@@ -1,10 +1,12 @@
 package ar.edu.ort.bmon.rootsapp.ui.plant;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -18,6 +20,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
+import ar.edu.ort.bmon.rootsapp.exception.CreatePlantValidationException;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
 import ar.edu.ort.bmon.rootsapp.model.Tarea;
 
@@ -39,7 +42,12 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
 
         holder.textViewNombre.setText(model.getSpecies());
         holder.textViewMaceta.setText(model.getContainer() + "L");
-        holder.plantita = crearPlantaDesdeModel(model, document.getId());
+        try {
+            holder.plantita = crearPlantaDesdeModel(model, document.getId());
+        }catch (CreatePlantValidationException ex){
+            Log.e(this.getClass().getCanonicalName(), "Error al crear planta" + ex.getMessage());
+            Toast.makeText(holder.cardViewPlanta.getContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
         holder.imageViewAptoBonzai.setVisibility(View.INVISIBLE);
         holder.imageViewAptoVenta.setVisibility(View.INVISIBLE);
         holder.imageViewPoda.setVisibility(View.INVISIBLE);
@@ -63,21 +71,11 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
         }
     }
 
-    private Plant crearPlantaDesdeModel(@NonNull Plant model, String id) {
-        Plant planta = new Plant();
+    private Plant crearPlantaDesdeModel(@NonNull Plant model, String id) throws CreatePlantValidationException {
+        Plant planta = new Plant(model.getSpecies(), model.getName(),model.getAge(),model.getRegistrationDate(),
+                model.isBonsaiAble(),model.getOrigin(),model.getHeight(),model.getContainer(),model.isSaleable(),model.getPh(),
+                model.getImageUri(),model.getTareas());
         planta.setId(id);
-        planta.setName(model.getName());
-        planta.setSpecies(model.getSpecies());
-        planta.setImageUri(model.getImageUri());
-        planta.setPh(model.getPh());
-        planta.setHeight(model.getHeight());
-        planta.setBonsaiAble(model.isBonsaiAble());
-        planta.setSaleable(model.isSaleable());
-        planta.setContainer(model.getContainer());
-        planta.setAge(model.getAge());
-        planta.setOrigin(model.getOrigin());
-        planta.setRegistrationDate(model.getRegistrationDate());
-        planta.setTareas(model.getTareas());
         return planta;
     }
 

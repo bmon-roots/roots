@@ -1,6 +1,5 @@
 package ar.edu.ort.bmon.rootsapp.ui.event;
 
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -41,27 +40,21 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
+import ar.edu.ort.bmon.rootsapp.exception.CreatePlantValidationException;
+import ar.edu.ort.bmon.rootsapp.exception.InsertPlantFromEventException;
 import ar.edu.ort.bmon.rootsapp.model.Event;
-import ar.edu.ort.bmon.rootsapp.model.Material;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
-import ar.edu.ort.bmon.rootsapp.model.Species;
 import ar.edu.ort.bmon.rootsapp.model.Tarea;
-import ar.edu.ort.bmon.rootsapp.model.TipoTarea;
-import ar.edu.ort.bmon.rootsapp.ui.plant.DetailViewModel;
 import ar.edu.ort.bmon.rootsapp.ui.plant.ReminderBroadcast;
-import kotlin.jvm.Throws;
 
 import static android.content.Context.ALARM_SERVICE;
 
@@ -390,7 +383,9 @@ public class EventDetailFragment extends DialogFragment {
                     });
         } catch (InsertPlantFromEventException e) {
             e.getMessage();
-            Toast.makeText(getContext(), e.mensaje, Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        } catch (CreatePlantValidationException er) {
+            Toast.makeText(getContext(), er.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 

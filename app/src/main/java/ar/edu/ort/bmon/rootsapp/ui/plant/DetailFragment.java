@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,6 +46,8 @@ import java.util.Date;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
+import ar.edu.ort.bmon.rootsapp.exception.CreateEventValidationException;
+import ar.edu.ort.bmon.rootsapp.exception.CreateTaskValidationException;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
 
 import static android.content.Context.ALARM_SERVICE;
@@ -193,6 +196,7 @@ public class DetailFragment extends DialogFragment {
         addTaskDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+            try{
                 if (((CheckBox) viewAddTaskCustomDialog.findViewById(R.id.check_task_fumigate)).isChecked()) {
                     EditText fumigatePeriodicity = (EditText) viewAddTaskCustomDialog.findViewById(R.id.editTextFumigatePeriodicity);
                     planta.addTask(new Date(), Constants.ADD_TASK_FUMIGATE, Integer.valueOf(fumigatePeriodicity.getText().toString()));
@@ -219,6 +223,10 @@ public class DetailFragment extends DialogFragment {
                 }
                 ((ViewGroup)viewAddTaskCustomDialog.getParent()).removeView(viewAddTaskCustomDialog);
                 saveTaskToPlant();
+            } catch (CreateTaskValidationException e) {
+                Log.e(this.getClass().getCanonicalName(), e.getMessage());
+                Toast.makeText(getContext(), "Error al generar el evento", Toast.LENGTH_LONG).show();
+            }
             }
         });
         alert = addTaskDialog.create();
