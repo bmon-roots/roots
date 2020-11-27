@@ -100,7 +100,6 @@ public class EventDetailFragment extends DialogFragment {
         inicialSproutDate = viewReference.findViewById(R.id.editTextFechaNuevosBrotes);
         halfSproutDate = viewReference.findViewById(R.id.editTextFechaMitadBrotes);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-//        CardView finishCardView = viewReference.findViewById(R.id.cardViewFinish);
         EventDetailViewModel model = new ViewModelProvider(requireActivity()).get(EventDetailViewModel.class);
         eventId = model.getIdSelected().getValue();
         db = FirebaseFirestore.getInstance();

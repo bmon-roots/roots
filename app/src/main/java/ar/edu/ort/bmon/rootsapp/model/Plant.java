@@ -77,43 +77,43 @@ public class Plant {
                                    boolean isSaleable, String ph) throws CreatePlantValidationException {
         String menssage="Falta dato obligatorio: ";
         if (Utils.validateIsNullOrEmpty(species)) {
-            menssage.concat("Especie");
+            menssage=menssage.concat("Especie");
             throw new CreatePlantValidationException(menssage);
         }
         if (Utils.validateIsNullOrEmpty(name)) {
-            menssage.concat("Nombre");
+            menssage=menssage.concat("Nombre");
             throw new CreatePlantValidationException(menssage);
         }
         if (Utils.validateIsNullOrEmpty(age)) {
-            menssage.concat("Edad");
+            menssage=menssage.concat("Edad");
             throw new CreatePlantValidationException(menssage);
         }
         if (Utils.validateIsNullOrEmpty(registrationDate)) {
-            menssage.concat("Fecha de registro");
+            menssage=menssage.concat("Fecha de registro");
             throw new CreatePlantValidationException(menssage);
         }
         if (Utils.validateIsNullOrEmpty(isBonsaiAble)) {
-            menssage.concat("Apto Bonzai");
+            menssage=menssage.concat("Apto Bonzai");
             throw new CreatePlantValidationException(menssage);
         }
         if (Utils.validateIsNullOrEmpty(origin)) {
-            menssage.concat("Origen");
+            menssage=menssage.concat("Origen");
             throw new CreatePlantValidationException(menssage);
         }
         if (Utils.validateIsNullOrEmpty(height)) {
-            menssage.concat("Altura");
+            menssage=menssage.concat("Altura");
             throw new CreatePlantValidationException(menssage);
         }
         if (Utils.validateIsNullOrEmpty(container)) {
-            menssage.concat("Contenedor");
+            menssage=menssage.concat("Contenedor");
             throw new CreatePlantValidationException(menssage);
         }
         if (Utils.validateIsNullOrEmpty(isSaleable)) {
-            menssage.concat("Apto venta");
+            menssage=menssage.concat("Apto venta");
             throw new CreatePlantValidationException(menssage);
         }
         if (Utils.validateIsNullOrEmpty(ph)) {
-            menssage.concat("PH");
+            menssage=menssage.concat("PH");
             throw new CreatePlantValidationException(menssage);
         }
     }

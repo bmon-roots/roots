@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +50,8 @@ public class ListPlantFragment extends Fragment {
     private MaterialAlertDialogBuilder dialog;
     private View newSpeciesCustomDialog;
     private MenuItem btnAddAction;
+    private static final String TAG = "ListPlantFragment";
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -158,8 +161,13 @@ public class ListPlantFragment extends Fragment {
         //Configuracion del newSpeciesDialog
 
         newSpeciesDialog.setIcon(R.drawable.ic_baseline_add_species);
+        ViewGroup parent = (ViewGroup) speciesName.getParent();
+        if(parent!=null){
+            EditText editTextSpeciesName = speciesName.findViewById(R.id.editTextSpeciesName);
+            editTextSpeciesName.getText().clear();
+            parent.removeAllViews();
+        }
         newSpeciesDialog.setView(speciesName);
-
         newSpeciesDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -175,7 +183,6 @@ public class ListPlantFragment extends Fragment {
                 dialog.dismiss();
             }
         });
-
         newSpeciesDialog.create().show();
     }
 
@@ -195,9 +202,9 @@ public class ListPlantFragment extends Fragment {
                         Toast.makeText(getContext(), R.string.createSpeciesError, Toast.LENGTH_LONG).show();
                     }
                 });
-        } catch (CreateSpeciesValidationException e) {
-            Log.e(this.getClass().getCanonicalName(), e.getMessage());
-            Toast.makeText(getContext(), "Error al generar el evento", Toast.LENGTH_LONG).show();
+        } catch (CreateSpeciesValidationException er) {
+            Log.e(TAG, "insertNewSpeciesName - newSpeciesName: " + newSpeciesName);
+            Toast.makeText(getContext(), er.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 

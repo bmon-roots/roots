@@ -200,14 +200,6 @@ public class EventFinishFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(EventFinishViewModel.class);
 
-//        EditText sustratoET = viewReference.findViewById(R.id.editText);
-//        int diferencia = event.getCantidadActivas() - cantidadMacetas;
-//        if(diferencia < 0){
-//            macetasET.setText("Te Faltan " + diferencia + " macetas para este evento");
-//        }else{
-//            macetasET.setText("Tenés macetas suficientes para este evento");
-//        }
-
     }
 
 }
