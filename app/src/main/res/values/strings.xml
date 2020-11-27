@@ -140,21 +140,21 @@
     <string name="eventActiveQuantityLabel">Cantidad\nactiva</string>
     <string name="eventActiveQuantityLabelHint">Unidades activas</string>
     <string name="dialog_finish">Querés finalizar este evento?</string>
-    <string name="eventEfectivityLabel">Efectividad</string>
-    <string name="eventInitialDateLabel">Inició el...</string>
-    <string name="eventFinishDateLabel">y Finalizó el...</string>
+    <string name="eventEfectivityLabel">Efectividad (%)</string>
+    <string name="eventInitialDateLabel">Inició</string>
+    <string name="eventFinishDateLabel">Finalización</string>
     <string name="with_out_value">Sin valor registrado</string>
     <string name="msj_finalizar_evento_ok">El evento finalizó OK</string>
     <string name="msj_finalizar_evento_error">Error al finalizar el evento</string>
     <string name="eventQuantityDays">Cantidad de días</string>
-    <string name="eventQuantityDaysLabel">Días que pasaron...</string>
+    <string name="eventQuantityDaysLabel">Dias\ntranscurridos</string>
     <string name="eventPercentEfectivityLabelHint">Porcentaje de Efectividad</string>
     <string name="eventInitialDateLabelHint">Fecha de Inicio</string>
     <string name="eventFinishDateLabelHint">Fecha de Finalización</string>
-    <string name="eventFinishPotLabel">Macetas \n1L</string>
+    <string name="eventFinishPotLabel">Cant\n macetas (1L)</string>
     <string name="eventQuantityPots">Macetas necesarias</string>
     <string name="eventFinishSubstratumHint">Sustratos necesarios</string>
-    <string name="eventFinishSubstratumLabel">Sustratos \n1L</string>
+    <string name="eventFinishSubstratumLabel">Cant \n sustratos (1L)</string>
     <string name="createNewPlant">Crear Planta</string>
 
 
