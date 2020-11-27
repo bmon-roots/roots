@@ -156,9 +156,15 @@ public class ListMaterialFragment extends Fragment {
         alertDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Integer quantityValue = Integer.parseInt(quantity.getText().toString());
-                Integer contentValue = Integer.parseInt(content.getText().toString());
-                createNewMaterialEntry(selectedItemId, quantityValue, contentValue);
+                Integer quantityValue;
+                Integer contentValue;
+                try {
+                    quantityValue = Integer.parseInt(quantity.getText().toString());
+                    contentValue = Integer.parseInt(content.getText().toString());
+                    createNewMaterialEntry(selectedItemId, quantityValue, contentValue);
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), "Error al añadir materiales, intente nuevamente", Toast.LENGTH_LONG).show();
+                }
                 dialog.dismiss();
             }
         });
