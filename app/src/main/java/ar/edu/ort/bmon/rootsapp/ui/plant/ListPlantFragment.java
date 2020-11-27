@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -159,14 +160,12 @@ public class ListPlantFragment extends Fragment {
 
         //Configuracion del newSpeciesDialog
 
-        newSpeciesDialog.setIcon(R.drawable.ic_baseline_edit_24);
+        newSpeciesDialog.setIcon(R.drawable.ic_baseline_add_species);
         ViewGroup parent = (ViewGroup) speciesName.getParent();
         if(parent!=null){
             parent.removeAllViews();
         }
-
-            newSpeciesDialog.setView(speciesName);
-
+        newSpeciesDialog.setView(speciesName);
         newSpeciesDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
