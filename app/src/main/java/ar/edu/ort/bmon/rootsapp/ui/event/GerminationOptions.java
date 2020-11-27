@@ -1,15 +1,22 @@
 package ar.edu.ort.bmon.rootsapp.ui.event;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
+import android.widget.DatePicker;
+import android.widget.EditText;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import ar.edu.ort.bmon.rootsapp.R;
+import ar.edu.ort.bmon.rootsapp.ui.plant.DatePickerFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +33,8 @@ public class GerminationOptions extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private Switch usedHormones;
+    private Date userSelectedStrataDate;
+    private EditText estimatedStrataDate;
     private View viewReference;
 
     public GerminationOptions() {
@@ -65,13 +73,44 @@ public class GerminationOptions extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         viewReference = inflater.inflate(R.layout.fragment_germination_options, container, false);
-        usedHormones = viewReference.findViewById(R.id.switchHormones);
+        estimatedStrataDate = viewReference.findViewById(R.id.editTextFechaEstrata);
+        estimatedStrataDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialogStrata(getChildFragmentManager());
+            }
+        });
         return viewReference;
     }
 
     public Bundle getData() {
         Bundle bundle = new Bundle();
-        bundle.putBoolean("UsedHormones", usedHormones.isChecked());
+        bundle.putString("EstimatedStrata", userSelectedStrataDate.toString());
         return bundle;
+    }
+
+    private void showDatePickerDialogStrata(FragmentManager fragmentManager) {
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(true, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                // +1 because January is zero
+                final String selectedDate = twoDigits(day) + "/" + twoDigits(month + 1) + "/" + year;
+                estimatedStrataDate.setText(selectedDate);
+                userSelectedStrataDate = getUserSelectedDate(year, month, day);
+            }
+        });
+        newFragment.show(fragmentManager, "datePicker");
+    }
+
+    private Date getUserSelectedDate(int year, int month, int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+        return calendar.getTime();
+    }
+
+    private String twoDigits(int n) {
+        return (n<=9) ? ("0"+n) : String.valueOf(n);
     }
 }

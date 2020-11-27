@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -29,8 +30,7 @@ public class CuttingOptions extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private Date userSelectedStrataDate;
-    private EditText estimatedStrataDate;
+    private Switch usedHormones;
     private View viewReference;
 
     // TODO: Rename and change types of parameters
@@ -73,38 +73,13 @@ public class CuttingOptions extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         viewReference = inflater.inflate(R.layout.fragment_cutting_options, container, false);
-        estimatedStrataDate = viewReference.findViewById(R.id.editTextFechaEstratificacion);
+        usedHormones = viewReference.findViewById(R.id.switchHormones);
         return viewReference;
     }
 
     public Bundle getData() {
         Bundle bundle = new Bundle();
-        bundle.putString("EstimatedStrata", userSelectedStrataDate.toString());
+        bundle.putBoolean("UsedHormones", usedHormones.isChecked());
         return bundle;
-    }
-
-    private void showDatePickerDialogStrata(FragmentManager fragmentManager) {
-        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                // +1 because January is zero
-                final String selectedDate = twoDigits(day) + "/" + twoDigits(month + 1) + "/" + year;
-                estimatedStrataDate.setText(selectedDate);
-                userSelectedStrataDate = getUserSelectedDate(year, month, day);
-            }
-        });
-        newFragment.show(fragmentManager, "datePicker");
-    }
-
-    private Date getUserSelectedDate(int year, int month, int day) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DAY_OF_MONTH, day);
-        return calendar.getTime();
-    }
-
-    private String twoDigits(int n) {
-        return (n<=9) ? ("0"+n) : String.valueOf(n);
     }
 }

@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -201,6 +202,11 @@ public class EventFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 ListView selectionList = ((AlertDialog) dialog).getListView();
                 Integer selectedItemId = (Integer)selectionList.getTag();
+                if (null != selectedItemId){
+                    bundle.putString(Constants.SELECTED_EVENT, selectedItemId.toString());
+                }else{
+                    Toast.makeText(getContext(), "Seleccioná un Tipo de evento", Toast.LENGTH_LONG).show();
+                }
                 bundle.putString(Constants.SELECTED_EVENT, selectedItemId.toString());
                 Navigation.findNavController(viewReference).navigate(R.id.action_nav_event_to_nav_create_event, bundle);
                 dialog.dismiss();

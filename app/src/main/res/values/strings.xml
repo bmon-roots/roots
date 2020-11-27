@@ -161,4 +161,9 @@
     <string name="eventInitialQuantityLabel">Cantidad\ninicial</string>
     <string name="eventMiddleSproutDateLabel">Seleccione una fecha</string>
     <string name="eventMiddleSproutDate">Seleccione una fecha</string>
+    <string name="ageRangeHint">min 0 - 999 máx</string>
+    <string name="phRangeHint">min 4.00-8.50 máx</string>
+    <string name="heightRangeHint">min 1 - 999 máx</string>
+    <string name="containerMaxHint">50L máx.</string>
+    <string name="maxLenght20Hint">máx 20</string>
 </resources>
