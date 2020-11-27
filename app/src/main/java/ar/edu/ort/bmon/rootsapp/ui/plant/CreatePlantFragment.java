@@ -116,6 +116,13 @@ public class CreatePlantFragment extends Fragment {
         View root = inflater.inflate(R.layout.create_plant_fragment, container, false);
         EditText phET = root.findViewById(R.id.editTextPlantDetailPh);
         phET.setFilters(new InputFilter[]{new InputFilterDecimalDigits(2), new InputFilterDoubleMinMax(4.00,8.50)});
+
+        EditText macetaET = root.findViewById(R.id.editTextPlantDetailContainerType);
+        macetaET.setFilters(new InputFilter[]{new InputFilterIntMinMax(1,50)});
+
+        EditText alturaET = root.findViewById(R.id.editTextPlantDetailHeight);
+        alturaET.setFilters(new InputFilter[]{new InputFilterIntMinMax(1,999)});
+
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         viewReference = root;
         return root;

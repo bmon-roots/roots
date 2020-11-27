@@ -163,6 +163,8 @@ public class ListPlantFragment extends Fragment {
         newSpeciesDialog.setIcon(R.drawable.ic_baseline_add_species);
         ViewGroup parent = (ViewGroup) speciesName.getParent();
         if(parent!=null){
+            EditText editTextSpeciesName = speciesName.findViewById(R.id.editTextSpeciesName);
+            editTextSpeciesName.getText().clear();
             parent.removeAllViews();
         }
         newSpeciesDialog.setView(speciesName);
