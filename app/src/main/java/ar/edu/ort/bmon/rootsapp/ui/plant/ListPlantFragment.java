@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -159,7 +160,12 @@ public class ListPlantFragment extends Fragment {
         //Configuracion del newSpeciesDialog
 
         newSpeciesDialog.setIcon(R.drawable.ic_baseline_edit_24);
-        newSpeciesDialog.setView(speciesName);
+        ViewGroup parent = (ViewGroup) speciesName.getParent();
+        if(parent!=null){
+            parent.removeAllViews();
+        }
+
+            newSpeciesDialog.setView(speciesName);
 
         newSpeciesDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
             @Override
@@ -176,7 +182,6 @@ public class ListPlantFragment extends Fragment {
                 dialog.dismiss();
             }
         });
-
         newSpeciesDialog.create().show();
     }
 
@@ -196,9 +201,9 @@ public class ListPlantFragment extends Fragment {
                         Toast.makeText(getContext(), R.string.createSpeciesError, Toast.LENGTH_LONG).show();
                     }
                 });
-        } catch (CreateSpeciesValidationException e) {
+        } catch (CreateSpeciesValidationException er) {
             Log.e(TAG, "insertNewSpeciesName - newSpeciesName: " + newSpeciesName);
-            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), er.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 

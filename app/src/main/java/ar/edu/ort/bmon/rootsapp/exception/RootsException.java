@@ -5,4 +5,8 @@ public class RootsException extends Exception {
     public RootsException(String message){
         this.message = message;
     }
+
+    public String getMessage(){
+        return message;
+    }
 }
