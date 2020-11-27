@@ -262,7 +262,7 @@ public class ReportFragment extends Fragment {
     }
 
     private void addToList(Event evento) {
-        if (evento.getTipo().equals("Germinaciones")) {
+        if (evento.getTipo().equals("Germinaciones") && evento.getFechaFinalizacion() != null) {
             this.eventos.add(evento);
         }
     }
