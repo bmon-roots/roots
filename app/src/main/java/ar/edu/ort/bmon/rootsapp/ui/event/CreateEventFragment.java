@@ -39,6 +39,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -201,8 +203,8 @@ public class CreateEventFragment extends Fragment {
             if (selectedOption == 0) {
                 EditText editTextFechaNuevosBrotes = (EditText) viewReference.findViewById(R.id.editTextFechaNuevosBrotes);
                 areFieldsGerminationValid(speciesList.get(selectedSpeciesId), quantity.getText().toString(), tempRange.getText().toString(), humidityRange.getText().toString(), phRange.getText().toString(),editTextFechaNuevosBrotes.getText().toString());
-
-                CuttingOptions options = (CuttingOptions) fragmentOptions;
+                GerminationOptions options = (GerminationOptions) fragmentOptions;
+                Date selectedCuttingDate = new SimpleDateFormat("dd/MM/YYYY").parse(options.getData().getString("EstimatedStrata"));
                 eventToSave = new Event(
                             "Germinacion",
                             speciesList.get(selectedSpeciesId),
@@ -212,15 +214,14 @@ public class CreateEventFragment extends Fragment {
                             Double.parseDouble(tempRange.getText().toString()),
                             Integer.parseInt(humidityRange.getText().toString()),
                             Double.parseDouble(phRange.getText().toString()),
-                            new Date(options.getData().getString("EstimatedStrata"))
+                            selectedCuttingDate
                     );
             } else {
                 Switch usoHormonas = viewReference.findViewById(R.id.switchHormones);
                 areFieldsCuttingValid(speciesList.get(selectedSpeciesId), quantity.getText().toString(), tempRange.getText().toString(), humidityRange.getText().toString(), phRange.getText().toString(),usoHormonas.getText().toString());
-
-                GerminationOptions options = (GerminationOptions) fragmentOptions;
+                CuttingOptions options = (CuttingOptions) fragmentOptions;
                     eventToSave = new Event(
-                            "Estratificacion",
+                            "Esquejes",
                             speciesList.get(selectedSpeciesId),
                             Integer.parseInt(quantity.getText().toString()),
                             new Date(),
@@ -252,6 +253,8 @@ public class CreateEventFragment extends Fragment {
             Toast.makeText(getContext(), "Error al generar el evento", Toast.LENGTH_LONG).show();
         } catch (CreatePlantValidationException e) {
             Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
     private void areFieldsGerminationValid(String name, String cantidad, String temperatura, String humedad, String ph,String validateDate) throws CreatePlantValidationException {
