@@ -166,6 +166,7 @@
         android:fontFamily="@font/nexa_light"
         android:inputType="numberDecimal"
         android:maxLength="2"
+        android:digits="0123456789."
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textSize="14sp"

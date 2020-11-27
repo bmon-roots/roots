@@ -89,7 +89,6 @@ public class EventDetailFragment extends DialogFragment {
         viewReference = inflater.inflate(R.layout.event_detail_fragment, container, false);
         eventImage = viewReference.findViewById(R.id.eventImageView);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-//        CardView finishCardView = viewReference.findViewById(R.id.cardViewFinish);
         EventDetailViewModel model = new ViewModelProvider(requireActivity()).get(EventDetailViewModel.class);
         eventId = model.getIdSelected().getValue();
         db = FirebaseFirestore.getInstance();

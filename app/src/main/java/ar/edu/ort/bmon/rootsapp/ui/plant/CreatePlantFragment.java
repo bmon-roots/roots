@@ -22,6 +22,7 @@ import androidx.navigation.Navigation;
 
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -63,11 +64,13 @@ import java.util.List;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
-import ar.edu.ort.bmon.rootsapp.exception.CreateEventValidationException;
 import ar.edu.ort.bmon.rootsapp.exception.CreatePlantValidationException;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
 import ar.edu.ort.bmon.rootsapp.model.Tarea;
 import ar.edu.ort.bmon.rootsapp.model.Species;
+import ar.edu.ort.bmon.rootsapp.util.InputFilterDecimalDigits;
+import ar.edu.ort.bmon.rootsapp.util.InputFilterDoubleMinMax;
+import ar.edu.ort.bmon.rootsapp.util.InputFilterIntMinMax;
 
 public class CreatePlantFragment extends Fragment {
 
@@ -111,6 +114,8 @@ public class CreatePlantFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.create_plant_fragment, container, false);
+        EditText phET = root.findViewById(R.id.editTextPlantDetailPh);
+        phET.setFilters(new InputFilter[]{new InputFilterDecimalDigits(2), new InputFilterDoubleMinMax(4.00,8.50)});
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         viewReference = root;
         return root;
@@ -194,7 +199,11 @@ public class CreatePlantFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 ListView selectionList = ((AlertDialog) dialog).getListView();
                 Integer selectedItemId = (Integer)selectionList.getTag();
-                speciesName.setText(speciesList.get(selectedItemId).getName());
+                if (null != selectedItemId){
+                    speciesName.setText(speciesList.get(selectedItemId).getName());
+                }else{
+                    Toast.makeText(getContext(), "Seleccioná una Especie", Toast.LENGTH_LONG).show();
+                }
                 dialog.dismiss();
             }
         });
