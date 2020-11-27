@@ -44,6 +44,7 @@
             android:enabled="false"
             android:fontFamily="@font/nexa_heavy"
             android:inputType="textPersonName"
+            android:maxLength="20"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
             android:textSize="24sp"
