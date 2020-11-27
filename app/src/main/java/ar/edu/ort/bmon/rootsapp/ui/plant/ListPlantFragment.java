@@ -48,6 +48,8 @@ public class ListPlantFragment extends Fragment {
     private MaterialAlertDialogBuilder dialog;
     private View newSpeciesCustomDialog;
     private MenuItem btnAddAction;
+    private static final String TAG = "ListPlantFragment";
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -195,8 +197,8 @@ public class ListPlantFragment extends Fragment {
                     }
                 });
         } catch (CreateSpeciesValidationException e) {
-            Log.e(this.getClass().getCanonicalName(), e.getMessage());
-            Toast.makeText(getContext(), "Error al generar el evento", Toast.LENGTH_LONG).show();
+            Log.e(TAG, "insertNewSpeciesName - newSpeciesName: " + newSpeciesName);
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 

@@ -30,10 +30,10 @@ public class Species {
     }
 
     private void areFieldsValid(String name) throws CreateSpeciesValidationException {
-        String menssage="Falta dato obligatorio: ";
+        String message="Falta dato obligatorio: ";
         if (Utils.validateIsNullOrEmpty(name)) {
-            menssage.concat("Nombre");
-            throw new CreateSpeciesValidationException(menssage);
+            message=message.concat("Nombre");
+            throw new CreateSpeciesValidationException(message);
         }
     }
 }
