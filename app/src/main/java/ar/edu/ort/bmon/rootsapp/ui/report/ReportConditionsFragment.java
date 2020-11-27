@@ -20,8 +20,12 @@ import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
 import com.anychart.charts.Pie;
 import com.anychart.core.cartesian.series.Column;
+import com.anychart.data.Mapping;
+import com.anychart.data.Set;
 import com.anychart.enums.Anchor;
 import com.anychart.enums.HoverMode;
+import com.anychart.enums.LegendLayout;
+import com.anychart.enums.Orientation;
 import com.anychart.enums.Position;
 import com.anychart.enums.TooltipPositionMode;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,8 +36,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -201,43 +207,75 @@ public class ReportConditionsFragment extends Fragment {
                 .orElse(null);
     }
 
+    private ArrayList<Event> eventsListOfThis(final String especie) {
+        ArrayList<Event> eventitos = new ArrayList<Event>();
+
+        for (int i = 0; i < this.eventos.size(); i++) {
+            if (this.eventos.get(i).getEspecie().equals(especie)) {
+                eventitos.add(this.eventos.get(i));
+            }
+        }
+
+        return eventitos;
+    }
 
     public void setupColumnChart() {
-        Event evento = thereAreEventsOfThis(this.selectedEventSpecie);
+        ArrayList<Event> events = eventsListOfThis(this.selectedEventSpecie);
 
-        Cartesian cartesian = AnyChart.column();
-        ArrayList<DataEntry> dataEntries = new ArrayList<>();
+        Cartesian column = AnyChart.column();
 
-        dataEntries.add(new ValueDataEntry("Temperatura", evento.getTemperatura()));
-        dataEntries.add(new ValueDataEntry("Humedad", evento.getHumedad()));
-        dataEntries.add(new ValueDataEntry("PH", evento.getPh()));
+        column.title("Condiciones climáticas de " + events.get(0).getEspecie());
 
-        Column column = cartesian.column(dataEntries);
-        column.color("#BDE5EA");
-        cartesian.credits().enabled(false);
+        List<DataEntry> seriesData = new ArrayList<>();
 
-        column.tooltip()
-                .titleFormat("Promedio")
-                .position(Position.CENTER_BOTTOM)
-                .anchor(Anchor.CENTER_BOTTOM)
-                .offsetX(0d)
-                .offsetY(5d)
-                .format("{%Value}{groupsSeparator: }");
+        for (int i = 0; i < events.size(); i++) {
 
-        cartesian.animation(true);
-        cartesian.title("Condiciones climáticas de " + evento.getEspecie());
+            SimpleDateFormat simpleformat = new SimpleDateFormat("MMMM/yyyy", Locale.forLanguageTag("es-ES"));
+            String fechaInicio = simpleformat.format(events.get(i).getFechaInicio());
+            String fechaFin = simpleformat.format(events.get(i).getFechaFinalizacion());
+            String fecha = "Fecha inicio : \\n" + fechaInicio + "\\n" + "Fecha fin: \\n" + fechaFin;
+            int temperatura = (int) events.get(i).getTemperatura();
+            int humedad = events.get(i).getHumedad();
+            int ph = (int) events.get(i).getPh();
+            float rendimiento = ((float) events.get(i).getCantidadActivas() / (float) events.get(i).getCantidadInicial()) * 100;
 
-        cartesian.yScale().minimum(0d);
+            seriesData.add(new CustomDataEntry(fecha, temperatura, humedad, ph, rendimiento));
+        }
 
-        cartesian.yAxis(0).labels().format("{%Value}{groupsSeparator: }");
+        Set set = Set.instantiate();
+        set.data(seriesData);
+        Mapping series1Data = set.mapAs("{ x: 'x', value: 'value' }");
+        Mapping series2Data = set.mapAs("{ x: 'x', value: 'value2' }");
+        Mapping series3Data = set.mapAs("{ x: 'x', value: 'value3' }");
+        Mapping series4Data = set.mapAs("{ x: 'x', value: 'value4' }");
 
-        cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
-        cartesian.interactivity().hoverMode(HoverMode.BY_X);
+        Column series1 = column.column(series1Data);
+        series1.name("Temperatura")
+                .color("#940B00");
 
-        cartesian.xAxis(0).title("Condiciones");
-        cartesian.yAxis(0).title("Promedios");
+        Column series2 = column.column(series2Data);
+        series2.name("Humedad")
+                .color("#009688");
 
-        anyChartView.setChart(cartesian);
+        Column series3 = column.column(series3Data);
+        series3.name("pH")
+                .color("#FFC107");
+
+        Column series4 = column.column(series4Data);
+        series4.name("Rendimiento")
+                .color("#4CAF50");
+
+        column.xAxis(0).orientation(Orientation.TOP)
+                .stroke(null)
+                .ticks(false);
+        column.xGrid(0).enabled(true);
+
+        column.legend(true);
+        column.legend()
+                .position(Orientation.RIGHT)
+                .itemsLayout(LegendLayout.VERTICAL);
+
+        anyChartView.setChart(column);
     }
 
     private String[] speciesOnEvents() {
@@ -277,5 +315,14 @@ public class ReportConditionsFragment extends Fragment {
         }
     }
 
+    private class CustomDataEntry extends ValueDataEntry {
+        CustomDataEntry(String x, Number value, Number value2, Number value3, Number value4) {
+            super(x, value);
+            setValue("value", value);
+            setValue("value2", value2);
+            setValue("value3", value3);
+            setValue("value4", value4);
+        }
+    }
 
 }
