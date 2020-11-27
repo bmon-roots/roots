@@ -1,5 +1,9 @@
 package ar.edu.ort.bmon.rootsapp.model;
 
+import ar.edu.ort.bmon.rootsapp.exception.CreatePlantValidationException;
+import ar.edu.ort.bmon.rootsapp.exception.CreateSpeciesValidationException;
+import ar.edu.ort.bmon.rootsapp.util.Utils;
+
 public class Species {
 
     private String name;
@@ -7,7 +11,8 @@ public class Species {
     public Species() {
     }
 
-    public Species(String name) {
+    public Species(String name) throws CreateSpeciesValidationException {
+        areFieldsValid(name);
         setName(name);
     }
 
@@ -22,6 +27,14 @@ public class Species {
     @Override
     public String toString() {
         return getName();
+    }
+
+    private void areFieldsValid(String name) throws CreateSpeciesValidationException {
+        String menssage="Falta dato obligatorio: ";
+        if (Utils.validateIsNullOrEmpty(name)) {
+            menssage.concat("Nombre");
+            throw new CreateSpeciesValidationException(menssage);
+        }
     }
 }
 

@@ -33,6 +33,8 @@ import com.google.firebase.firestore.Query;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
+import ar.edu.ort.bmon.rootsapp.exception.CreateEventValidationException;
+import ar.edu.ort.bmon.rootsapp.exception.CreateSpeciesValidationException;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
 import ar.edu.ort.bmon.rootsapp.model.Species;
 
@@ -177,7 +179,8 @@ public class ListPlantFragment extends Fragment {
     }
 
     private void insertNewSpeciesName(String newSpeciesName) {
-        db.collection(Constants.SPECIES_COLLECTION).add(new Species(newSpeciesName))
+        try {
+            db.collection(Constants.SPECIES_COLLECTION).add(new Species(newSpeciesName))
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
@@ -191,6 +194,10 @@ public class ListPlantFragment extends Fragment {
                         Toast.makeText(getContext(), R.string.createSpeciesError, Toast.LENGTH_LONG).show();
                     }
                 });
+        } catch (CreateSpeciesValidationException e) {
+            Log.e(this.getClass().getCanonicalName(), e.getMessage());
+            Toast.makeText(getContext(), "Error al generar el evento", Toast.LENGTH_LONG).show();
+        }
     }
 
 }
