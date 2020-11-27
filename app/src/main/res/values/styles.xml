@@ -26,4 +26,17 @@
         <item name="android:textColorSecondary">@color/white</item>
     </style>
 
+    <style name="AlertDialogTheme" parent="@android:style/Theme.Material.Light.Dialog.Alert">
+        <item name="android:textAppearanceSmall">@style/dialogTextAppearanceSmall</item>
+        <item name="android:textAppearanceMedium">@style/dialogTextAppearanceMedium</item>
+    </style>
+
+    <style name="dialogTextAppearanceSmall" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/nexa_regular</item>
+    </style>
+
+    <style name="dialogTextAppearanceMedium" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/nexa_bold</item>
+    </style>
+
 </resources>
