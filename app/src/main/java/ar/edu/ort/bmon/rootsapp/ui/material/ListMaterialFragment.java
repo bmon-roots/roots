@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -38,16 +41,29 @@ public class ListMaterialFragment extends Fragment {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclerView;
-    private FloatingActionButton btnAddAction;
     private View materialNewEntry;
     private EditText quantity;
     private EditText content;
     private CharSequence[] items;
+    private MenuItem btnAddAction;
 
     private MaterialAdapter materialAdapter;
 
     public static ListMaterialFragment newInstance() {
         return new ListMaterialFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_materials_list, menu);
+        btnAddAction = menu.findItem(R.id.open_material_list_dialog);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -65,7 +81,6 @@ public class ListMaterialFragment extends Fragment {
         };
 
         recyclerView = root.findViewById(R.id.recyclerMateriales);
-        btnAddAction = root.findViewById(R.id.addMaterialBtn);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Query query = db.collection(Constants.MATERIAL_COLLECTION);
@@ -85,12 +100,15 @@ public class ListMaterialFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnAddAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openCreateNewMaterialEntryDialog();
-            }
-        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int selectionId = item.getItemId();
+        if (selectionId == R.id.open_material_list_dialog) {
+            openCreateNewMaterialEntryDialog();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void openCreateNewMaterialEntryDialog() {
