@@ -1,10 +1,12 @@
 package ar.edu.ort.bmon.rootsapp.ui.event;
 
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.AlarmManager;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -27,6 +29,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,6 +48,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import ar.edu.ort.bmon.rootsapp.R;
@@ -54,6 +58,7 @@ import ar.edu.ort.bmon.rootsapp.exception.InsertPlantFromEventException;
 import ar.edu.ort.bmon.rootsapp.model.Event;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
 import ar.edu.ort.bmon.rootsapp.model.Tarea;
+import ar.edu.ort.bmon.rootsapp.ui.plant.DatePickerFragment;
 import ar.edu.ort.bmon.rootsapp.ui.plant.ReminderBroadcast;
 
 import static android.content.Context.ALARM_SERVICE;
@@ -67,6 +72,10 @@ public class EventDetailFragment extends DialogFragment {
     private MenuItem deleteMenuItem;
     private MenuItem finishMenuItem;
     private MenuItem saveChangesMenuItem;
+    private EditText inicialSproutDate;
+    private EditText halfSproutDate;
+    private Date selectedInitialSproutDate;
+    private Date selectedHalfSproutDate;
     private FirebaseFirestore db;
     private Event event;
     private String eventId;
@@ -88,6 +97,8 @@ public class EventDetailFragment extends DialogFragment {
         createNotificationChannel();
         viewReference = inflater.inflate(R.layout.event_detail_fragment, container, false);
         eventImage = viewReference.findViewById(R.id.eventImageView);
+        inicialSproutDate = viewReference.findViewById(R.id.editTextFechaNuevosBrotes);
+        halfSproutDate = viewReference.findViewById(R.id.editTextFechaMitadBrotes);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         EventDetailViewModel model = new ViewModelProvider(requireActivity()).get(EventDetailViewModel.class);
         eventId = model.getIdSelected().getValue();
@@ -103,6 +114,22 @@ public class EventDetailFragment extends DialogFragment {
                 }
             }
         });
+
+        inicialSproutDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(getChildFragmentManager(), inicialSproutDate);
+            }
+        });
+
+        halfSproutDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(getChildFragmentManager(), halfSproutDate);
+            }
+        });
+
+
 
         return viewReference;
     }
@@ -303,6 +330,10 @@ public class EventDetailFragment extends DialogFragment {
         EditText rangoHumedadET = (EditText)root.findViewById(R.id.editTextRangoHumedad);
         EditText rangoPhET = (EditText)root.findViewById(R.id.editTextRangoPH);
         EditText fechaNuevosBrotesET = (EditText)root.findViewById(R.id.editTextFechaNuevosBrotes);
+        EditText fechaBrotoLaMitad = (EditText)root.findViewById(R.id.editTextFechaMitadBrotes);
+
+        selectedInitialSproutDate = fechaNuevosBrotesET.getText().toString().trim().length() > 0 ? getUserSelectedDate(fechaNuevosBrotesET.getText().toString()) : null;
+        selectedHalfSproutDate = fechaBrotoLaMitad.getText().toString().trim().length() > 0 ? getUserSelectedDate(fechaBrotoLaMitad.getText().toString()) : null;
 
         Integer cantidad = Integer.valueOf(cantidadET.getText().toString());
         Double temperatura = Double.valueOf(rangoTemperaturaET.getText().toString());
@@ -312,8 +343,8 @@ public class EventDetailFragment extends DialogFragment {
                 "temperatura", temperatura,
                 "humedad", humedad,
                 "ph", rangoPh,
-                "brotoLaMitad", new Date(),
-                "primerosBrotes", new Date(),
+                "brotoLaMitad", selectedHalfSproutDate,
+                "primerosBrotes", selectedInitialSproutDate,
                 "cantidadActivas", cantidad
         )
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -447,6 +478,31 @@ public class EventDetailFragment extends DialogFragment {
             notificationManager.createNotificationChannel(channel);
 
         }
+    }
+
+    private void showDatePickerDialog(FragmentManager fragmentManager, final EditText field) {
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                // +1 because January is zero
+                final String selectedDate = twoDigits(day) + "/" + twoDigits(month + 1) + "/" + year;
+                field.setText(selectedDate);
+            }
+        });
+        newFragment.show(fragmentManager, "datePicker");
+    }
+
+    private Date getUserSelectedDate(String selectedDate) {
+        String[] date = selectedDate.split("/");
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, Integer.parseInt(date[2]));
+        calendar.set(Calendar.MONTH, Integer.parseInt(date[1]));
+        calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(date[0]));
+        return calendar.getTime();
+    }
+
+    private String twoDigits(int n) {
+        return (n<=9) ? ("0"+n) : String.valueOf(n);
     }
 
 }
