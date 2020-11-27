@@ -342,11 +342,13 @@
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
+        android:clickable="true"
         android:ems="10"
         android:enabled="false"
+        android:focusable="false"
         android:fontFamily="@font/nexa_light"
         android:hint="@string/eventMiddleSproutDateLabel"
-        android:inputType="textPersonName"
+        android:inputType="date"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textColorHint="@android:color/darker_gray"
@@ -388,11 +390,13 @@
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
+        android:clickable="true"
         android:ems="10"
         android:enabled="false"
+        android:focusable="false"
         android:fontFamily="@font/nexa_light"
         android:hint="@string/eventMiddleSproutDate"
-        android:inputType="textPersonName"
+        android:inputType="date"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textColorHint="@android:color/darker_gray"
@@ -402,18 +406,8 @@
         app:layout_constraintStart_toEndOf="@+id/cardView22"
         app:layout_constraintTop_toBottomOf="@+id/editTextFechaNuevosBrotes" />
 
-    <FrameLayout
-        android:id="@+id/frameOptionsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="114dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"></FrameLayout>
 
-
-<!--    <androidx.cardview.widget.CardView-->
+    <!--    <androidx.cardview.widget.CardView-->
 <!--        android:id="@+id/cardViewFinish"-->
 <!--        android:layout_width="158dp"-->
 <!--        android:layout_height="47dp"-->
