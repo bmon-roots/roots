@@ -95,6 +95,7 @@ public class CreatePlantFragment extends Fragment {
     private String plantDocumentReference;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
+    private static final String TAG = "CreatePlantFragment";
 
     public static CreatePlantFragment newInstance() {
         return new CreatePlantFragment();
@@ -211,28 +212,33 @@ public class CreatePlantFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int selectionId = item.getItemId();
+        try {
+            if (selectionId == R.id.save_plant) {
 
-        if (selectionId == R.id.save_plant) {
-            insertDataIntoFirebase();
+                insertDataIntoFirebase();
 //            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-            MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(getActivity());
-            alertDialogBuilder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
-            alertDialogBuilder.setTitle(Constants.ATTACH_IMAGE_TO_PLANT_ENTRY_TITLE);
-            alertDialogBuilder.setMessage(Constants.ATTACH_IMAGE_TO_PLANT_MESSAGE);
-            alertDialogBuilder.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    showSelectPhotoDialog();
-                }
-            });
-            alertDialogBuilder.setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
-                    Toast.makeText(getContext(), Constants.PLANT_CREATE_SUCCESS, Toast.LENGTH_LONG).show();
-                }
-            });
-            alertDialogBuilder.create().show();
+                MaterialAlertDialogBuilder alertDialogBuilder = new MaterialAlertDialogBuilder(getActivity());
+                alertDialogBuilder.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
+                alertDialogBuilder.setTitle(Constants.ATTACH_IMAGE_TO_PLANT_ENTRY_TITLE);
+                alertDialogBuilder.setMessage(Constants.ATTACH_IMAGE_TO_PLANT_MESSAGE);
+                alertDialogBuilder.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        showSelectPhotoDialog();
+                    }
+                });
+                alertDialogBuilder.setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
+                        Toast.makeText(getContext(), Constants.PLANT_CREATE_SUCCESS, Toast.LENGTH_LONG).show();
+                    }
+                });
+                alertDialogBuilder.create().show();
+            }
+        } catch (CreatePlantValidationException e) {
+            Log.e(TAG, "onOptionsItemSelected" + e.getMessage());
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -340,21 +346,20 @@ public class CreatePlantFragment extends Fragment {
         plantPhoto.setImageBitmap(imageBitmap);
     }
 
-    private void insertDataIntoFirebase() {
-        try {
-            plant = new Plant(
-                speciesName.getText().toString(),
-                plantName.getText().toString(),
-                plantAge.getText().toString(),
-                userSelectedDate,
-                isBonsaiAble.isActivated(),
-                origin.getText().toString(),
-                height.getText().toString(),
-                container.getText().toString(),
-                isSaleable.isActivated(),
-                plantPh.getText().toString(),
-                "",
-                new ArrayList<Tarea>()
+    private void insertDataIntoFirebase() throws CreatePlantValidationException {
+        plant = new Plant(
+            speciesName.getText().toString(),
+            plantName.getText().toString(),
+            plantAge.getText().toString(),
+            userSelectedDate,
+            isBonsaiAble.isActivated(),
+            origin.getText().toString(),
+            height.getText().toString(),
+            container.getText().toString(),
+            isSaleable.isActivated(),
+            plantPh.getText().toString(),
+            "",
+            new ArrayList<Tarea>()
         );
 
         System.out.println("////////");
@@ -364,26 +369,21 @@ public class CreatePlantFragment extends Fragment {
         System.out.println(plant.toString());
 
         db.collection(Constants.PLANT_COLLECTION).add(plant)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        //Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
-                        plantDocumentReference = documentReference.getId();
-                        Log.d("Firebase", "Se ha creado una nueva planta");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(Constants.FIREBASE_ERROR, e.toString());
-                        Toast.makeText(getContext(), Constants.PLANT_CREATE_ERROR, Toast.LENGTH_LONG).show();
-                    }
-                });
-        } catch (CreatePlantValidationException e) {
-            Log.e(this.getClass().getCanonicalName(), e.getMessage());
-            Toast.makeText(getContext(), "Error al generar el evento", Toast.LENGTH_LONG).show();
-        }
-
+            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                @Override
+                public void onSuccess(DocumentReference documentReference) {
+                    //Navigation.findNavController(viewReference).navigate(R.id.nav_plant);
+                    plantDocumentReference = documentReference.getId();
+                    Log.d("Firebase", "Se ha creado una nueva planta");
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.w(Constants.FIREBASE_ERROR, e.toString());
+                    Toast.makeText(getContext(), Constants.PLANT_CREATE_ERROR, Toast.LENGTH_LONG).show();
+                }
+        });
     }
 
     private void uploadImageToFirebase(Uri imageLocation) {
