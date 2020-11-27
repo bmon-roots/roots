@@ -302,7 +302,7 @@ public class ReportCuttingConditionsFragment extends Fragment {
     }
 
     private void addToList(Event evento) {
-        if (evento.getTipo().equals("Esquejes")) {
+        if (evento.getTipo().equals("Esquejes") && evento.getFechaFinalizacion() != null) {
             this.eventos.add(evento);
         }
     }
