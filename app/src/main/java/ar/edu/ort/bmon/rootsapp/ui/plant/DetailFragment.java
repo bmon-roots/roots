@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -47,8 +48,15 @@ import java.util.Date;
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.exception.CreateEventValidationException;
+import ar.edu.ort.bmon.rootsapp.exception.CreatePlantValidationException;
+import ar.edu.ort.bmon.rootsapp.exception.CreateSpeciesValidationException;
 import ar.edu.ort.bmon.rootsapp.exception.CreateTaskValidationException;
+import ar.edu.ort.bmon.rootsapp.exception.RootsException;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
+import ar.edu.ort.bmon.rootsapp.util.InputFilterDecimalDigits;
+import ar.edu.ort.bmon.rootsapp.util.InputFilterDoubleMinMax;
+import ar.edu.ort.bmon.rootsapp.util.InputFilterIntMinMax;
+import ar.edu.ort.bmon.rootsapp.util.Utils;
 
 import static android.content.Context.ALARM_SERVICE;
 
@@ -64,8 +72,6 @@ public class DetailFragment extends DialogFragment {
     private MenuItem deleteMenuItem;
     private MenuItem addTaskMenuItem;
     private AlertDialog.Builder dialog;
-
-
     public static final String TAG = DetailFragment.class.getSimpleName();
 
 
@@ -84,6 +90,14 @@ public class DetailFragment extends DialogFragment {
                              @Nullable Bundle savedInstanceState) {
         createNotificationChannel(); // Para las notificaciones de tareas
         viewReference = inflater.inflate(R.layout.fragment_detail, container, false);
+        EditText phET = viewReference.findViewById(R.id.editTextPlantDetailPh);
+        phET.setFilters(new InputFilter[]{new InputFilterDecimalDigits(2), new InputFilterDoubleMinMax(4.00,8.50)});
+        EditText macetaET = viewReference.findViewById(R.id.editTextPlantDetailContainerType);
+        macetaET.setFilters(new InputFilter[]{new InputFilterIntMinMax(1,50)});
+
+        EditText alturaET = viewReference.findViewById(R.id.editTextPlantDetailHeight);
+        alturaET.setFilters(new InputFilter[]{new InputFilterIntMinMax(1,999)});
+
         viewAddTaskCustomDialog = getLayoutInflater().inflate(R.layout.add_task_fragment, null);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         db = FirebaseFirestore.getInstance();
@@ -186,6 +200,10 @@ public class DetailFragment extends DialogFragment {
                 }
             }
         }
+        ViewGroup parent = (ViewGroup) viewAddTaskCustomDialog.getParent();
+        if (parent != null){
+            parent.removeView(viewAddTaskCustomDialog);
+        }
         addTaskDialog.setView(viewAddTaskCustomDialog);
         addTaskDialog.setNegativeButton(Constants.CANCEL_BUTTON, new DialogInterface.OnClickListener() {
             @Override
@@ -224,8 +242,11 @@ public class DetailFragment extends DialogFragment {
                 ((ViewGroup)viewAddTaskCustomDialog.getParent()).removeView(viewAddTaskCustomDialog);
                 saveTaskToPlant();
             } catch (CreateTaskValidationException e) {
-                Log.e(this.getClass().getCanonicalName(), e.getMessage());
-                Toast.makeText(getContext(), "Error al generar el evento", Toast.LENGTH_LONG).show();
+                Log.e(TAG, e.getMessage());
+                Toast.makeText(getContext(), "Error al generar la tarea", Toast.LENGTH_LONG).show();
+            } catch (NumberFormatException nfe){
+                Log.e(TAG, nfe.getMessage());
+                Toast.makeText(getContext(), "Error al generar la tarea", Toast.LENGTH_LONG).show();
             }
             }
         });
@@ -247,44 +268,83 @@ public class DetailFragment extends DialogFragment {
         EditText ph = (EditText) root.findViewById(R.id.editTextPlantDetailPh);
         Switch aptoBonsai = (Switch) root.findViewById(R.id.switchBonsaiable);
         Switch aptoVenta = (Switch) root.findViewById(R.id.switchSellable);
-
         //Bind new values to store
-        String newPlantName = nombre.getText().toString();
-        String newPlantHeight = altura.getText().toString();
-        String newPlantContainer = contenedor.getText().toString();
-        String newPlantOrigin = origen.getText().toString();
-        String newPlantAge = edad.getText().toString();
-        String newPlantPH = ph.getText().toString();
-        Boolean newPlantBonsaiStatus = aptoBonsai.isChecked();
-        Boolean newPlantSaleableStatus = aptoVenta.isChecked();
+        try {
+            String newPlantName = nombre.getText().toString();
+            String newPlantHeight = altura.getText().toString();
+            String newPlantContainer = contenedor.getText().toString();
+            String newPlantOrigin = origen.getText().toString();
+            String newPlantAge = edad.getText().toString();
+            String newPlantPH = ph.getText().toString();
+            Boolean newPlantBonsaiStatus = aptoBonsai.isChecked();
+            Boolean newPlantSaleableStatus = aptoVenta.isChecked();
+            areFieldsValid(newPlantName, newPlantHeight, newPlantContainer, newPlantOrigin, newPlantAge, newPlantPH, newPlantBonsaiStatus, newPlantSaleableStatus);
+            docRef.update(
+                    "age", newPlantAge,
+                    "bonsaiAble", newPlantBonsaiStatus,
+                    "container", newPlantContainer,
+                    "height", newPlantHeight,
+                    "name", newPlantName,
+                    "origin", newPlantOrigin,
+                    "ph", newPlantPH,
+                    "saleable", newPlantSaleableStatus
+            )
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            System.out.println("Planta Modificada");
+                            Toast.makeText(getContext(), R.string.msj_modificacion_ok, Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            System.out.println("Error al modificar Planta" + " " + e.getCause());
+                            Toast.makeText(getContext(), R.string.msj_modificacion_error, Toast.LENGTH_LONG);
 
+                        }
+                    });
+            Navigation.findNavController(root).navigate(R.id.nav_plant);
+        } catch (CreatePlantValidationException er) {
+            Log.e(TAG, "savePlanta: " + er.getMessage());
+            Toast.makeText(getContext(), er.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
 
-        docRef.update(
-                "age", newPlantAge,
-                "bonsaiAble", newPlantBonsaiStatus,
-                "container", newPlantContainer,
-                "height", newPlantHeight,
-                "name", newPlantName,
-                "origin", newPlantOrigin,
-                "ph", newPlantPH,
-                "saleable", newPlantSaleableStatus
-                )
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        System.out.println("Planta Modificada");
-                        Toast.makeText(getContext(), R.string.msj_modificacion_ok, Toast.LENGTH_LONG).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        System.out.println("Error al modificar Planta" + " " + e.getCause());
-                        Toast.makeText(getContext(), R.string.msj_modificacion_error, Toast.LENGTH_LONG);
-
-                    }
-                });
-        Navigation.findNavController(root).navigate(R.id.nav_plant);
+    private void areFieldsValid(String name, String height, String container, String origin, String age, String ph, Boolean isBonsaiAble, Boolean isSaleable) throws CreatePlantValidationException {
+        String message="Falta dato obligatorio: ";
+        if (Utils.validateIsNullOrEmpty(name)) {
+            message=message.concat("Nombre");
+            throw new CreatePlantValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(age)) {
+            message=message.concat("Edad");
+            throw new CreatePlantValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(isBonsaiAble)) {
+            message=message.concat("Apto Bonzai");
+            throw new CreatePlantValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(origin)) {
+            message=message.concat("Origen");
+            throw new CreatePlantValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(height)) {
+            message=message.concat("Altura");
+            throw new CreatePlantValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(container)) {
+            message=message.concat("Contenedor");
+            throw new CreatePlantValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(isSaleable)) {
+            message=message.concat("Apto venta");
+            throw new CreatePlantValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(ph)) {
+            message=message.concat("PH");
+            throw new CreatePlantValidationException(message);
+        }
     }
 
     private void saveTaskToPlant(){

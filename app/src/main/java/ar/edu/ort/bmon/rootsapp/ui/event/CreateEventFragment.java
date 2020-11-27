@@ -1,7 +1,6 @@
 package ar.edu.ort.bmon.rootsapp.ui.event;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -40,6 +39,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,8 +48,10 @@ import java.util.Date;
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
 import ar.edu.ort.bmon.rootsapp.exception.CreateEventValidationException;
+import ar.edu.ort.bmon.rootsapp.exception.CreatePlantValidationException;
 import ar.edu.ort.bmon.rootsapp.model.Event;
 import ar.edu.ort.bmon.rootsapp.ui.plant.DatePickerFragment;
+import ar.edu.ort.bmon.rootsapp.util.Utils;
 
 public class CreateEventFragment extends Fragment {
 
@@ -64,6 +67,8 @@ public class CreateEventFragment extends Fragment {
     private final ArrayList<String> speciesList = new ArrayList<>();
     private int selectedSpeciesId;
     private Date userSelectedSproutDate;
+    public static final String TAG = CreateEventFragment.class.getSimpleName();
+
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -192,11 +197,15 @@ public class CreateEventFragment extends Fragment {
 
     private void saveEventToFirebase(int selectedOption) {
         Event eventToSave;
+
         try{
+
             if (selectedOption == 0) {
-                Switch usoHormonas = viewReference.findViewById(R.id.switchHormones);
+                EditText editTextFechaNuevosBrotes = (EditText) viewReference.findViewById(R.id.editTextFechaNuevosBrotes);
+                areFieldsGerminationValid(speciesList.get(selectedSpeciesId), quantity.getText().toString(), tempRange.getText().toString(), humidityRange.getText().toString(), phRange.getText().toString(),editTextFechaNuevosBrotes.getText().toString());
                 GerminationOptions options = (GerminationOptions) fragmentOptions;
-                    eventToSave = new Event(
+                Date selectedCuttingDate = new SimpleDateFormat("dd/MM/YYYY").parse(options.getData().getString("EstimatedStrata"));
+                eventToSave = new Event(
                             "Germinacion",
                             speciesList.get(selectedSpeciesId),
                             Integer.parseInt(quantity.getText().toString()),
@@ -205,12 +214,14 @@ public class CreateEventFragment extends Fragment {
                             Double.parseDouble(tempRange.getText().toString()),
                             Integer.parseInt(humidityRange.getText().toString()),
                             Double.parseDouble(phRange.getText().toString()),
-                            options.getData().getBoolean("UsedHormones")
+                            selectedCuttingDate
                     );
             } else {
+                Switch usoHormonas = viewReference.findViewById(R.id.switchHormones);
+                areFieldsCuttingValid(speciesList.get(selectedSpeciesId), quantity.getText().toString(), tempRange.getText().toString(), humidityRange.getText().toString(), phRange.getText().toString(),usoHormonas.getText().toString());
                 CuttingOptions options = (CuttingOptions) fragmentOptions;
                     eventToSave = new Event(
-                            "Estratificacion",
+                            "Esquejes",
                             speciesList.get(selectedSpeciesId),
                             Integer.parseInt(quantity.getText().toString()),
                             new Date(),
@@ -218,7 +229,8 @@ public class CreateEventFragment extends Fragment {
                             Double.parseDouble(tempRange.getText().toString()),
                             Integer.parseInt(humidityRange.getText().toString()),
                             Double.parseDouble(phRange.getText().toString()),
-                            new Date(options.getData().getString("EstimatedStrata"))
+                            options.getData().getBoolean("UsedHormones")
+
                     );
             }
 
@@ -239,6 +251,49 @@ public class CreateEventFragment extends Fragment {
         } catch (CreateEventValidationException e) {
             Log.e(this.getClass().getCanonicalName(), e.getMessage());
             Toast.makeText(getContext(), "Error al generar el evento", Toast.LENGTH_LONG).show();
+        } catch (CreatePlantValidationException e) {
+            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+    private void areFieldsGerminationValid(String name, String cantidad, String temperatura, String humedad, String ph,String validateDate) throws CreatePlantValidationException {
+        String message="Falta dato obligatorio: ";
+        areFieldsValid(name,cantidad,temperatura,humedad,ph);
+        if (Utils.validateIsNullOrEmpty(validateDate)) {
+            message=message.concat("Nuevos Brotes");
+            throw new CreatePlantValidationException(message);
+        }
+    }
+    private void areFieldsCuttingValid(String name, String cantidad, String temperatura, String humedad, String ph,String hormones) throws CreatePlantValidationException {
+        String message="Falta dato obligatorio: ";
+        areFieldsValid(name,cantidad,temperatura,humedad,ph);
+//        if (Utils.validateIsNullOrEmpty(hormones)) {
+//            message=message.concat("Hormonas");
+//            throw new CreatePlantValidationException(message);
+//        }
+    }
+    private void areFieldsValid(String name, String cantidad, String temperatura, String humedad, String ph) throws CreatePlantValidationException {
+        String message="Falta dato obligatorio: ";
+        if (Utils.validateIsNullOrEmpty(name)) {
+            message=message.concat("Nombre");
+            throw new CreatePlantValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(cantidad)) {
+            message=message.concat("Cantidad");
+            throw new CreatePlantValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(temperatura)) {
+            message=message.concat("Temperatura");
+            throw new CreatePlantValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(humedad)) {
+            message=message.concat("Humedad");
+            throw new CreatePlantValidationException(message);
+        }
+        if (Utils.validateIsNullOrEmpty(ph)) {
+            message=message.concat("PH");
+            throw new CreatePlantValidationException(message);
         }
     }
 
@@ -253,7 +308,7 @@ public class CreateEventFragment extends Fragment {
     }
 
     private void showDatePickerDialog(FragmentManager fragmentManager) {
-        DatePickerFragment newFragment = DatePickerFragment.newInstance(new DatePickerDialog.OnDateSetListener() {
+        DatePickerFragment newFragment = DatePickerFragment.newInstance(true, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 // +1 because January is zero
