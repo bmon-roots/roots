@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#064008</color>
-    <color name="colorPrimaryDark">#4C2511</color>
-    <color name="colorAccent">#088815</color>
-    <color name="colorGreenBar">#6E4A0C</color>
+    <color name="colorPrimary">#00481F</color>
+    <color name="colorPrimaryDark">#472410</color>
+    <color name="colorAccent">#9ABF11</color>
+    <color name="colorGreenBar">#4CAF50</color>
+    <color name="colorDanger">#940B00</color>
+    <color name='colorActionBarPrimary'>#00481F</color>
+    <color name='colorNavigationItemSelected'>#488C63</color>
+    <color name='colorNavigationItem'>#00481F</color>
+    <color name='colorCardBackground'>#C5D4BE</color>
+    <color name="lightBlue">#B0E6ED</color>
+    <color name="veryLightBlue">#BDE5EA</color>
+    <color name="lightYellow">#FFC107</color>
+    <color name="veryLightYellow">#FFF27E</color>
+    <color name="veryLightGreen">#BAFDBC</color>
+    <color name="lightBrown">#FFC66E</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="createPlantCardTitleColor">#009688</color>
 </resources>

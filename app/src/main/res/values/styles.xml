@@ -1,10 +1,14 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    
+    <style name="NavigationDrawerTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/nexa_bold</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -12,8 +16,27 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+    </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:fontFamily">@font/nexa_bold</item>
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="@android:style/Theme.Material.Light.Dialog.Alert">
+        <item name="android:textAppearanceSmall">@style/dialogTextAppearanceSmall</item>
+        <item name="android:textAppearanceMedium">@style/dialogTextAppearanceMedium</item>
+    </style>
+
+    <style name="dialogTextAppearanceSmall" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/nexa_regular</item>
+    </style>
+
+    <style name="dialogTextAppearanceMedium" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/nexa_bold</item>
+    </style>
 
 </resources>

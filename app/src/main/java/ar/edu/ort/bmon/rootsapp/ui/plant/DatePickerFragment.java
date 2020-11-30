@@ -12,10 +12,12 @@ import java.util.Calendar;
 public class DatePickerFragment extends DialogFragment {
 
     private DatePickerDialog.OnDateSetListener listener;
+    private static boolean hasFutureDates;
 
-    public static DatePickerFragment newInstance(DatePickerDialog.OnDateSetListener listener) {
+    public static DatePickerFragment newInstance(boolean allowFutureDates, DatePickerDialog.OnDateSetListener listener) {
         DatePickerFragment fragment = new DatePickerFragment();
         fragment.setListener(listener);
+        hasFutureDates = allowFutureDates;
         return fragment;
     }
 
@@ -35,9 +37,10 @@ public class DatePickerFragment extends DialogFragment {
 
         c.set(Calendar.YEAR, year - 50);
         datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
-        c.set(Calendar.YEAR, year);
-        datePickerDialog.getDatePicker().setMaxDate(c.getTimeInMillis());
-
+        if (!hasFutureDates) {
+            c.set(Calendar.YEAR, year);
+            datePickerDialog.getDatePicker().setMaxDate(c.getTimeInMillis());
+        }
         return datePickerDialog;
     }
 

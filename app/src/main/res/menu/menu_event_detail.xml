@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_edit_detail_add_task"
+        android:title="Agregar Tarea"
+        />
+    <item
+        android:id="@+id/menu_edit_detail_event_button"
+        android:title="Editar"/>
+    <item
+        android:id="@+id/menu_delete_detail_event_button"
+        android:title="Eliminar" />
+    <item
+        android:id="@+id/menu_save_detail_event_button"
+        android:title="Guardar"
+        android:visible="false"/>
+    <item
+        android:id="@+id/menu_detail_event_finish_button"
+        android:title="Finalizar Evento" />
+</menu>

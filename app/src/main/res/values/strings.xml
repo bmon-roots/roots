@@ -13,21 +13,37 @@
     <string name="menu_header_desc">Navigation header</string>
 
     <!-- Opciones de menu -->
-    <string name="menu_plant">Plantas</string>
-    <string name="menu_material">Materiales</string>
-    <string name="menu_report">Reportes</string>
+    <string name="menu_plant">Mis Plantas</string>
+    <string name="menu_material">Mis Materiales</string>
+    <string name="menu_report">Informes</string>
     <string name="menu_sign_out">Cerrar Sesión</string>
 
+    <!-- Headers del listado de plantas -->
+    <string name="speciesHeader">Especie</string>
+    <string name="containerHeader">Maceta</string>
+    <string name="latestTasksHeader">Últimas\ntareas</string>
+    <string name="bonsaiableHeader">AB</string>
+    <string name="sellableHeader">AV</string>
+
+
     <!-- Strings used for fragments for Create Plant -->
+    <string name="create_plant_text_view">Nombra tu planta</string>
+    <string name="create_plant_selected_species_label">Especie</string>
+    <string name="create_plant_age_label">Edad</string>
+    <string name="create_plant_height_label">Altura (cm)</string>
+    <string name="create_plant_adquisition_date_label">Adquisición</string>
+    <string name="create_plant_container_type_label">Maceta (L)</string>
+    <string name="create_plant_origin_label">Origen</string>
+    <string name="create_plant_ph_label">PH</string>
     <string name="createPlantFragmentTitle">Agregar una planta</string>
-    <string name="create_plant_species">Seleccione una especie</string>
-    <string name="create_plant_name_placeholder">Ingrese nombre</string>
-    <string name="create_plant_age_placeholder">Ingrese Edad</string>
-    <string name="create_plant_date_placeholder">Seleccione fecha adquisicion</string>
-    <string name="create_plant_bonsaiAble_text">Apta bonsai?</string>
-    <string name="create_plant_origin_placeholder">Ingrese Origen</string>
-    <string name="create_plant_ph_placeholder">Ingrese PH</string>
-    <string name="create_plant_height_placeholder">Ingrese Altura</string>
+    <string name="create_plant_select_species_hint">Selecciona una especie</string>
+    <string name="create_plant_name_placeholder">Ingresa nombre</string>
+    <string name="create_plant_age_placeholder">Ingresa Edad</string>
+    <string name="create_plant_date_placeholder">Selecciona una fecha</string>
+    <string name="create_plant_bonsaiAble_text">Apta bonsai</string>
+    <string name="create_plant_origin_placeholder">Ingresa Origen</string>
+    <string name="create_plant_ph_placeholder">Ingresa PH</string>
+    <string name="create_plant_height_placeholder">Ingresa Altura</string>
     <string name="create_plant_container_type_placeholder">Tipo contenedor</string>
     <string name="create_plant_sellable_text">Apta venta</string>
     <string name="create_plant_save_button">Guardar</string>
@@ -37,11 +53,17 @@
     <string name="createSpeciesFragmentTitle">Agregar una especie</string>
     <string name="createSpeciesTextName">Nombre de la especie</string>
     <string name="createSpeciesSuccessful">Especie agregada exitosamente</string>
-    <string name="createSpeciesError">Error al agregar especie, intente nuevamente</string>
+    <string name="createSpeciesError">Error al agregar especie, intenta nuevamente</string>
+
+    <!-- Strings para el alta de materiales -->
+    <string name="createNewMaterialEntry">Selecciona un material a agregar</string>
+    <string name="createNewMaterialEntryQuantity">Selecciona la cantidad a ingresar</string>
+    <string name="materialQuantity">Ingresa la cantidad</string>
+    <string name="materialContents">Ingresa el contenido</string>
 
     <!--    Layout signout-->
     <string name="btnSignOut">Salir</string>
-    <string name="txtSignout">Desea salir de la aplicación?</string>
+    <string name="txtSignout">Querés salir de la aplicación?</string>
     <!--    others keys-->
     <string name="API_ESPECIE">https://jsonplaceholder.typicode.com</string>
     <string name="USER_KEY">user-key: 9900a9720d31dfd5fdb4352700c</string>
@@ -50,12 +72,44 @@
     <string name="plants_list_edad">Edad</string>
     <string name="alguntexto">AlgunTexto</string>
 
-<!--    Pantalla editar Planta-->
+    <!--    Pantalla editar Planta-->
     <string name="editPlantaTitulo">DETALLE DE PLANTA</string>
 
+    <!-- Menu Listado Eventos -->
+    <string name="germinationParentCardLabel">Germinaciones</string>
+    <string name="cuttingParentCardLabel">Esquejes</string>
+    <string name="createNewEvent">Crear Evento</string>
+    <string name="selectEventSpeciesType">Selecciona la especie</string>
+    <string name="eventQuantityLabel">Cantidad</string>
+    <string name="eventTemperatureRangeLabel">Temperatura\npromedio</string>
+    <string name="eventHumidityRangeLabel">Humedad\npromedio</string>
+    <string name="eventPHRangeLabel">PH\npromedio</string>
+    <string name="eventEstimatedSproutDateLabel">Nuevos\nbrotes</string>
+    <string name="eventsCuttingHasHormones">Uso \n de hormonas</string>
 
-<!--    Mensajes genericos-->
-    <string name="dialog_delete">Seguro desea eliminar?</string>
+    <string name="eventsGerminationStrataDate">Fecha de estratificación</string>
+    <string name="eventsGerminationStrataHint">Ingresa fecha estratificación</string>
+    <string name="eventQuantity">Ingresa cantidad</string>
+    <string name="eventTemperatureRange">Ingresa un promedio</string>
+    <string name="eventWeatherAverage">Ingresa un promedio</string>
+    <string name="eventPHRange">Ingresa un rango</string>
+    <string name="eventHumidityRange">Ingresa un rango</string>
+    <string name="eventEstimatedSproutDate">Ingresa fecha estimada</string>
+    
+
+
+    <string name="eventSproutDateLabel">Brotes\nal 50%</string>
+    <string name="eventNewSproutDate">Brotes\niniciales</string>
+
+    <!--  Informes  -->
+
+    <string name="germinationTitle">Germinaciones</string>
+    <string name="cuttingTitle">Esquejes</string>
+    <string name="germinationPerformance">Rendimiento</string>
+    <string name="germinationWeather">Condiciones</string>
+
+    <!--    Mensajes genericos-->
+    <string name="dialog_delete">Querés eliminar la planta?</string>
     <string name="dialog_edit">Se guardarán los cambios</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancelar</string>
@@ -67,4 +121,49 @@
     <string name="logosignin">logosignin</string>
     <string name="logosignout">logosignout</string>
     <string name="logonav">logonav</string>
+    <string name="msj_agregar_ok">Se guardó correctamente</string>
+    <string name="msj_agregar_error">Error al intentar agregar la/s tarea/s</string>
+    <string name="task_fumigate">Fumigar</string>
+    <string name="task_prune">Podar</string>
+    <string name="task_fertilize">Fertilizar</string>
+    <string name="periodicity">Días de Periodicidad</string>
+    <string name="menu_event">Eventos</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="eventEstimatedNewSproutDate">Ingrese Fecha estimada</string>
+    <string name="eventPH">Ingresa PH</string>
+    <string name="eventHumidity">Ingresa Humedad</string>
+    <string name="eventTemperature">Ingresa Temperatura</string>
+    <string name="eventHumidityLabel">Humedad</string>
+    <string name="eventPHLabel">PH</string>
+    <string name="eventTemperatureLabel">Temperatura</string>
+    <string name="eventActiveQuantityLabel">Cantidad\nactiva</string>
+    <string name="eventActiveQuantityLabelHint">Unidades activas</string>
+    <string name="dialog_finish">Querés finalizar este evento?</string>
+    <string name="eventEfectivityLabel">Efectividad (%)</string>
+    <string name="eventInitialDateLabel">Inició</string>
+    <string name="eventFinishDateLabel">Finalización</string>
+    <string name="with_out_value">Sin valor registrado</string>
+    <string name="msj_finalizar_evento_ok">El evento finalizó OK</string>
+    <string name="msj_finalizar_evento_error">Error al finalizar el evento</string>
+    <string name="eventQuantityDays">Cantidad de días</string>
+    <string name="eventQuantityDaysLabel">Dias\ntranscurridos</string>
+    <string name="eventPercentEfectivityLabelHint">Porcentaje de Efectividad</string>
+    <string name="eventInitialDateLabelHint">Fecha de Inicio</string>
+    <string name="eventFinishDateLabelHint">Fecha de Finalización</string>
+    <string name="eventFinishPotLabel">Cant\n macetas (1L)</string>
+    <string name="eventQuantityPots">Macetas necesarias</string>
+    <string name="eventFinishSubstratumHint">Sustratos necesarios</string>
+    <string name="eventFinishSubstratumLabel">Cant \n sustratos (1L)</string>
+    <string name="createNewPlant">Crear Planta</string>
+
+
+    <string name="eventInitialQuantityLabel">Cantidad\ninicial</string>
+    <string name="eventMiddleSproutDateLabel">Seleccione una fecha</string>
+    <string name="eventMiddleSproutDate">Seleccione una fecha</string>
+    <string name="ageRangeHint">min 0 - 999 máx</string>
+    <string name="phRangeHint">min 4.00-8.50 máx</string>
+    <string name="heightRangeHint">min 1 - 999 máx</string>
+    <string name="containerMaxHint">50L máx.</string>
+    <string name="maxLenght20Hint">máx 20</string>
 </resources>

@@ -28,9 +28,14 @@
         tools:layout="@layout/fragment_list_material"/>
 
     <fragment
-        android:id="@+id/nav_plant_detail"
-        android:name="ar.edu.ort.bmon.rootsapp.ui.plant.DetailFragment"
-        tools:layout="@layout/fragment_detail" />
+        android:id="@+id/nav_event"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.event.EventFragment"
+        android:label="@string/menu_event"
+        tools:layout="@layout/event_fragment">
+        <action
+            android:id="@+id/action_nav_event_to_nav_create_event"
+            app:destination="@id/nav_create_event" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_report"
@@ -39,10 +44,60 @@
         tools:layout="@layout/fragment_report" />
 
     <fragment
+        android:id="@+id/nav_cutting_report"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.report.ReportCuttingFragment"
+        android:label="@string/menu_report"
+        tools:layout="@layout/fragment_cutting_report" />
+
+    <fragment
+        android:id="@+id/nav_germination_conditions_report"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.report.ReportConditionsFragment"
+        android:label="@string/menu_report"
+        tools:layout="@layout/fragment_conditions_report" />
+
+    <fragment
+        android:id="@+id/nav_cutting_conditions_report"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.report.ReportCuttingConditionsFragment"
+        android:label="@string/menu_report"
+        tools:layout="@layout/fragment_cutting_conditions_report" />
+
+    <fragment
         android:id="@+id/nav_sign_out"
         android:name="ar.edu.ort.bmon.rootsapp.ui.signout.SignoutFragment"
         android:label="@string/menu_sign_out"
         tools:layout="@layout/fragment_signout" />
+
+    <fragment
+        android:id="@+id/nav_event_detail"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.event.EventDetailFragment"
+        android:label="Mi evento"
+        tools:layout="@layout/event_detail_fragment">
+        <action
+            android:id="@+id/action_nav_event_detail_to_nav_event_finish"
+            app:destination="@id/nav_event_finish"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_event_finish"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.event.EventFinishFragment"
+        android:label="Finalizar evento"
+        tools:layout="@layout/event_finish_fragment" />
+
+    <fragment
+        android:id="@+id/nav_plant_detail"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.plant.DetailFragment"
+        android:label="Mi Planta"
+        tools:layout="@layout/fragment_detail" />
+
+    <fragment
+        android:id="@+id/nav_create_event"
+        android:name="ar.edu.ort.bmon.rootsapp.ui.event.CreateEventFragment"
+        android:label="Crear nuevo evento"
+        tools:layout="@layout/create_event_fragment"
+        >
+        <action
+            android:id="@+id/action_nav_create_event_to_nav_event"
+            app:destination="@id/nav_event" />
+    </fragment>
 
 
 

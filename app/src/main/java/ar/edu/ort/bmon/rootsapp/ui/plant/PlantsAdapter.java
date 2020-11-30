@@ -1,11 +1,12 @@
 package ar.edu.ort.bmon.rootsapp.ui.plant;
 
-import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -18,20 +19,20 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 
 import ar.edu.ort.bmon.rootsapp.R;
+import ar.edu.ort.bmon.rootsapp.constants.Constants;
+import ar.edu.ort.bmon.rootsapp.exception.CreatePlantValidationException;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
+import ar.edu.ort.bmon.rootsapp.model.Tarea;
 
 
 public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter.PlantHolder> {
 
-    public OnTextClickListener onTextClickListener;
+    public PlantOnTextClickListener plantOnTextClickListener;
     public DocumentSnapshot document;
-    public DocumentSnapshot getDocument() {
-        return document;
-    }
 
-    public PlantsAdapter(@NonNull FirestoreRecyclerOptions<Plant> options, OnTextClickListener onTextClickListener) {
+    public PlantsAdapter(@NonNull FirestoreRecyclerOptions<Plant> options, PlantOnTextClickListener plantOnTextClickListener) {
         super(options);
-        this.onTextClickListener = onTextClickListener;
+        this.plantOnTextClickListener = plantOnTextClickListener;
     }
 
     @Override
@@ -39,40 +40,54 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
 
         document = getSnapshots().getSnapshot(holder.getAdapterPosition());
 
-        holder.textViewNombre.setText(document.getId());
-        holder.textViewEdad.setText(model.getAge());
-        holder.textViewMaceta.setText(model.getContainer());
-        holder.plantita = crearPlantaDesdeModel(model, document.getId());
+        holder.textViewNombre.setText(model.getSpecies());
+        holder.textViewMaceta.setText(model.getContainer() + "L");
+        try {
+            holder.plantita = crearPlantaDesdeModel(model, document.getId());
+        }catch (CreatePlantValidationException ex){
+            Log.e(this.getClass().getCanonicalName(), "Error al crear planta" + ex.getMessage());
+            Toast.makeText(holder.cardViewPlanta.getContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        holder.imageViewAptoBonzai.setVisibility(View.INVISIBLE);
+        holder.imageViewAptoVenta.setVisibility(View.INVISIBLE);
+        holder.imageViewPoda.setVisibility(View.INVISIBLE);
+        holder.imageViewFumigate.setVisibility(View.INVISIBLE);
+        holder.imageViewFertilize.setVisibility(View.INVISIBLE);
 
+        if(model.isBonsaiAble()){
+            holder.imageViewAptoBonzai.setVisibility(View.VISIBLE);
+        }
+        if(model.isSaleable()){
+            holder.imageViewAptoVenta.setVisibility(View.VISIBLE);
+        }
+        for (Tarea tarea : model.getTareas()) {
+            if(tarea.getTipo().equals(Constants.ADD_TASK_FERTILIZE)){
+                holder.imageViewFertilize.setVisibility(View.VISIBLE);
+            } else if(tarea.getTipo().equals(Constants.ADD_TASK_FUMIGATE)){
+                holder.imageViewFumigate.setVisibility(View.VISIBLE);
+            } else if(tarea.getTipo().equals(Constants.ADD_TASK_PRUNE)){
+                holder.imageViewPoda.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
-    private Plant crearPlantaDesdeModel(@NonNull Plant model, String id) {
-        Plant planta = new Plant();
+    private Plant crearPlantaDesdeModel(@NonNull Plant model, String id) throws CreatePlantValidationException {
+        Plant planta = new Plant(model.getSpecies(), model.getName(),model.getAge(),model.getRegistrationDate(),
+                model.isBonsaiAble(),model.getOrigin(),model.getHeight(),model.getContainer(),model.isSaleable(),model.getPh(),
+                model.getImageUri(),model.getTareas());
         planta.setId(id);
-        planta.setName(model.getName());
-        planta.setSpecies(model.getSpecies());
-        planta.setImageUri(model.getImageUri());
-        planta.setPh(model.getPh());
-        planta.setHeight(model.getHeight());
-        planta.setBonsaiAble(model.isBonsaiAble());
-        planta.setSaleable(model.isSaleable());
-        planta.setContainer(model.getContainer());
-        planta.setAge(model.getAge());
-        planta.setOrigin(model.getOrigin());
-        planta.setRegistrationDate(model.getRegistrationDate());
         return planta;
     }
 
     @NonNull
     @Override
     public PlantHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
-        final Context pContext = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.plant_item, parent, false);
         final PlantHolder pHolder = new PlantHolder(view);
         pHolder.cardViewPlanta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DetailViewModel model = onTextClickListener.onTextClick();
+                DetailViewModel model = plantOnTextClickListener.onTextClick();
                 model.select(pHolder.plantita);
                 Navigation.findNavController(view).navigate(R.id.nav_plant_detail);
             }
@@ -83,10 +98,12 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
     class PlantHolder extends RecyclerView.ViewHolder {
 
         TextView textViewNombre;
-        TextView textViewEdad;
         TextView textViewMaceta;
+        ImageView imageViewFumigate;
         ImageView imageViewPoda;
-        ImageView imageViewRiego;
+        ImageView imageViewFertilize;
+        ImageView imageViewAptoBonzai;
+        ImageView imageViewAptoVenta;
         CardView cardViewPlanta;
         Plant plantita;
 
@@ -94,11 +111,12 @@ public class PlantsAdapter extends FirestoreRecyclerAdapter<Plant, PlantsAdapter
             super(itemView);
             cardViewPlanta = itemView.findViewById(R.id.card_planta);
             textViewNombre = itemView.findViewById(R.id.text_view_nombre);
-            textViewEdad = itemView.findViewById(R.id.text_view_edad);
             textViewMaceta = itemView.findViewById(R.id.text_view_maceta);
+            imageViewFumigate = itemView.findViewById(R.id.image_view_fumigate);
             imageViewPoda = itemView.findViewById(R.id.image_view_poda);
-            imageViewRiego = itemView.findViewById(R.id.image_view_riego);
-
+            imageViewFertilize = itemView.findViewById(R.id.image_view_fertilize);
+            imageViewAptoBonzai = itemView.findViewById(R.id.image_view_checked_bonzai);
+            imageViewAptoVenta = itemView.findViewById(R.id.image_view_checked_venta);
         }
     }
 }

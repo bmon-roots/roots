@@ -4,10 +4,15 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -29,6 +35,8 @@ import com.google.firebase.firestore.Query;
 
 import ar.edu.ort.bmon.rootsapp.R;
 import ar.edu.ort.bmon.rootsapp.constants.Constants;
+import ar.edu.ort.bmon.rootsapp.exception.CreateEventValidationException;
+import ar.edu.ort.bmon.rootsapp.exception.CreateSpeciesValidationException;
 import ar.edu.ort.bmon.rootsapp.model.Plant;
 import ar.edu.ort.bmon.rootsapp.model.Species;
 
@@ -39,20 +47,34 @@ public class ListPlantFragment extends Fragment {
     RecyclerView recyclerView;
     PlantsAdapter plantsAdapter;
     private DetailViewModel model;
-    private FloatingActionButton btnAddAction;
-    private AlertDialog.Builder dialog;
+    private MaterialAlertDialogBuilder dialog;
     private View newSpeciesCustomDialog;
+    private MenuItem btnAddAction;
+    private static final String TAG = "ListPlantFragment";
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_plant_list, menu);
+        btnAddAction = menu.findItem(R.id.open_plant_list_dialog);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         plantsListView = inflater.inflate(R.layout.fragment_list_plant, container, false);
         newSpeciesCustomDialog = getLayoutInflater().inflate(R.layout.create_species_fragment, null);
-        btnAddAction = plantsListView.findViewById(R.id.fab_AddActions);
         recyclerView = plantsListView.findViewById(R.id.recyclerPlantas);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Query query = db.collection(Constants.PLANT_COLLECTION);
+        Query query = db.collection(Constants.PLANT_COLLECTION).orderBy("species");
 
         FirestoreRecyclerOptions<Plant> firestoreRecyclerOptions =
                 new FirestoreRecyclerOptions.Builder<Plant>()
@@ -61,7 +83,7 @@ public class ListPlantFragment extends Fragment {
 
         model = new ViewModelProvider(requireActivity()).get(DetailViewModel.class);
 
-        plantsAdapter = new PlantsAdapter(firestoreRecyclerOptions, new OnTextClickListener() {
+        plantsAdapter = new PlantsAdapter(firestoreRecyclerOptions, new PlantOnTextClickListener() {
             @Override
             public DetailViewModel onTextClick() {
                 return model;
@@ -75,7 +97,20 @@ public class ListPlantFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        dialog = new AlertDialog.Builder(getActivity());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int selectionId = item.getItemId();
+        if (selectionId == R.id.open_plant_list_dialog) {
+            createAddNewElementDialog();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void createAddNewElementDialog() {
+        dialog = new MaterialAlertDialogBuilder(getActivity());
+        dialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
         String[] alertDialogOptions = new String[] {Constants.ADD_NEW_PLANT, Constants.ADD_NEW_SPECIES};
         dialog.setTitle(Constants.ADD_NEW_ENTRY_TITLE);
         dialog.setSingleChoiceItems(alertDialogOptions, -1, new DialogInterface.OnClickListener() {
@@ -103,12 +138,7 @@ public class ListPlantFragment extends Fragment {
                 }
             }
         });
-        btnAddAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.create().show();
-            }
-        });
+        dialog.create().show();
     }
 
     @Override
@@ -124,14 +154,20 @@ public class ListPlantFragment extends Fragment {
     }
 
     private void showCreateNewSpeciesDialog(final View speciesName) {
-        AlertDialog.Builder newSpeciesDialog = new AlertDialog.Builder(getActivity());
+        MaterialAlertDialogBuilder newSpeciesDialog = new MaterialAlertDialogBuilder(getActivity());
+        newSpeciesDialog.setBackground(getResources().getDrawable(R.drawable.alert_dialog_bg));
         newSpeciesDialog.setTitle(R.string.createSpeciesFragmentTitle);
 
         //Configuracion del newSpeciesDialog
 
-        newSpeciesDialog.setIcon(R.drawable.ic_baseline_edit_24);
+        newSpeciesDialog.setIcon(R.drawable.ic_baseline_add_species);
+        ViewGroup parent = (ViewGroup) speciesName.getParent();
+        if(parent!=null){
+            EditText editTextSpeciesName = speciesName.findViewById(R.id.editTextSpeciesName);
+            editTextSpeciesName.getText().clear();
+            parent.removeAllViews();
+        }
         newSpeciesDialog.setView(speciesName);
-
         newSpeciesDialog.setPositiveButton(Constants.ACCEPT_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -147,14 +183,12 @@ public class ListPlantFragment extends Fragment {
                 dialog.dismiss();
             }
         });
-        //newSpeciesDialog.setNegativeButtonIcon(getActivity().getDrawable(R.drawable.ic_baseline_close_24));
-        //newSpeciesDialog.setPositiveButtonIcon(getActivity().getDrawable(R.drawable.ic_baseline_check_24));
-
         newSpeciesDialog.create().show();
     }
 
     private void insertNewSpeciesName(String newSpeciesName) {
-        db.collection(Constants.SPECIES_COLLECTION).add(new Species(newSpeciesName))
+        try {
+            db.collection(Constants.SPECIES_COLLECTION).add(new Species(newSpeciesName))
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
@@ -168,6 +202,10 @@ public class ListPlantFragment extends Fragment {
                         Toast.makeText(getContext(), R.string.createSpeciesError, Toast.LENGTH_LONG).show();
                     }
                 });
+        } catch (CreateSpeciesValidationException er) {
+            Log.e(TAG, "insertNewSpeciesName - newSpeciesName: " + newSpeciesName);
+            Toast.makeText(getContext(), er.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
 }

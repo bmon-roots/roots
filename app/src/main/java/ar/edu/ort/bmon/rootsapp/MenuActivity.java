@@ -50,7 +50,7 @@ public class MenuActivity extends AppCompatActivity {
         Picasso.get().load(googleSignInAccount.getPhotoUrl()).into(mPic);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_plant, R.id.nav_material, R.id.nav_report)
+                R.id.nav_plant, R.id.nav_material, R.id.nav_report, R.id.nav_event)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

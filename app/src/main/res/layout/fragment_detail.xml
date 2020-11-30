@@ -2,334 +2,495 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.plant.DetailFragment">
+    tools:context=".ui.plant.CreatePlantFragment">
 
-    <ImageView
-        android:id="@+id/imageViewPlant"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.055"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="20dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.033"
-        android:src="@drawable/img_plant_placeholder" />
+        >
 
-    <EditText
-        android:id="@+id/editTextNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="text"
-        android:text=""
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageViewPlantDetailPhoto"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="14dp"
+        android:layout_marginTop="14dp"
+        android:src="@drawable/ic_sprout_white_background"
+        app:civ_border_color="@color/colorPrimaryDark"
+        app:civ_border_width="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.539"
-        app:layout_constraintStart_toEndOf="@+id/textViewNombre"
-        app:layout_constraintTop_toTopOf="@+id/guideline10"
-        app:layout_constraintVertical_bias="0.006" />
-
-    <Switch
-        android:id="@+id/switchAptoVenta"
-        android:layout_width="80dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:enabled="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toEndOf="@+id/textViewAptoVenta"
-        app:layout_constraintTop_toBottomOf="@+id/switchAptoBonsai"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textViewOrigen"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:text="Origen"
-        android:textAlignment="center"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextOrigen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextContenedor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="textPersonName"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.543"
-        app:layout_constraintStart_toEndOf="@+id/textViewContenedor"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAltura"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/editTextAltura"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="text"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.632"
-        app:layout_constraintStart_toEndOf="@+id/textViewAltura"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNombre"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textViewAptoVenta"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:text="Apto venta"
-        android:textAlignment="center"
-        app:layout_constraintBaseline_toBaselineOf="@+id/switchAptoVenta"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextOrigen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="textPersonName"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.543"
-        app:layout_constraintStart_toEndOf="@+id/textViewOrigen"
-        app:layout_constraintTop_toBottomOf="@+id/editTextContenedor"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textViewEdad"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:text="Edad"
-        android:textAlignment="center"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextEdad"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextEspecie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.823"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEspecie"
-        app:layout_constraintVertical_bias="0.004" />
-
-    <TextView
-        android:id="@+id/textViewAltura"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:layout_below="@+id/textViewTitulo"
-        android:text="Altura"
-        android:textAlignment="center"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextAltura"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextFechaRegistro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="textPersonName"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.561"
-        app:layout_constraintStart_toEndOf="@+id/textViewFechaRegistro"
-        app:layout_constraintTop_toBottomOf="@+id/editTextEdad"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/editTextPH"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="textPersonName"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.561"
-        app:layout_constraintStart_toEndOf="@+id/textViewPH"
-        app:layout_constraintTop_toBottomOf="@+id/editTextFechaRegistro"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textViewFechaRegistro"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:layout_marginEnd="8dp"
-        android:text="Fecha Registro"
-        android:textAlignment="center"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextFechaRegistro"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.092"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewPH"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:text="PH"
-        android:textAlignment="center"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextPH"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextEdad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="textPersonName"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.543"
-        app:layout_constraintStart_toEndOf="@+id/textViewEdad"
-        app:layout_constraintTop_toBottomOf="@+id/editTextOrigen"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textViewAptoBonsai"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:text="Apto Bonsai"
-        android:textAlignment="center"
-        app:layout_constraintBaseline_toBaselineOf="@+id/switchAptoBonsai"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewContenedor"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:text="Contenedor"
-        android:textAlignment="center"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextContenedor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Switch
-        android:id="@+id/switchAptoBonsai"
-        android:layout_width="80dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:enabled="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.475"
-        app:layout_constraintStart_toEndOf="@+id/textViewAptoBonsai"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPH"
-        app:layout_constraintVertical_bias="0.089" />
-
-    <TextView
-        android:id="@+id/textViewNombre"
-        android:layout_width="100dp"
-        android:layout_height="20dp"
-        android:text="Nombre"
-        android:textAlignment="center"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editTextNombre"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewEspecie"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Especie"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.066" />
+        app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/editTextPlantDetailName"
+            android:layout_width="195dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="180dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:ems="10"
+            android:enabled="false"
+            android:fontFamily="@font/nexa_heavy"
+            android:inputType="textPersonName"
+            android:maxLength="20"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.018"
+            tools:text="@tools:sample/full_names" />
+
+    </androidx.cardview.widget.CardView>
+
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="46dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
+        app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="25dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline17">
+
+        <TextView
+            android:id="@+id/textViewDetailSpeciesName"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:fontFamily="@font/nexa_book_italic"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/imageViewPlantDetailPhoto"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPlantDetailName"
+            app:layout_constraintVertical_bias="0.0045"
+            tools:text="@tools:sample/full_names" />
+    </androidx.cardview.widget.CardView>
+
+    <EditText
+        android:id="@+id/editTextPlantDetailAge"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="44dp"
+        android:enabled="false"
+        android:fontFamily="@font/nexa_light"
+        android:inputType="number"
+        android:maxLength="2"
+        android:hint="@string/ageRangeHint"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline13"
+        tools:text="@tools:sample/us_zipcodes" />
+
+    <EditText
+        android:id="@+id/editTextPlantDetailDate"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="44dp"
+        android:clickable="true"
+        android:ems="10"
+        android:enabled="false"
+        android:focusable="false"
+        android:fontFamily="@font/nexa_light"
+        android:hint="@string/create_plant_date_placeholder"
+        android:inputType="date"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@android:color/darker_gray"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPlantDetailHeight" />
+
+    <EditText
+        android:id="@+id/editTextPlantDetailContainerType"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="44dp"
+        android:ems="10"
+        android:enabled="false"
+        android:fontFamily="@font/nexa_light"
+        android:inputType="number"
+        android:maxLength="2"
+        android:hint="@string/containerMaxHint"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPlantDetailDate" />
+
+    <EditText
+        android:id="@+id/editTextPlantDetailOrigin"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="44dp"
+        android:ems="10"
+        android:enabled="false"
+        android:fontFamily="@font/nexa_light"
+        android:textColor="@color/colorPrimary"
+        android:inputType="text"
+        android:hint="@string/containerMaxHint"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPlantDetailContainerType" />
+
+    <EditText
+        android:id="@+id/editTextPlantDetailPh"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="44dp"
+        android:ems="10"
+        android:enabled="false"
+        android:fontFamily="@font/nexa_light"
+        android:inputType="text"
+        android:maxLength="2"
+        android:hint="@string/phRangeHint"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPlantDetailOrigin" />
+
+    <Switch
+        android:id="@+id/switchBonsaiable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="44dp"
+        android:enabled="false"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPlantDetailPh" />
+
+    <Switch
+        android:id="@+id/switchSellable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="44dp"
+        android:enabled="false"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchBonsaiable" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="190dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2599179"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="14dp"
+        app:cardBackgroundColor="@color/colorCardBackground"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline13">
+
+        <TextView
+            android:id="@+id/textViewPlantAgeLabel"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:fontFamily="@font/nexa_regular"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/create_plant_age_label"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline13"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="14dp"
+        app:cardBackgroundColor="@color/colorCardBackground"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView6">
+        android:gravity="center"
+
+        <TextView
+            android:id="@+id/textViewCreatePlantHeight"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:fontFamily="@font/nexa_regular"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/create_plant_height_label"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPlantAgeLabel"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.cardview.widget.CardView>
+
+    <EditText
+        android:id="@+id/editTextPlantDetailHeight"
+        android:layout_width="175dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="44dp"
+        android:ems="10"
+        android:enabled="false"
+        android:fontFamily="@font/nexa_light"
+        android:inputType="number"
+        android:maxLength="3"
+        android:hint="@string/heightRangeHint"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPlantDetailAge"
+        tools:text="@tools:sample/us_zipcodes" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView10"
+        android:layout_width="115dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="14dp"
+        app:cardBackgroundColor="@color/colorCardBackground"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView8">
+
+        <TextView
+            android:id="@+id/textViewCreatePlantAdquisitionDate"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/nexa_regular"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/create_plant_adquisition_date_label"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCreatePlantHeight"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="14dp"
+        app:cardBackgroundColor="@color/colorCardBackground"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView10">
+
+        <TextView
+            android:id="@+id/textViewContainerType"
+            android:layout_width="110dp"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/nexa_regular"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/create_plant_container_type_label"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCreatePlantAdquisitionDate"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="14dp"
+        app:cardBackgroundColor="@color/colorCardBackground"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView13">
+
+        <TextView
+            android:id="@+id/textViewCreatePlantOrigin"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:fontFamily="@font/nexa_regular"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/create_plant_origin_label"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewContainerType"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="14dp"
+        app:cardBackgroundColor="@color/colorCardBackground"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView15">
+
+        <TextView
+            android:id="@+id/textViewCreatePlantPH"
+            android:layout_width="110dp"
+            android:layout_height="25dp"
+            android:fontFamily="@font/nexa_regular"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/create_plant_ph_label"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCreatePlantOrigin"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="14dp"
+        app:cardBackgroundColor="@color/colorCardBackground"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView18">
+
+        <TextView
+            android:id="@+id/textViewBonsaible"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:fontFamily="@font/nexa_regular"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/create_plant_bonsaiAble_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCreatePlantPH"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="14dp"
+        app:cardBackgroundColor="@color/colorCardBackground"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView19">
+
+        <TextView
+            android:id="@+id/textViewSellable"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
+            android:fontFamily="@font/nexa_regular"
+            android:textColor="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/create_plant_sellable_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewBonsaible"
+            app:layout_constraintVertical_bias="0.0" />
+    </androidx.cardview.widget.CardView>
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="170dp" />
+        app:layout_constraintGuide_begin="26dp" />
 
-    <!--    <Switch-->
-    <!--        android:id="@+id/switch1"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="Switch"-->
-    <!--        tools:layout_editor_absoluteX="202dp"-->
-    <!--        tools:layout_editor_absoluteY="608dp" />-->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="162dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="88dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="66dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="134dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

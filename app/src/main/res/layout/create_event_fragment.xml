@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.event.CreateEventFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView23"
+        android:layout_width="match_parent"
+        android:layout_height="165dp"
+        app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="20dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/eventImageView"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="8dp"
+                android:adjustViewBounds="false"
+                android:cropToPadding="false"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_sprouts_circle"
+                app:civ_border_color="@color/colorPrimaryDark"
+                app:civ_border_width="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewSelectedEventType"
+                android:layout_width="220dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/nexa_bold"
+                android:text="Selected Event"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/eventImageView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.25" />
+
+            <TextView
+                android:id="@+id/textViewSelectedSpecies"
+                android:layout_width="205dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/nexa_book_italic"
+                android:gravity="center"
+                android:text="@string/selectEventSpeciesType"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/eventImageView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.75" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView24"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        app:cardBackgroundColor="@color/colorCardBackground"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView23">
+
+        <TextView
+            android:id="@+id/textViewCantidad"
+            android:layout_width="110dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5sp"
+            android:fontFamily="@font/nexa_regular"
+            android:text="@string/eventInitialQuantityLabel"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="193dp" />
+    </androidx.cardview.widget.CardView>
+
+    <EditText
+        android:id="@+id/editTextCantidadEvento"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:fontFamily="@font/nexa_light"
+        android:inputType="number"
+        android:maxLength="3"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cardView24"
+        app:layout_constraintTop_toBottomOf="@+id/cardView23"
+        tools:text="@tools:sample/us_zipcodes" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView25"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="@color/colorCardBackground"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView24">
+
+        <TextView
+            android:id="@+id/textViewRangoTemperaturas"
+            android:layout_width="110dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp"
+            android:fontFamily="@font/nexa_regular"
+            android:text="@string/eventTemperatureRangeLabel"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="235dp" />
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView26"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="@color/colorCardBackground"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView25">
+
+        <TextView
+            android:id="@+id/textViewRangoHumedad"
+            android:layout_width="110dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp"
+            android:fontFamily="@font/nexa_regular"
+            android:text="@string/eventHumidityRangeLabel"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="283dp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView27"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="@color/colorCardBackground"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView26">
+
+        <TextView
+            android:id="@+id/textViewRangoPH"
+            android:layout_width="110dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp"
+            android:fontFamily="@font/nexa_regular"
+            android:text="@string/eventPHRangeLabel"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="334dp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView28"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        app:cardBackgroundColor="@color/colorCardBackground"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView27">
+
+        <TextView
+            android:id="@+id/textViewFechaNuevosBrotes"
+            android:layout_width="110dp"
+            android:layout_height="35sp"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp"
+            android:fontFamily="@font/nexa_regular"
+            android:text="@string/eventEstimatedSproutDateLabel"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="541dp" />
+    </androidx.cardview.widget.CardView>
+
+    <EditText
+        android:id="@+id/editTextRangoTemperaturas"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:fontFamily="@font/nexa_light"
+        android:inputType="numberDecimal"
+        android:maxLength="4"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cardView25"
+        app:layout_constraintTop_toBottomOf="@+id/editTextCantidadEvento" />
+
+    <EditText
+        android:id="@+id/editTextRangoHumedad"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:fontFamily="@font/nexa_light"
+        android:inputType="numberDecimal"
+        android:maxLength="4"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cardView26"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRangoTemperaturas" />
+
+    <EditText
+        android:id="@+id/editTextRangoPH"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:fontFamily="@font/nexa_light"
+        android:inputType="numberDecimal"
+        android:maxLength="4"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cardView27"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRangoHumedad" />
+
+    <EditText
+        android:id="@+id/editTextFechaNuevosBrotes"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:clickable="true"
+        android:ems="10"
+        android:focusable="false"
+        android:fontFamily="@font/nexa_light"
+        android:hint="@string/eventEstimatedSproutDate"
+        android:inputType="date"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@android:color/darker_gray"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cardView28"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRangoPH" />
+
+    <FrameLayout
+        android:id="@+id/frameOptionsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="114dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextFechaNuevosBrotes">
+
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
